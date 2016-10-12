@@ -16,12 +16,12 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.knowledge_seek.phyctogram.domain.Wifi;
 import com.knowledge_seek.phyctogram.listAdapter.WifiListAdapter;
 import com.knowledge_seek.phyctogram.util.EqAsyncTask;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class WifiPopUpActivity extends Activity{
@@ -34,7 +34,7 @@ public class WifiPopUpActivity extends Activity{
 	private String ipAddress;
 
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(com.knowledge_seek.phyctogram.R.layout.popup_wifi_list);
@@ -42,7 +42,7 @@ public class WifiPopUpActivity extends Activity{
 	}
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+
 		super.onResume();
 
 		ipAddress = getIntent().getStringExtra("ipAddress"); //기기의 ip address 현재 필요 없음
@@ -179,7 +179,7 @@ public class WifiPopUpActivity extends Activity{
 		wfc.status = WifiConfiguration.Status.DISABLED; //보안 방식 별 공통 사항 set status
 		wfc.priority = 40; ////보안 방식 별 공통 사항 set priority
 
-		if(capabilities.contains("WEP") == true ){
+		if(capabilities.contains("WEP") ){
 			Log.d("-진우-", "WEP 셋팅");
 			wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
 			wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
@@ -192,7 +192,7 @@ public class WifiPopUpActivity extends Activity{
 			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
 			wfc.wepKeys[0] = "\"".concat(password).concat("\"");
 			wfc.wepTxKeyIndex = 0;
-		}else if(capabilities.contains("WPA") == true ) {
+		}else if(capabilities.contains("WPA") ) {
 			Log.d("-진우-", "WPA 셋팅");
 			wfc.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
 			wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
@@ -203,7 +203,7 @@ public class WifiPopUpActivity extends Activity{
 			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
 			wfc.preSharedKey = "\"".concat(password).concat("\"");
 			Log.d("-진우-", "패스워드 확인 : " + wfc.preSharedKey);
-		}else if(capabilities.contains("WPA2") == true ) {
+		}else if(capabilities.contains("WPA2") ) {
 			Log.d("-진우-", "WPA2 셋팅");
 			wfc.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
 			wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
@@ -213,7 +213,7 @@ public class WifiPopUpActivity extends Activity{
 			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
 			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
 			wfc.preSharedKey = "\"".concat(password).concat("\"");
-		}else if(capabilities.contains("OPEN") == true ) {
+		}else if(capabilities.contains("OPEN") ) {
 			Log.d("-진우-", "OPEN 셋팅");
 			wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
 			wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
@@ -255,18 +255,20 @@ public class WifiPopUpActivity extends Activity{
 			//해당 networkId로 wifi를 연결함
 			connection = wm.enableNetwork(networkId, true); //연결이 되면 true를 반환
 			Log.d("-진우-", "connection : "+connection);
-		}else{
-			//Toast.makeText(getApplicationContext(), R.string.wifiPopUpActivity_reSettingHWPW, Toast.LENGTH_SHORT).show();
 		}
+		/*else{
+			//Toast.makeText(getApplicationContext(), R.string.wifiPopUpActivity_reSettingHWPW, Toast.LENGTH_SHORT).show();
+		}*/
 
 		//연결이 되었다면
-		if(connection==true) {
+		if(connection) {
 			//wifi정보를 저장
 			wm.setWifiEnabled(true);
 			//Toast.makeText(getApplicationContext(), R.string.wifiPopUpActivity_successSettingHW, Toast.LENGTH_SHORT).show();
-		}else{
-			//Toast.makeText(getApplicationContext(), R.string.wifiPopUpActivity_reSettingHWConnection, Toast.LENGTH_SHORT).show();
 		}
+		/*else{
+			//Toast.makeText(getApplicationContext(), R.string.wifiPopUpActivity_reSettingHWConnection, Toast.LENGTH_SHORT).show();
+		}*/
 
 		finish();
 

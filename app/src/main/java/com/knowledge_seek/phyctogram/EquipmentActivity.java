@@ -26,18 +26,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pkmmte.view.CircularImageView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.knowledge_seek.phyctogram.domain.Users;
 import com.knowledge_seek.phyctogram.domain.Wifi;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.knowledge_seek.phyctogram.listAdapter.WifiListAdapter;
 import com.knowledge_seek.phyctogram.util.EqAsyncTask;
+import com.pkmmte.view.CircularImageView;
 
-/**
+import java.util.ArrayList;
+import java.util.List;
+
+/*
  * Created by dkfka on 2015-12-02.
  */
 public class EquipmentActivity extends BaseActivity {
@@ -248,7 +247,7 @@ public class EquipmentActivity extends BaseActivity {
         wfc.priority = 40;
 
         //wifi 보안 종류별 개별 규칙
-        if(capabilities.contains("WEP") == true ){
+        if(capabilities.contains("WEP")){
             Log.d("-진우-", "WEP 셋팅");
             wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
             wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
@@ -261,7 +260,7 @@ public class EquipmentActivity extends BaseActivity {
             wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
             wfc.wepKeys[0] = "\"".concat(password).concat("\"");
             wfc.wepTxKeyIndex = 0;
-        }else if(capabilities.contains("WPA") == true ) {
+        }else if(capabilities.contains("WPA")  ) {
             Log.d("-진우-", "WPA 셋팅");
             wfc.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
             wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
@@ -272,7 +271,7 @@ public class EquipmentActivity extends BaseActivity {
             wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
             wfc.preSharedKey = "\"".concat(password).concat("\"");
             Log.d("-진우-", "패스워드 확인 : " + wfc.preSharedKey);
-        }else if(capabilities.contains("WPA2") == true ) {
+        }else if(capabilities.contains("WPA2")  ) {
             Log.d("-진우-", "WPA2 셋팅");
             wfc.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
             wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
@@ -282,7 +281,7 @@ public class EquipmentActivity extends BaseActivity {
             wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
             wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
             wfc.preSharedKey = "\"".concat(password).concat("\"");
-        }else if(capabilities.contains("OPEN") == true ) {
+        }else if(capabilities.contains("OPEN")  ) {
             Log.d("-진우-", "OPEN 셋팅");
             wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
             wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
@@ -329,7 +328,7 @@ public class EquipmentActivity extends BaseActivity {
         }
 
         //연결이 되었다면
-        if(connection==true) {
+        if(connection) {
             //wifi정보를 저장
             wm.setWifiEnabled(true);
             Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_successConnection, Toast.LENGTH_SHORT).show();
