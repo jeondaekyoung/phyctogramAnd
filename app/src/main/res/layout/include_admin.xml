@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.knowledge_seek.phyctogram.util.MyLinearView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_left"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Admin"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <com.knowledge_seek.phyctogram.util.MyLinearView
+        android:id="@+id/ll_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_phyctogram"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <com.knowledge_seek.phyctogram.util.MyEditTextView
+                android:id="@+id/et_ref"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:background="@drawable/border_grey"
+                android:inputType="number"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:textSize="14dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send REF"
+                android:id="@+id/btn_ref"
+                android:layout_gravity="center_horizontal" />
+
+            <com.knowledge_seek.phyctogram.util.MyEditTextView
+                android:id="@+id/et_adj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:background="@drawable/border_grey"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:textSize="14dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send ADJ"
+                android:id="@+id/btn_adj"
+                android:layout_gravity="center_horizontal" />
+
+            <com.knowledge_seek.phyctogram.util.MyEditTextView
+                android:id="@+id/et_useq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:background="@drawable/border_grey"
+                android:inputType="number"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:textSize="14dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send USEQ"
+                android:id="@+id/btn_useq"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="END_SERVER"
+                android:id="@+id/btn_end"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+    </com.knowledge_seek.phyctogram.util.MyLinearView>
+</com.knowledge_seek.phyctogram.util.MyLinearView>

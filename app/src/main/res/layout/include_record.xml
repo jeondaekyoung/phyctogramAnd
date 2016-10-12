@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_left"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_menu" />
+
+        <TextView
+            android:id="@+id/tv_users_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/diaryWriteActivity_registerChild"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <com.knowledge_seek.phyctogram.util.MyLinearView
+        android:id="@id/ll_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color5"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <!--<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/includeRecord_searchDay" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_datepickFrom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_grey"
+                    android:gravity="center"
+                    android:hint="@string/includeRecord_writeDay"
+                    android:padding="@dimen/activity_horizontal_margin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/tv_datepickTo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_grey"
+                    android:gravity="center"
+                    android:hint="@string/includeRecord_writeDay"
+                    android:padding="@dimen/activity_horizontal_margin" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_findHeight"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_border_radius"
+                android:text="@string/includeRecord_search"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color4"
+            android:orientation="horizontal"
+            android:weightSum="16">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:text="@string/includeRecord_day" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="@string/includeMain_height" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="@string/includeRecord_increase" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="@string/includeMain_highRank" />
+
+        </LinearLayout>
+
+        <com.knowledge_seek.phyctogram.util.MyListView
+            android:id="@+id/lv_record"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color6"
+            android:divider="@color/grey_bg2"
+            android:dividerHeight="1dp" />
+    </com.knowledge_seek.phyctogram.util.MyLinearView>
+
+</LinearLayout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="20dp"
+    android:weightSum="16">
+
+    <TextView
+        android:id="@+id/recordDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:text="2015.12.30"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/recordHeight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="157.3"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/record_sa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:text="+"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/record_grow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="end"
+        android:text="33"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/record_rank"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:gravity="end"
+        android:text="93%"
+        android:textSize="16dp" />
+</LinearLayout>

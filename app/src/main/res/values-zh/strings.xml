@@ -1,0 +1,337 @@
+<resources>
+    <string name="app_name">Phyctogram</string>
+
+    <!-- Java 문자열 -->
+    <string name="commonActivity_wait">请等待。</string>
+    <string name="commonActivity_save">保存了。</string>
+    <string name="commonActivity_cancel">取消</string>
+    <string name="commonActivity_ok">确认</string>
+    <string name="commonActivity_yes">是</string>
+    <string name="commonActivity_no">不</string>
+    <string name="commonActivity_delete">删除</string>
+    <string name="commonActivity_modify">修改</string>
+
+    <string name="characterActivity_choiceChild">您选择‘孩子‘。</string>
+
+    <string name="communityCommentActivity_writeContents">请输入内容。</string>
+
+    <string name="communityViewActivity_comment">评论</string>
+    <string name="communityViewActivity_number">个</string>
+    <string name="communityViewActivity_writeComment">请输入评论。</string>
+
+    <string name="communityWriteActivity_writeTitleContents">请输入题目和内容。</string>
+
+    <string name="diaryViewActivity_notDeleteDiary">没有删除的日记。</string>
+    <string name="diaryViewActivity_deleteDiaryTitle">删除日记</string>
+    <string name="diaryViewActivity_respect">님의</string>
+    <string name="diaryViewActivity_deleteAsk">您要删除这个日记吗？</string>
+    <string name="diaryViewActivity_delete">您要删除这个日记吗?</string>
+    <string name="diaryViewActivity_deleteAlert">删除了。</string>
+    <string name="diaryViewActivity_notModifyAlert">没有修改的日记。</string>
+    <string name="diaryViewActivity_notChangeAlert">没有修改的内容。</string>
+    <string name="diaryViewActivity_modifyAlert">修改了。</string>
+
+    <string name="diaryWriteActivity_registerChild">请登记在“管理我的孩子"上。</string>
+    <string name="diaryWriteActivity_registerDay">请输入日期。</string>
+    <string name="diaryWriteActivity_alreadyDiary">您已经写了日记。</string>
+
+    <string name="equipmentActivity_searchHW">设备搜索 </string>
+    <string name="equipmentActivity_searching">在搜索...</string>
+    <string name="equipmentActivity_endSearch">搜索好了(重新搜索)</string>
+    <string name="equipmentActivity_connectionAlert">试图连接。</string>
+    <string name="equipmentActivity_failPW">错误密码，请再输入。</string>
+    <string name="equipmentActivity_successConnection">链接好了。</string>
+    <string name="equipmentActivity_failConnection">失败链接，请再试。</string>
+    <string name="equipmentActivity_addHW">添加硬件</string>
+    <string name="equipmentActivity_addSerial">请输入连号。</string>
+
+    <string name="fileUploadActivity_upLoadingAlert">Uploading file...</string>
+    <string name="fileUploadActivity_startUpLoading">uploading started...</string>
+    <string name="fileUploadActivity_fileInfo">Uploaded file information :</string>
+
+    <string name="joinActivity_agreePW">密码一致。</string>
+    <string name="joinActivity_discordPW">密码不一致。</string>
+    <string name="joinActivity_agreeClause">请同意使用条款和隐私政策。</string>
+    <string name="joinActivity_clause">使用条款</string>
+    <string name="joinActivity_individualInfo">和隐私政策</string>
+    <string name="joinActivity_checkPW">请再输入密码。</string>
+    <string name="joinActivity_checkContents">内容请</string>
+    <string name="joinActivity_checkEmail">请确认邮件形式。</string>
+    <string name="joinActivity_successJoinAlert">加入了</string>
+    <string name="joinActivity_alreadyJoinAlert">已经使用的电子邮件。</string>
+
+    <string name="loginActivity_checkPWEmail">邮箱和密码确认一下</string>
+
+    <string name="mainActivity_respect">您</string>
+
+    <string name="pwfindActivity_registerEmail">이메일 주소를 입력해주세요.</string>
+    <string name="pwfindActivity_notPush">비밀번호 찾기가 불가능한 기기입니다. 고객센터로 문의해주세요.</string>
+    <string name="pwfindActivity_sendPush">변경된 비밀번호가 Push 메시지로 발송 되었습니다. (최대 3분 소요)</string>
+    <string name="pwfindActivity_failEmail">메일주소가 잘못되었습니다.</string>
+    <string name="pwfindActivity_failFindPW">비밀번호 찾기에 실패하였습니다.</string>
+
+    <string name="pwmodActivity_failPW">请再输入密码。</string>
+    <string name="pwmodActivity_failChangePW">비밀번호 변경에 실패하였습니다.</string>
+    <string name="pwmodActivity_successChangePW">비밀번호가 변경되었습니다.</string>
+    <string name="pwmodActivity_kakaoPW">카카오 가입자입니다. 비밀번호 변경은 해당앱을 이용해주세요.</string>
+    <string name="pwmodActivity_facebookPW">페이스북 가입자입니다. 비밀번호 변경은 해당앱을 이용해주세요.</string>
+    <string name="pwmodActivity_checkChangePW">비밀번호가 일치하지 않습니다.</string>
+
+    <string name="qaViewActivity_qsContents">疑问内容</string>
+    <string name="qaViewActivity_answerContents">回复内容</string>
+    <string name="qaViewActivity_answerState">在等回复</string>
+
+    <string name="recordActivity_deleteData">您要删除?</string>
+    <string name="recordActivity_sucessDeleteHeight">删除了。</string>
+
+    <string name="settingActivity_logout">要注销吗</string>
+
+    <string name="usersAddActivity_registerChild">아이 등록에 성공하였습니다.</string>
+    <string name="usersAddActivity_checkName">이름을 확인해주세요.</string>
+    <string name="usersAddActivity_checkInitials">请确认大写字母</string>
+
+    <string name="usersAnalysisActivity_initFacebook">페이스북을을 설치해주세요.</string>
+    <string name="usersAnalysisActivity_initkakaoStroy">카카오스토리를 설치해주세요.</string>
+    <string name="usersAnalysisActivity_initkakao">카카오톡을 설치해주세요.</string>
+    <string name="usersAnalysisActivity_childChart">我孩子成长图标</string>
+    <string name="usersAnalysisActivity_avgChart">平均成长图标</string>
+    <string name="usersAnalysisActivity_avg">平均</string>
+    <string name="usersAnalysisActivity_month">个月期间增</string>
+    <string name="usersAnalysisActivity_grow">长了</string>
+
+    <string name="usersDataInputActivity_checkHeight">키를 확인해주세요.</string>
+
+    <string name="usersDiaryActivity_year">年</string>
+    <string name="usersDiaryActivity_month">月</string>
+
+    <string name="usersManageActivity_deleteChildAsk">아이를 삭제할 경우 데이터 복구가 불가능합니다. 您要删除?</string>
+    <string name="usersManageActivity_successDeleteChild">删除了。</string>
+    <string name="usersManageActivity_failDeleteChild">실패하였습니다.</string>
+
+    <string name="wifiPopUpActivity_settingHW">기기 설정을 시도 합니다.</string>
+    <string name="wifiPopUpActivity_reSettingHWPW">비밀번호가 틀렸습니다. 기기 설정을 다시 해주세요.</string>
+    <string name="wifiPopUpActivity_successSettingHW">기기 설정을 모두 완료 했습니다.</string>
+    <string name="wifiPopUpActivity_reSettingHWConnection">연결에 실패하였습니다. 기기 설정을 다시 해주세요.</string>
+
+    <string name="withdrawActivity_leaveTitle">删除用户</string>
+    <string name="withdrawActivity_leaveAsk">회원 탈퇴시 데이터 복구가 불가능합니다. 탈퇴 하시겠습니까?</string>
+    <string name="withdrawActivity_leave">删除账号</string>
+    <string name="withdrawActivity_kakaoName">Kakaotalk</string>
+    <string name="withdrawActivity_facebookName">脸谱</string>
+    <string name="withdrawActivity_pyhtogramName">Phyctogram</string>
+
+    <string name="baseActivity_exit"><![CDATA["'"]]>뒤로<![CDATA["'"]]>버튼을 한번 더 누르면 종료됩니다.</string>
+
+    <string name="kakaoStoryShare_successUpload">사진을 올렸습니다.</string>
+
+    <!-- xml 문자열 -->
+    <string name="activityJoin_join">会员加入</string>
+    <string name="activityJoin_welcome">欢迎加入Phyctogram</string>
+    <string name="activityJoin_name">姓名</string>
+    <string name="activityJoin_emailAddr">邮件地址</string>
+    <string name="activityJoin_password">密码</string>
+    <string name="activityJoin_passwordOk">请再输入密码。</string>
+    <string name="activityJoin_agree">都同意下方内容。</string>
+    <string name="activityJoin_agreeClause">使用条款同意</string>
+    <string name="activityJoin_individualInfo">和隐私政策同意</string>
+    <string name="activityJoin_joining">加入</string>
+
+    <string name="activityLogin_login">登入</string>
+    <string name="activityLogin_kakaoLogin">Kakaotalk登入</string>
+    <string name="activityLogin_facebookLogin">脸谱登入</string>
+    <string name="activityLogin_findPW">找回密码</string>
+
+    <string name="activityReport_close">关</string>
+
+    <string name="includeAnalysis_finalHeight">身高</string>
+    <string name="includeAnalysis_highRank">前</string>
+    <string name="includeAnalysis_avg">比平均</string>
+    <string name="includeAnalysis_growth">成长</string>
+    <string name="includeAnalysis_analysis">如果不到8~9岁的孩子有青春期症状,请怀疑性早熟以下</string>
+    <string name="includeAnalysis_analysisContentLink">看看解决方案+</string>
+    <string name="includeAnalysis_analysisShare">共有</string>
+
+    <string name="includeCalendar_sunday">日</string>
+    <string name="includeCalendar_monday">月</string>
+    <string name="includeCalendar_tuesday">火</string>
+    <string name="includeCalendar_wednesday">水</string>
+    <string name="includeCalendar_thursday">木</string>
+    <string name="includeCalendar_friday">金</string>
+    <string name="includeCalendar_saturday">土</string>
+
+    <string name="includeDiaryView_day">日期</string>
+    <string name="includeDiaryView_title">题目</string>
+    <string name="includeDiaryView_contents">内容</string>
+    <string name="includeDiaryView_picture">照片</string>
+    <string name="includeDiaryView_video">视频</string>
+
+    <string name="includeDiaryWrite_gallery">相册</string>
+
+    <string name="includeEquipment_myHW">我的仪器</string>
+    <string name="includeEquipment_serialNumber">序列号</string>
+    <string name="includeEquipment_swVersion">软件版本</string>
+
+    <string name="includeFileUpload_myCharacter">我的角色</string>
+    <string name="includeFileUpload_fileUpload">上传</string>
+
+    <string name="includeMain_height">身高</string>
+    <string name="includeMain_highRank">前</string>
+    <string name="includeMain_reportAnalysis">成长分析</string>
+    <string name="includeMain_listSearch">个子增高了多少？?</string>
+
+    <string name="includeMyCharacter_age0">0㱑</string>
+    <string name="includeMyCharacter_age1">0.5㱑</string>
+    <string name="includeMyCharacter_age2">1㱑</string>
+    <string name="includeMyCharacter_age3">2㱑</string>
+    <string name="includeMyCharacter_age4">3㱑</string>
+    <string name="includeMyCharacter_age5">4㱑</string>
+    <string name="includeMyCharacter_age6">5㱑</string>
+    <string name="includeMyCharacter_age7">6㱑</string>
+    <string name="includeMyCharacter_age8">7㱑</string>
+    <string name="includeMyCharacter_age9">8㱑</string>
+    <string name="includeMyCharacter_age10">9㱑</string>
+    <string name="includeMyCharacter_age11">10㱑</string>
+    <string name="includeMyCharacter_age12">11㱑</string>
+    <string name="includeMyCharacter_age13">12㱑</string>
+    <string name="includeMyCharacter_age14">13㱑</string>
+    <string name="includeMyCharacter_age15">14㱑</string>
+    <string name="includeMyCharacter_age16">15㱑</string>
+    <string name="includeMyCharacter_age17">16㱑</string>
+    <string name="includeMyCharacter_age18">17㱑</string>
+    <string name="includeMyCharacter_age19">18㱑</string>
+    <string name="includeMyCharacter_sign"><![CDATA["*"]]> 我的卡通形象</string>
+
+    <string name="includeNoticeList_notice">最新消息</string>
+
+    <string name="includePwFind_findPw">明码寻找</string>
+    <string name="includePwFind_dataInput">输入信息</string>
+    <string name="includePwFind_ex">例<![CDATA[")"]]> mail@mail.com</string>
+    <string name="includePwFind_find">寻找</string>
+    <string name="includePwFind_sign"><![CDATA["*"]]>Kakaotalk或脸谱账号会员请在该网站上找回密码。</string>
+
+    <string name="includePwModify_modifyPw">明码变更</string>
+    <string name="includePwModify_realPw">今明码</string>
+    <string name="includePwModify_changePw">新明码</string>
+    <string name="includePwModify_checkChangePw">请再输入密码</string>
+    <string name="includePwModify_change">修改</string>
+    <string name="includePwModify_joinChannel">加入渠道</string>
+
+    <string name="includeQaList_qa">去疑问</string>
+    <string name="includeQaList_lan">Language</string>
+    <string name="includeQaList_lan_en">English</string>
+    <string name="includeQaList_lan_cn">中文</string>
+    <string name="includeQaList_lan_ko">한국어</string>
+
+    <string name="includeQaView_qa">疑问内容</string>
+
+    <string name="includeQaWrite_qaWrite">去疑问</string>
+    <string name="includeQaWrite_title"> 题目</string>
+    <string name="includeQaWrite_contents"> 内容</string>
+
+    <string name="includeRecord_searchDay">查询时间</string>
+    <string name="includeRecord_writeDay">请输入日期</string>
+    <string name="includeRecord_search">搜索</string>
+    <string name="includeRecord_day">日期</string>
+    <string name="includeRecord_increase">增减</string>
+
+    <string name="includeSetting_setting">环境</string>
+    <string name="includeSetting_logout">注销</string>
+    <string name="includeSetting_memberLeave">退出会员</string>
+
+    <string name="includeUsersAdd_addChild">添加我的孩子</string>
+    <string name="includeUsersAdd_name">名字</string>
+    <string name="includeUsersAdd_initials">大写字母 <![CDATA["("]]>最长3个字心，英文及数字可以使用<![CDATA[")"]]></string>
+    <string name="includeUsersAdd_sign">这是表示在产品上的名字。例：ABC或AB2<![CDATA["("]]>英文三个字或英文两个字+数字一个字<![CDATA[")"]]></string>
+    <string name="includeUsersAdd_birthday">生日</string>
+    <string name="includeUsersAdd_sex">性别</string>
+    <string name="includeUsersAdd_girl">女孩子</string>
+    <string name="includeUsersAdd_boy">男孩子</string>
+    <string name="includeUsersAdd_add">添加</string>
+
+    <string name="includeUsersDataInput_writeHeight">请输入身高。</string>
+
+    <string name="includeUsersMenage_manegeChild">管理我的孩子</string>
+    <string name="includeUsersMenage_addChild"><![CDATA["+"]]> 添加我的孩子</string>
+
+    <string name="includeUsersMode_modifyChild">修改我的还记消息</string>
+    <string name="includeUsersMode_modify">修改</string>
+
+    <string name="includeWithdraw_pw">密码</string>
+    <string name="includeWithdraw_checkPw">确认密码</string>
+    <string name="includeWithdraw_leave">推出</string>
+
+    <string name="leftSlideMenu_home">HOME</string>
+    <string name="leftSlideMenu_diary">育儿日记</string>
+    <string name="leftSlideMenu_selfWriteHeight">直接输入身高</string>
+
+    <string name="popupWifi_connection">连接</string>
+
+    <string name="popupWifiList_sign">请选择跟仪器要连接Wi-fi</string>
+
+    <!-- popup_agree.xml, popup_agree2.xml 는 제외  -->
+    <!-- ic_launcher.png, btn_start.png, shareform.png 이미지 파일에 한글 존재  -->
+
+    <!-- kakao -->
+    <string name="text_kakaotalk">KakaoTalk</string>
+    <string name="text_kakaostory">KakaoStory</string>
+    <string name="text_usermgmt">User Management</string>
+    <string name="text_push">Push</string>
+    <string name="text_friends">Friends</string>
+
+    <!-- KAKAO NEW DISIGN -->
+    <string name="title_for_kakao_sdk_sample">Kakao SDK Sample</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+
+    <string-array name="usermgmg_gender_types">
+        <item>@string/female</item>
+        <item>@string/male</item>
+    </string-array>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+
+    <!-- KAKAo For Push -->
+    <string name="usermgmg_signup_button">Signup</string>
+    <string name="usermgmg_me_button">Me</string>
+    <string name="usermgmg_update_profile_button">Update</string>
+
+    <string name="usermgmg_name">Write Your Name</string>
+    <string name="usermgmg_age">Write Your Age</string>
+    <string name="usermgmg_gender">Write Your Gender</string>
+
+
+    <!-- KAKAO values.xml -->
+    <string name="com_kakao_ok_button">OK</string>
+    <string name="com_kakao_cancel_button">Cancel</string>
+
+    <!-- KAKAO For kakaoStory -->
+    <string name="kakaostory_user_check_button">Check Story User</string>
+    <string name="kakaostory_profile_button">Get Story Profile</string>
+    <string name="kakaostory_note_post_button">Post Note</string>
+    <string name="kakaostory_photo_post_button">Post Photo</string>
+    <string name="kakaostory_link_post_button">Post Link</string>
+    <string name="kakaostory_get_post_button">Get Last Photo</string>
+    <string name="kakaostory_get_posts_button">Get Recent Posts</string>
+    <string name="kakaostory_delete_post_button">Delete Last Post</string>
+    <string name="kakaostory_birthday_label">birthday</string>
+
+
+    <!-- 페이스북 -->
+    <!--<string name="facebook_app_id">1656605951265060</string>
+    <string name="facebook_app_name">phyctoAnd</string>-->
+
+    <string name="cancelled">Cancelled</string>
+    <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
+    <string name="hello_user">Hello %1$s!</string>
+    <string name="success">Success</string>
+    <string name="successfully_posted_post">Post ID: %1$s</string>
+    <string name="error">Error</string>
+    <string name="status_update">Updating status for %1$s at %2$s</string>
+    <string name="photo_post">Photo Post</string>
+    <string name="you_picked">You picked:</string>
+    <string name="no_friends_selected">&lt;No friends selected&gt;</string>
+    <string name="no_place_selected">&lt;No place selected&gt;</string>
+    <string name="pick_seattle_place">Pick a Seattle Place</string>
+    <string name="exception">Exception: %1$s</string>
+</resources>

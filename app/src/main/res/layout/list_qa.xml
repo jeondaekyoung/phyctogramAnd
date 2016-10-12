@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/border_grey"
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:singleLine="true"
+            android:text="제목" />
+
+        <TextView
+            android:id="@+id/tv_writng_de"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="2016/01/25"
+            android:textColor="#aaaaaa" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:padding="5dp"
+        android:text="답변대기"
+        android:textColor="@color/purple" />
+
+</RelativeLayout>

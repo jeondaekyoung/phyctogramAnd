@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purple"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <com.pkmmte.view.CircularImageView
+            android:id="@+id/img_profile"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/sample" />
+
+        <TextView
+            android:id="@+id/tv_member_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/img_profile"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="아이디"
+            android:textColor="#ffffff"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tv_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:text="@string/includeSetting_logout"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/borderbottom"
+                    android:gravity="fill_vertical"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:text="@string/leftSlideMenu_home" />
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripple1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ListView
+                    android:id="@+id/lv_usersList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:choiceMode="singleChoice"
+                    android:divider="#e0e0e0"
+                    android:dividerHeight="1dp"
+                    android:drawSelectorOnTop="true" />
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripple2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_usersDiary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/borderbottom"
+                    android:gravity="fill_vertical"
+                    android:paddingLeft="32dp"
+                    android:text="@string/leftSlideMenu_diary"
+                    android:textColor="@color/purple" />
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripple3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_dataInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/borderbottom"
+                    android:gravity="fill_vertical"
+                    android:paddingLeft="32dp"
+                    android:text="@string/leftSlideMenu_selfWriteHeight"
+                    android:textColor="@color/purple" />
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripple4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_usersManage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/borderbottom"
+                    android:gravity="fill_vertical"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:text="@string/includeUsersMenage_manegeChild" />
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripple5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_setup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/borderbottom"
+                    android:gravity="fill_vertical"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:text="@string/includeSetting_setting" />
+            </com.balysv.materialripple.MaterialRippleLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

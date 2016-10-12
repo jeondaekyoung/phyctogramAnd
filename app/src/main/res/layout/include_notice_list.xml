@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_left"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/includeNoticeList_notice"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <com.knowledge_seek.phyctogram.util.MyLinearView
+        android:id="@id/ll_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
+        <com.knowledge_seek.phyctogram.util.MyListView
+            android:id="@+id/lv_noticeList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/grey_bg"
+            android:dividerHeight="8dp" />
+
+        <!--        <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imBtn_community_write"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/float_button_03"
+                        android:background="#00000000"/>
+                </RelativeLayout>-->
+
+    </com.knowledge_seek.phyctogram.util.MyLinearView>
+</LinearLayout>

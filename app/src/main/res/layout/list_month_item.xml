@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_month_item_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#ffffffff">
+
+    <TextView
+        android:id="@+id/tv_month_item_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="3dp"
+        android:textSize="16dp"
+        android:text="날짜"/>
+
+    <TextView
+        android:id="@+id/tv_month_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="3dp"
+        android:textColor="@color/com_kakao_brown"
+        android:background="@color/com_kakao_button_background_press"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:text="제목"
+        android:visibility="gone"
+        android:lines="2"
+        android:ellipsize="end"/>
+</RelativeLayout>

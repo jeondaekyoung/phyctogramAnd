@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_left"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_menu" />
+
+        <TextView
+            android:id="@+id/tv_users_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:inputType="numberDecimal"
+            android:text="@string/diaryWriteActivity_registerChild"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.knowledge_seek.phyctogram.util.MyLinearView
+            android:id="@+id/ll_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/data_input" />
+
+            <com.knowledge_seek.phyctogram.util.MyEditTextView
+                android:id="@+id/et_input_height"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_grey"
+                android:hint="@string/includeUsersDataInput_writeHeight"
+                android:numeric="decimal"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:textColor="#000000"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/border_grey"
+                android:orientation="vertical"
+                android:padding="@dimen/activity_horizontal_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/includeRecord_day" />
+
+                <DatePicker
+                    android:id="@+id/dp_mesure_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:calendarViewShown="false"
+                    android:spinnersShown="true"
+                    android:theme="@android:style/Theme.Holo.Light" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_users_height"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_border_radius"
+                android:text="@string/includeComComment_register"
+                android:textColor="#ffffff" />
+        </com.knowledge_seek.phyctogram.util.MyLinearView>
+    </ScrollView>
+</LinearLayout>

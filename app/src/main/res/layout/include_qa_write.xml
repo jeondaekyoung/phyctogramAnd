@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_left"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/includeQaWrite_qaWrite"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <com.knowledge_seek.phyctogram.util.MyLinearView
+        android:id="@+id/ll_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <com.knowledge_seek.phyctogram.util.MyEditTextView
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/border_grey"
+            android:hint="@string/includeQaWrite_title"
+            android:inputType="text"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textSize="14dp" />
+
+        <com.knowledge_seek.phyctogram.util.MyEditTextView
+            android:id="@+id/et_contents"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_grey"
+            android:gravity="top|left"
+            android:hint="@string/includeQaWrite_contents"
+            android:inputType="textMultiLine"
+            android:lines="24"
+            android:maxWidth="5.0dip"
+            android:minWidth="10.0dip"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:scrollHorizontally="false"
+            android:textSize="14dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_qa_save"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_border_radius"
+                android:text="@string/includeComWrite_save"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+    </com.knowledge_seek.phyctogram.util.MyLinearView>
+</LinearLayout>

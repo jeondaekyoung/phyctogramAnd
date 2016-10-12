@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'com.google.gms.google-services'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    repositories {
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+
+    }
+
+    project.ext.set("defaultDeployPhase", "${project.hasProperty('deploy_phase') ? deploy_phase.toString() : "$DEFAULT_PHASE"}")
+
+    defaultConfig {
+        applicationId "knowledge_seek.com.phyctogram"
+        minSdkVersion 18
+        maxSdkVersion 23
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        packagingOptions {
+            exclude 'META-INF/LICENSE'
+            exclude 'META-INF/NOTICE'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    //compile 'com.google.android.gms:play-services-gcm:7.5.+'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    //머티리얼 애니메이션
+    compile 'com.balysv:material-ripple:1.0.2'
+
+//분석리포트-그래프라이브러리
+    compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
+//이미지 둥글게 그려준다
+    compile 'com.pkmmte.view:circularimageview:1.1'
+// 페이스북
+    compile 'com.facebook.android:facebook-android-sdk:4.7.0'
+    // Retrofit(통신)
+    compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
+    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
+    compile 'com.loopj.android:android-async-http:1.4.4'
+    compile 'com.mcxiaoke.volley:library:1.0.8'
+    // ??
+    // 카카오스토리, 카카오톡 sdk를 사용하기 위해 필요.
+    compile group: 'com.android.support', name: 'support-v4', version: project.SUPPORTV4_VERSION
+    // 카카오스토리 sdk를 사용하기 위해 필요.
+    compile group: project.KAKAO_SDK_GROUP, name: getModuleName('kakaostory'), version: project.KAKAO_SDK_VERSION
+    // 카카오톡 sdk를 사용하기 위해 필요.
+    compile group: project.KAKAO_SDK_GROUP, name: getModuleName('kakaotalk'), version: project.KAKAO_SDK_VERSION
+    // push sdk를 사용하기 위해 필요.
+    compile group: project.KAKAO_SDK_GROUP, name: getModuleName('push'), version: project.KAKAO_SDK_VERSION
+    // storage sdk를 사용하기 위해 필요.
+    compile group: project.KAKAO_SDK_GROUP, name: getModuleName('storage'), version: project.KAKAO_SDK_VERSION
+
+
+}
+
+def getModuleName(moduleName) {
+    println moduleName + ", " + project.defaultDeployPhase
+    def result = moduleName
+    if (project.defaultDeployPhase.toLowerCase() == 'release') {
+        return result
+    }
+
+    return result + "-${project.defaultDeployPhase.toLowerCase()}"
+}

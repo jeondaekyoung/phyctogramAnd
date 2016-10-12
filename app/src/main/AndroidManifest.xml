@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.knowledge_seek.phyctogram"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-sdk
+        android:minSdkVersion="18"
+        android:targetSdkVersion="23" />
+
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <uses-feature android:name="android.hardware.wifi" />
+
+    <!-- [START gcm_permission] -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- [END gcm_permission] -->
+
+    <application
+        android:name="com.knowledge_seek.phyctogram.kakao.common.GlobalApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <activity
+            android:name="com.knowledge_seek.phyctogram.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <!-- 카카오 -->
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
+
+        <!--<activity
+            android:name=".kakao.common.SampleSignupActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+        <activity
+            android:name="com.knowledge_seek.phyctogram.kakao.common.SampleSignupActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!-- 페이스북 -->
+        <!--<activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationName"
+            android:value="@string/facebook_app_name" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1656605951265060"
+            android:exported="true" />
+        <receiver android:name="com.knowledge_seek.phyctogram.facebook.FacebookBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.facebook.platform.AppCallResultBroadcast" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Activity -->
+        <activity
+            android:name="com.knowledge_seek.phyctogram.CharacterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.CommunityCommentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.CommunityListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.CommunityViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.CommunityWriteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.DiaryViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.DiaryWriteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.EquipmentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.JoinActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity
+            android:name="com.knowledge_seek.phyctogram.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.PwfindActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.PwmodActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.RecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.SettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.UsersAddActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.UsersAnalysisActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.UsersDataInputActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.UsersDiaryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.UsersManageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.UsersModActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.WithdrawActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.NoticeListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.NoticeViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.QaListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.QaWriteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.QaViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.AdminActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.knowledge_seek.phyctogram.PopUpActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.knowledge_seek.phyctogram.WifiPopUpActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:screenOrientation="portrait"/>
+
+
+        <!-- 파일업로드 테스트 -->
+        <activity
+            android:name="com.knowledge_seek.phyctogram.FileUploadActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!-- [START gcm_receiver] -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="knowledge_seek.com.phyctogram" />
+            </intent-filter>
+        </receiver>
+        <!-- [END gcm_receiver] -->
+
+        <!-- [START gcm_listener_service] -->
+        <service
+            android:name="com.knowledge_seek.phyctogram.gcm.MyGcmListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <!-- [END gcm_listener_service] -->
+
+        <!-- [START instanceId_listener_service] -->
+        <service
+            android:name="com.knowledge_seek.phyctogram.gcm.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <!-- [END instanceId_listener_service] -->
+
+        <!-- [START gcm_registration_service] -->
+        <service
+            android:name="com.knowledge_seek.phyctogram.gcm.MyRegistrationIntentService"
+            android:exported="false">
+        </service>
+        <!-- [END gcm_registration_service] -->
+
+    </application>
+
+</manifest>

@@ -1,0 +1,362 @@
+<resources>
+    <string name="app_name">Phyctogram</string>
+
+    <!-- Java 문자열 -->
+    <string name="commonActivity_wait">Please wait.</string>
+    <string name="commonActivity_save">It was stored.</string>
+    <string name="commonActivity_cancel">cancel</string>
+    <string name="commonActivity_ok">OK</string>
+    <string name="commonActivity_yes">YES</string>
+    <string name="commonActivity_no">NO</string>
+    <string name="commonActivity_delete">DELETE</string>
+    <string name="commonActivity_modify">MODIFY</string>
+
+    <string name="characterActivity_choiceChild">You have selected a child.</string>
+
+    <string name="communityCommentActivity_writeContents">Please enter your details.</string>
+
+    <string name="communityViewActivity_comment">comment</string>
+    <string name="communityViewActivity_number">Number</string>
+    <string name="communityViewActivity_writeComment">Please enter your comments.</string>
+
+    <string name="communityWriteActivity_writeTitleContents">Please enter the subject and content.</string>
+
+    <string name="diaryViewActivity_notDeleteDiary">No deleted journal.</string>
+    <string name="diaryViewActivity_deleteDiaryTitle">To delete a diary</string>
+    <string name="diaryViewActivity_respect">\'s</string>
+    <string name="diaryViewActivity_deleteAsk">Are you sure you want to delete this diary?</string>
+    <string name="diaryViewActivity_delete">delete</string>
+    <string name="diaryViewActivity_deleteAlert">It has been removed.</string>
+    <string name="diaryViewActivity_notModifyAlert">Do not modify the diary.</string>
+    <string name="diaryViewActivity_notChangeAlert">No changes have been made.</string>
+    <string name="diaryViewActivity_modifyAlert">Fixed.</string>
+
+    <string name="diaryWriteActivity_registerChild">Please register your child in the child management.</string>
+    <string name="diaryWriteActivity_registerDay">Please enter your dates.</string>
+    <string name="diaryWriteActivity_alreadyDiary">Already it has written a diary.</string>
+
+    <string name="equipmentActivity_searchHW">Search for devices</string>
+    <string name="equipmentActivity_searching">Searching...</string>
+    <string name="equipmentActivity_endSearch">Finished (retry)</string>
+    <string name="equipmentActivity_connectionAlert">Connecting.</string>
+    <string name="equipmentActivity_failPW">Password is wrong. Plaese retry.</string>
+    <string name="equipmentActivity_successConnection">Connected.</string>
+    <string name="equipmentActivity_failConnection">Failed to connection. Please retry.</string>
+    <string name="equipmentActivity_addHW">Add</string>
+    <string name="equipmentActivity_addSerial">Input your serial number.</string>
+
+    <string name="fileUploadActivity_upLoadingAlert">Uploading file...</string>
+    <string name="fileUploadActivity_startUpLoading">uploading started...</string>
+    <string name="fileUploadActivity_fileInfo">Uploaded file information :</string>
+
+    <string name="joinActivity_agreePW">Your password is correct.</string>
+    <string name="joinActivity_discordPW">Password is not correct.</string>
+    <string name="joinActivity_agreeClause">Agree to privacy and agreement.</string>
+    <string name="joinActivity_clause">Terms and conditions</string>
+    <string name="joinActivity_individualInfo">Privacy</string>
+    <string name="joinActivity_checkPW">Check your password</string>
+    <string name="joinActivity_checkContents">Check your information.</string>
+    <string name="joinActivity_checkEmail">Check your e-mail address.</string>
+    <string name="joinActivity_successJoinAlert">Welcome to Phyctogram.</string>
+    <string name="joinActivity_alreadyJoinAlert">It is already in use.</string>
+
+    <string name="loginActivity_checkPWEmail">Check your e-mail and password.</string>
+
+    <string name="mainActivity_respect"></string>
+
+    <string name="pwfindActivity_registerEmail">E-mail address is missing.</string>
+    <string name="pwfindActivity_notPush">You can\'t find your password because your phone is not available Push Service. Please call customer center.</string>
+    <string name="pwfindActivity_sendPush">Changed password will be arrived Push message. (within 3 minutes)</string>
+    <string name="pwfindActivity_failEmail">E-mail address is wrong.</string>
+    <string name="pwfindActivity_failFindPW">Failed to find password. please retry.</string>
+
+    <string name="pwmodActivity_failPW">Password is wrong.</string>
+    <string name="pwmodActivity_failChangePW">failed to changing password.</string>
+    <string name="pwmodActivity_successChangePW">Your password is changed.</string>
+    <string name="pwmodActivity_kakaoPW">You are Kakao member. You can change password at KakaoTalk.</string>
+    <string name="pwmodActivity_facebookPW">You are Facebook member. You can change password at Facebook.</string>
+    <string name="pwmodActivity_checkChangePW">Password is not match.</string>
+
+    <string name="qaViewActivity_qsContents">Question</string>
+    <string name="qaViewActivity_answerContents">Answer</string>
+    <string name="qaViewActivity_answerState">Answer is not yet.</string>
+
+    <string name="recordActivity_deleteData">Are you sure want to delete this data?</string>
+    <string name="recordActivity_sucessDeleteHeight">Success.</string>
+
+    <string name="settingActivity_logout">Are you sure logout?</string>
+
+    <string name="usersAddActivity_registerChild">Success.</string>
+    <string name="usersAddActivity_checkName">Name is missing.</string>
+    <string name="usersAddActivity_checkInitials">Initial is missing.</string>
+
+    <string name="usersAnalysisActivity_initFacebook">Please download facebook.</string>
+    <string name="usersAnalysisActivity_initkakaoStroy">Please download KakaoStory.</string>
+    <string name="usersAnalysisActivity_initkakao">Please download KakaoTalk.</string>
+    <string name="usersAnalysisActivity_childChart">My growth graph</string>
+    <string name="usersAnalysisActivity_avgChart">Average growth graph</string>
+    <string name="usersAnalysisActivity_avg">Average For</string>
+    <string name="usersAnalysisActivity_month">months</string>
+    <string name="usersAnalysisActivity_grow">grow</string>
+
+    <string name="usersDataInputActivity_checkHeight">Height is missing.</string>
+
+    <string name="usersDiaryActivity_year"></string>
+    <string name="usersDiaryActivity_month"></string>
+
+    <string name="usersManageActivity_deleteChildAsk">Are you sure want to delete? It cannot be undone.</string>
+    <string name="usersManageActivity_successDeleteChild">Success</string>
+    <string name="usersManageActivity_failDeleteChild">Failed</string>
+
+    <string name="wifiPopUpActivity_settingHW">Connecting...</string>
+    <string name="wifiPopUpActivity_reSettingHWPW">Password is wrong. Please try again.</string>
+    <string name="wifiPopUpActivity_successSettingHW">Done.</string>
+    <string name="wifiPopUpActivity_reSettingHWConnection">Failed to connect. Please try again.</string>
+
+    <string name="withdrawActivity_leaveTitle">Membership Withdrawal</string>
+    <string name="withdrawActivity_leaveAsk">Are you sure want to withdraw? It cannot be undone.</string>
+    <string name="withdrawActivity_leave">Withdraw</string>
+    <string name="withdrawActivity_kakaoName">KakaoTalk</string>
+    <string name="withdrawActivity_facebookName">Facebook</string>
+    <string name="withdrawActivity_pyhtogramName">Phyctogram</string>
+
+    <string name="baseActivity_exit"><![CDATA["\'"]]>back<![CDATA["\'"]]>Pressing the button once more to quit.</string>
+
+    <string name="kakaoStoryShare_successUpload">Success upload in KakaoStory.</string>
+
+    <!-- xml 문자열 -->
+    <string name="activityJoin_join">Join</string>
+    <string name="activityJoin_welcome">Welcome to Phyctogram.</string>
+    <string name="activityJoin_name">Name</string>
+    <string name="activityJoin_emailAddr">E-mail</string>
+    <string name="activityJoin_password">Password</string>
+    <string name="activityJoin_passwordOk">Password </string>
+    <string name="activityJoin_agree">I agree all condition.</string>
+    <string name="activityJoin_agreeClause">Agree with Terms and conditions</string>
+    <string name="activityJoin_individualInfo">Agree with privacy</string>
+    <string name="activityJoin_joining">Join</string>
+
+    <string name="activityLogin_login">Login</string>
+    <string name="activityLogin_kakaoLogin">KakaoTalk login</string>
+    <string name="activityLogin_facebookLogin">Facebook login</string>
+    <string name="activityLogin_findPW">Find password</string>
+
+    <string name="activityReport_close">Close</string>
+
+    <string name="includeAnalysis_finalHeight">Height</string>
+    <string name="includeAnalysis_highRank">Rank</string>
+    <string name="includeAnalysis_avg">Average</string>
+    <string name="includeAnalysis_growth">grow</string>
+    <string name="includeAnalysis_analysis">If puberty comes fast for your children, it might be \'Precocious Puberty\'</string>
+    <string name="includeAnalysis_analysisContentLink">View Solution +</string>
+    <string name="includeAnalysis_analysisShare">Share</string>
+
+    <string name="includeCalendar_sunday">Sun</string>
+    <string name="includeCalendar_monday">Mon</string>
+    <string name="includeCalendar_tuesday">Tue</string>
+    <string name="includeCalendar_wednesday">Wed</string>
+    <string name="includeCalendar_thursday">Thu</string>
+    <string name="includeCalendar_friday">Fri</string>
+    <string name="includeCalendar_saturday">Sat</string>
+
+    <!--삭제-->
+    <string name="includeComWrite_writeRoom">수다방 글쓰기</string>
+    <string name="includeComWrite_title">제목</string>
+    <string name="includeComWrite_contents">내용</string>
+    <string name="includeComWrite_photo">사진</string>
+    <string name="includeComWrite_video">동영상</string>
+    <string name="includeComWrite_save">저장</string>
+
+    <string name="includeComComment_reWrite">댓글쓰기</string>
+    <string name="includeComComment_sign">악플은 경고조치 없이 삭제되며 징계 대상이 될 수 있습니다.</string>
+
+
+    <string name="includeComList_communityRoom">수다방</string>
+    <string name="includeComList_new">최신</string>
+    <string name="includeComList_pop">인기</string>
+
+    <string name="includeComView_id">아이디</string>
+    <string name="includeComView_search">조회</string>
+    <string name="includeComView_contents">내용</string>
+    <string name="includeComView_reNumber">댓글 11개</string>
+    <!--삭제-->
+
+    <string name="includeComComment_register">Registration</string>
+    <string name="includeDiaryView_day">Date</string>
+    <string name="includeDiaryView_title">Subject</string>
+    <string name="includeDiaryView_contents">Contents</string>
+    <string name="includeDiaryView_picture">Picture</string>
+    <string name="includeDiaryView_video">Video</string>
+
+    <string name="includeDiaryWrite_gallery">Gallery</string>
+
+    <string name="includeEquipment_myHW">My Phyctogram</string>
+    <string name="includeEquipment_serialNumber">Serial number</string>
+    <string name="includeEquipment_swVersion">S/W version</string>
+
+    <string name="includeFileUpload_myCharacter">MY Character</string>
+    <string name="includeFileUpload_fileUpload">Upload file</string>
+
+    <string name="includeMain_height">Height</string>
+    <string name="includeMain_highRank">Rank</string>
+    <string name="includeMain_reportAnalysis">Growth Report</string>
+    <string name="includeMain_listSearch">How tall I am?</string>
+
+    <string name="includeMyCharacter_age0">0</string>
+    <string name="includeMyCharacter_age1">0.5</string>
+    <string name="includeMyCharacter_age2">1</string>
+    <string name="includeMyCharacter_age3">2</string>
+    <string name="includeMyCharacter_age4">3</string>
+    <string name="includeMyCharacter_age5">4</string>
+    <string name="includeMyCharacter_age6">5</string>
+    <string name="includeMyCharacter_age7">6</string>
+    <string name="includeMyCharacter_age8">7</string>
+    <string name="includeMyCharacter_age9">8</string>
+    <string name="includeMyCharacter_age10">9</string>
+    <string name="includeMyCharacter_age11">10</string>
+    <string name="includeMyCharacter_age12">11</string>
+    <string name="includeMyCharacter_age13">12</string>
+    <string name="includeMyCharacter_age14">13</string>
+    <string name="includeMyCharacter_age15">14</string>
+    <string name="includeMyCharacter_age16">15</string>
+    <string name="includeMyCharacter_age17">16</string>
+    <string name="includeMyCharacter_age18">17</string>
+    <string name="includeMyCharacter_age19">18</string>
+    <string name="includeMyCharacter_sign"></string>
+
+    <string name="includeNoticeList_notice">Notice</string>
+
+    <string name="includePwFind_findPw">Find pqssword</string>
+    <string name="includePwFind_dataInput">Please write your information</string>
+    <string name="includePwFind_emailAddr">E-mail</string>
+    <string name="includePwFind_ex">ex<![CDATA[")"]]> mail@mail.com</string>
+    <string name="includePwFind_find">Dind</string>
+    <string name="includePwFind_sign"><![CDATA["*"]]>Password finding Service is not available to KakaoTalk or Facebook member.</string>
+
+    <string name="includePwModify_modifyPw">Change password</string>
+    <string name="includePwModify_realPw">Current Password</string>
+    <string name="includePwModify_changePw">New password</string>
+    <string name="includePwModify_checkChangePw">Input Password again.</string>
+    <string name="includePwModify_change">Change</string>
+    <string name="includePwModify_joinChannel">Join route</string>
+
+    <string name="includeQaList_qa">Question</string>
+
+    <string name="includeQaList_lan">Language</string>
+    <string name="includeQaList_lan_en">English</string>
+    <string name="includeQaList_lan_cn">中文</string>
+    <string name="includeQaList_lan_ko">한국어</string>
+
+    <string name="includeQaView_qa">Q&amp;A</string>
+
+    <string name="includeQaWrite_qaWrite">Inqure</string>
+    <string name="includeQaWrite_title"> Subject</string>
+    <string name="includeQaWrite_contents"> Contents</string>
+
+    <string name="includeRecord_searchDay">Inquiry period</string>
+    <string name="includeRecord_writeDay">Input date</string>
+    <string name="includeRecord_search">Search</string>
+    <string name="includeRecord_day">Date</string>
+    <string name="includeRecord_increase">Growth</string>
+
+    <string name="includeSetting_setting">Setting</string>
+    <string name="includeSetting_logout">Logout</string>
+    <string name="includeSetting_memberLeave">Unregister</string>
+
+    <string name="includeUsersAdd_addChild">Add</string>
+    <string name="includeUsersAdd_name">Name</string>
+    <string name="includeUsersAdd_initials">Initials (3 letters limit. Number available)</string>
+    <string name="includeUsersAdd_sign">Product shows your Initials. ex:AAA or AA2(max 3 letters)</string>
+    <string name="includeUsersAdd_birthday">Birth date</string>
+    <string name="includeUsersAdd_sex">Sex</string>
+    <string name="includeUsersAdd_girl">Girl</string>
+    <string name="includeUsersAdd_boy">Boy</string>
+    <string name="includeUsersAdd_add">Add</string>
+
+    <string name="includeUsersDataInput_writeHeight">Input height.</string>
+
+    <string name="includeUsersMenage_manegeChild">Manage my child</string>
+    <string name="includeUsersMenage_addChild"><![CDATA["+"]]> Add child</string>
+
+    <string name="includeUsersMode_modifyChild">Modify child</string>
+    <string name="includeUsersMode_modify">Modify</string>
+
+    <string name="includeWithdraw_pw">Password</string>
+    <string name="includeWithdraw_checkPw">Password again</string>
+    <string name="includeWithdraw_leave">Withdraw</string>
+
+    <string name="leftSlideMenu_home">HOME</string>
+    <string name="leftSlideMenu_diary">Diary</string>
+    <string name="leftSlideMenu_selfWriteHeight">Write height</string>
+
+    <string name="popupWifi_connection">Connect</string>
+
+    <string name="popupWifiList_sign">Please choose Wi-fi server.</string>
+
+    <!-- popup_agree.xml, popup_agree2.xml 는 제외  -->
+    <!-- ic_launcher.png, btn_start.png, shareform.png 이미지 파일에 한글 존재  -->
+
+    <!-- kakao -->
+    <string name="text_kakaotalk">KakaoTalk</string>
+    <string name="text_kakaostory">KakaoStory</string>
+    <string name="text_usermgmt">User Management</string>
+    <string name="text_push">Push</string>
+    <string name="text_friends">Friends</string>
+
+    <!-- KAKAO NEW DISIGN -->
+    <string name="title_for_kakao_sdk_sample">Kakao SDK Sample</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+
+    <string-array name="usermgmg_gender_types">
+        <item>@string/female</item>
+        <item>@string/male</item>
+    </string-array>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+
+    <!-- KAKAo For Push -->
+    <string name="usermgmg_signup_button">Signup</string>
+    <string name="usermgmg_me_button">Me</string>
+    <string name="usermgmg_update_profile_button">Update</string>
+
+    <string name="usermgmg_name">Write Your Name</string>
+    <string name="usermgmg_age">Write Your Age</string>
+    <string name="usermgmg_gender">Write Your Gender</string>
+
+
+    <!-- KAKAO values.xml -->
+    <string name="com_kakao_ok_button">OK</string>
+    <string name="com_kakao_cancel_button">Cancel</string>
+
+    <!-- KAKAO For kakaoStory -->
+    <string name="kakaostory_user_check_button">Check Story User</string>
+    <string name="kakaostory_profile_button">Get Story Profile</string>
+    <string name="kakaostory_note_post_button">Post Note</string>
+    <string name="kakaostory_photo_post_button">Post Photo</string>
+    <string name="kakaostory_link_post_button">Post Link</string>
+    <string name="kakaostory_get_post_button">Get Last Photo</string>
+    <string name="kakaostory_get_posts_button">Get Recent Posts</string>
+    <string name="kakaostory_delete_post_button">Delete Last Post</string>
+    <string name="kakaostory_birthday_label">birthday</string>
+
+
+    <!-- 페이스북 --><!--
+    <string name="facebook_app_id">1656605951265060</string>
+    <string name="facebook_app_name">phyctoAnd</string>-->
+
+    <string name="cancelled">Cancelled</string>
+    <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
+    <string name="hello_user">Hello %1$s!</string>
+    <string name="success">Success</string>
+    <string name="successfully_posted_post">Post ID: %1$s</string>
+    <string name="error">Error</string>
+    <string name="status_update">Updating status for %1$s at %2$s</string>
+    <string name="photo_post">Photo Post</string>
+    <string name="you_picked">You picked:</string>
+    <string name="no_friends_selected">&lt;No friends selected&gt;</string>
+    <string name="no_place_selected">&lt;No place selected&gt;</string>
+    <string name="pick_seattle_place">Pick a Seattle Place</string>
+    <string name="exception">Exception: %1$s</string>
+</resources>

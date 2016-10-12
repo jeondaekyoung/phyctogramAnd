@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/activityJoin_join"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/sv_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="@string/activityJoin_welcome"
+                    android:textColor="@color/grey_txt"
+                    android:textSize="12dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey_line" />
+
+                <EditText
+                    android:id="@+id/et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/border_grey"
+                    android:hint="@string/activityJoin_name"
+                    android:inputType="text"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/grey_txt2"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/border_grey"
+                    android:hint="@string/activityJoin_emailAddr"
+                    android:inputType="textEmailAddress"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/grey_txt2"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/et_pw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/border_grey"
+                    android:hint="@string/activityJoin_password"
+                    android:inputType="textPassword"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/grey_txt2"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/et_pw1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/border_grey"
+                    android:hint="@string/activityJoin_passwordOk"
+                    android:inputType="textPassword"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/grey_txt2"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/textViewPw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/activity_horizontal_margin"
+                    android:textColor="#ff0000" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey_line" />
+
+                <CheckBox
+                    android:id="@+id/allAgreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/activityJoin_agree" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/border_grey"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="10dp">
+
+                    <CheckBox
+                        android:id="@+id/agreement1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/activityJoin_agreeClause" />
+
+                    <TextView
+                        android:id="@+id/agreement1_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@id/agreement1"
+                        android:layout_alignParentRight="true"
+                        android:text="[전문보기]" />
+
+                    <CheckBox
+                        android:id="@+id/agreement2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/agreement1"
+                        android:text="@string/activityJoin_individualInfo" />
+
+                    <TextView
+                        android:id="@+id/agreement2_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@id/agreement2"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/agreement1"
+                        android:text="[전문보기]" />
+                </RelativeLayout>
+
+
+                <Button
+                    android:id="@+id/btn_join_member"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/btn_border_radius"
+                    android:text="@string/activityJoin_joining"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

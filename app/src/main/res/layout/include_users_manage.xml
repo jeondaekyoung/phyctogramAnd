@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_left"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/includeUsersMenage_manegeChild"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <com.knowledge_seek.phyctogram.util.MyLinearView
+        android:id="@+id/ll_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.knowledge_seek.phyctogram.util.MyButtonView
+            android:id="@+id/btn_usersadd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f2f2f2"
+            android:text="@string/includeUsersMenage_addChild" />
+
+        <com.knowledge_seek.phyctogram.util.MyListView
+            android:id="@+id/lv_usersList_manage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color6" />
+    </com.knowledge_seek.phyctogram.util.MyLinearView>
+</LinearLayout>

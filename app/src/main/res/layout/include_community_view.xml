@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_left"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/includeComList_communityRoom"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@id/ll_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.knowledge_seek.phyctogram.util.MyLinearView
+            android:id="@+id/mylinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/borderbottom"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:singleLine="true"
+                android:text="@string/includeComWrite_title" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:singleLine="true"
+                    android:text="@string/includeComView_id"
+                    android:textColor="#aaaaaa" />
+
+                <TextView
+                    android:id="@+id/tv_writng_de"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="11/25"
+                    android:textColor="#aaaaaa" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/includeComView_search"
+                    android:textColor="#aaaaaa" />
+
+                <TextView
+                    android:id="@+id/tv_hits_co"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="85"
+                    android:textColor="#aaaaaa" />
+            </LinearLayout>
+        </com.knowledge_seek.phyctogram.util.MyLinearView>
+
+        <com.knowledge_seek.phyctogram.util.MyScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/mylinear"
+            android:layout_marginBottom="30dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_contents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="150dp"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="@string/includeComView_contents" />
+
+                <TextView
+                    android:id="@+id/tv_cnt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border_grey"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="@string/includeComView_reNumber" />
+
+                <ListView
+                    android:id="@+id/lv_comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+            </LinearLayout>
+        </com.knowledge_seek.phyctogram.util.MyScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <EditText
+                android:id="@+id/et_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color4"
+                android:hint="@string/includeComComment_reWrite"
+                android:textSize="14dp"
+                android:padding="@dimen/activity_horizontal_margin" />
+
+            <Button
+                android:id="@+id/btn_comment_register"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/btn_border_radius"
+                android:text="@string/includeComComment_register"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_left"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/includeComComment_reWrite"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_reply"
+            android:background="#ffffff"
+            android:gravity="top|left"
+            android:hint="@string/includeComComment_sign"
+            android:inputType="textMultiLine"
+            android:lines="28"
+            android:maxWidth="5.0dip"
+            android:minWidth="10.0dip"
+            android:padding="10dp"
+            android:scrollHorizontally="false"
+            android:textSize="14dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btn_comment_register"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerVertical="true"
+                android:background="#C0AAE1"
+                android:text="@string/includeComComment_register"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

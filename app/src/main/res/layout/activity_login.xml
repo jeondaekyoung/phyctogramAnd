@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg2"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp">
+
+    <ImageView
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border_grey"
+        android:hint="E-mail"
+        android:inputType="textUri"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:paddingLeft="10dp"
+        android:textSize="12dp" />
+
+    <EditText
+        android:id="@+id/et_pw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border_grey"
+        android:hint="Password"
+        android:inputType="text"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:paddingLeft="10dp"
+        android:password="true"
+        android:textSize="12dp" />
+
+    <Button
+        android:id="@+id/btn_member_login"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/btn_border_radius"
+        android:gravity="center"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="@string/activityLogin_login"
+        android:textColor="#ffffff"
+        android:textSize="12dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_login_kko"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="48.5dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/log_kakao"
+            android:gravity="center"
+            android:text="@string/activityLogin_kakaoLogin"
+            android:textColor="#2F1310"
+            android:textSize="12dp" />
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btn_login_fb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="17dp"
+            android:paddingTop="17dp"
+            android:textColor="#ffffff"
+            android:textSize="12dp"
+            facebook:com_facebook_login_text="@string/activityLogin_facebookLogin"
+            facebook:com_facebook_logout_text="@string/activityLogin_facebookLogin" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_find_pw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activityLogin_findPW"
+            android:textColor="@color/grey_txt"
+            android:textSize="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" | "
+            android:textColor="@color/grey_txt" />
+
+        <TextView
+            android:id="@+id/tv_join_member"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="@string/activityJoin_join"
+            android:textColor="@color/grey_txt"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="10dp"
+            android:text="copyright ⓒ 2015 Knowledge-seek Co., Ltd. all rights reserved"
+            android:textColor="@color/grey_txt2"
+            android:textSize="10dp" />
+    </RelativeLayout>
+
+</LinearLayout>

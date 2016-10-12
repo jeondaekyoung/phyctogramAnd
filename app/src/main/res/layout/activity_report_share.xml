@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dkgrey_alpha"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/color5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/borderbottom"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:id="@+id/ll_capture_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/purple"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:padding="8dp"
+                    android:src="@drawable/share_txt"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/iv_capture"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp" />
+
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="end"
+                    android:padding="8dp"
+                    android:src="@drawable/share_logo" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/borderbottom"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageButton
+                android:id="@+id/imBtn_fb"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/sns_01" />
+
+            <ImageButton
+                android:id="@+id/imBtn_ks"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/sns_02" />
+
+            <ImageButton
+                android:id="@+id/imBtn_kt"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/sns_03" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_close"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color5"
+            android:onClick="onClick"
+            android:text="@string/activityReport_close" />
+
+    </LinearLayout>
+</LinearLayout>

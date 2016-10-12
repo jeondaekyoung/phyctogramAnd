@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color6"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_left"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/includeQaView_qa"
+            android:textColor="@color/color6" />
+    </RelativeLayout>
+
+    <com.knowledge_seek.phyctogram.util.MyTextView
+        android:id="@+id/qa_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="제목 들어가는 자리입니다. 길면 두줄로 보여집니다."
+        android:textSize="18dp" />
+
+    <com.knowledge_seek.phyctogram.util.MyTextView
+        android:id="@+id/qa_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/borderbottom"
+        android:gravity="center"
+        android:paddingBottom="@dimen/activity_horizontal_margin"
+        android:text="날짜 들어가는 자리"
+        android:textSize="12dp" />
+
+    <com.knowledge_seek.phyctogram.util.MyTextView
+        android:id="@+id/qa_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:scrollbars="vertical"
+        android:text="내용 들어가는 자리" />
+</LinearLayout>

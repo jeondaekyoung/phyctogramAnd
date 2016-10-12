@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<color name="colorPrimary">#3F51B5</color>
+<color name="colorPrimaryDark">#303F9F</color>
+<color name="colorAccent">#FF4081</color>
+
+<!-- KAKAO NEW DISIGN -->
+<color name="color1">#404040</color>
+<color name="color2">#B2B2B2</color>
+<color name="color3">#2A2A2A</color>
+<color name="color4">#E5E5E5</color>
+<color name="color5">#F6F6F6</color>
+<color name="color6">#FFFFFF</color>
+<color name="color7">#000000</color>
+<color name="color8">#4A4A4C</color>
+<color name="color9">#BDD1DC</color>
+
+<!-- 픽토그램 보라색 -->
+<color name="grey_bg">#eaeaea</color>
+<color name="grey_bg2">#f1f1f1</color>
+<color name="grey_line">#dcdcdc</color>
+<color name="grey_line2">#e7e7e7</color>
+<color name="grey_txt">#212121</color>
+<color name="grey_txt2">#757575</color>
+
+<color name="purple">#C1ABE1</color>
+<color name="purpledk">#776096</color>
+<color name="purpledker">#412f5d</color>
+<color name="yellow">#F6D14C</color>
+<color name="grey_alpha">#88B2B2B2</color>
+<color name="dkgrey_alpha">#88000000</color>
+
+</resources>

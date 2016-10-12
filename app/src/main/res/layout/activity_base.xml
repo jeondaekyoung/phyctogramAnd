@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_menuLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ff393c46"
+            android:gravity="left"
+            android:orientation="vertical"
+            android:textColor="#ff000000">
+
+            <!-- include side -->
+            <include
+                android:id="@+id/ic_leftslidemenu"
+                layout="@layout/leftslidemenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <!-- main layout -->
+        <LinearLayout
+            android:id="@+id/ll_mainlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffffff"
+            android:gravity="left"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <!--<include-->
+                <!--android:id="@+id/ic_screen"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--layout="@layout/include_main"/>-->
+                <!-- include에는 layout이 있어야한다. -->
+                <LinearLayout
+                    android:id="@+id/ic_screen"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"></LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:orientation="vertical" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

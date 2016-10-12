@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_left"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/includeComList_communityRoom"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@id/ll_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/q"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/borderbottom"
+            android:orientation="horizontal">
+
+            <com.knowledge_seek.phyctogram.util.MyButtonView
+                android:id="@+id/btn_commntyLatest"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_off"
+                android:text="@string/includeComList_new" />
+
+            <Button
+                android:id="@+id/btn_commntyPopular"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_off"
+                android:text="@string/includeComList_pop" />
+        </LinearLayout>
+
+        <com.knowledge_seek.phyctogram.util.MyListView
+            android:id="@+id/lv_sqlcommntyList_communityList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/q"
+            android:divider="#f1f1f1"
+            android:dividerHeight="1dp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/imBtn_community_write"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/float_button_03" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</LinearLayout>

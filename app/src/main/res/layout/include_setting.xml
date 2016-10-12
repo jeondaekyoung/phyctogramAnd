@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color6"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_left"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/includeSetting_setting"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="회원정보"
+                android:textColor="@color/purple"
+                android:textSize="16dp" />
+
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripple01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/tv_pwmod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:src="@drawable/settings_01" />
+
+                    <com.knowledge_seek.phyctogram.util.MyTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="4dp"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="4dp"
+                        android:text="@string/includePwModify_modifyPw"
+                        android:textSize="16dp" />
+                </LinearLayout>
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripple02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/tv_withdraw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:src="@drawable/settings_02" />
+
+                    <com.knowledge_seek.phyctogram.util.MyTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="4dp"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="4dp"
+                        android:text="@string/includeSetting_memberLeave"
+                        android:textSize="16dp" />
+                </LinearLayout>
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:text="픽토그램 정보"
+                android:textColor="@color/purple"
+                android:textSize="16dp" />
+
+            <com.knowledge_seek.phyctogram.util.MyLinearView
+                android:id="@+id/ll_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:id="@+id/ripple03"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/tv_notice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="12dp"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="12dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginLeft="16dp"
+                            android:src="@drawable/settings_03" />
+
+                        <com.knowledge_seek.phyctogram.util.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
+                            android:paddingLeft="16dp"
+                            android:paddingTop="4dp"
+                            android:text="@string/includeNoticeList_notice"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                </com.balysv.materialripple.MaterialRippleLayout>
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:id="@+id/ripple04"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/tv_equip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="12dp"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="12dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginLeft="16dp"
+                            android:src="@drawable/settings_04" />
+
+                        <com.knowledge_seek.phyctogram.util.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
+                            android:paddingLeft="16dp"
+                            android:paddingTop="4dp"
+                            android:text="@string/includeEquipment_myHW"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                </com.balysv.materialripple.MaterialRippleLayout>
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:id="@+id/ripple05"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/tv_qa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="12dp"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="12dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginLeft="16dp"
+                            android:src="@drawable/settings_05" />
+
+                        <com.knowledge_seek.phyctogram.util.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="4dp"
+                            android:paddingLeft="16dp"
+                            android:paddingTop="4dp"
+                            android:text="@string/includeQaList_qa"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                </com.balysv.materialripple.MaterialRippleLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey_line" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:text="@string/includeQaList_lan"
+                    android:textColor="@color/purple"
+                    android:textSize="16dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:id="@+id/ripple06"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/li_lan_en"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="12dp"
+                            android:paddingLeft="8dp"
+                            android:paddingTop="12dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginLeft="16dp"
+                                android:src="@drawable/settings_06" />
+
+                            <com.knowledge_seek.phyctogram.util.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="4dp"
+                                android:paddingLeft="16dp"
+                                android:paddingTop="4dp"
+                                android:text="@string/includeQaList_lan_en"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:id="@+id/ripple07"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/li_lan_cn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="12dp"
+                            android:paddingLeft="8dp"
+                            android:paddingTop="12dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginLeft="16dp"
+                                android:src="@drawable/settings_06" />
+
+                            <com.knowledge_seek.phyctogram.util.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="4dp"
+                                android:paddingLeft="16dp"
+                                android:paddingTop="4dp"
+                                android:text="@string/includeQaList_lan_cn"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:id="@+id/ripple08"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/li_lan_ko"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="12dp"
+                            android:paddingLeft="8dp"
+                            android:paddingTop="12dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginLeft="16dp"
+                                android:src="@drawable/settings_06" />
+
+                            <com.knowledge_seek.phyctogram.util.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="4dp"
+                                android:paddingLeft="16dp"
+                                android:paddingTop="4dp"
+                                android:text="@string/includeQaList_lan_ko"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+                </LinearLayout>
+
+            </com.knowledge_seek.phyctogram.util.MyLinearView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

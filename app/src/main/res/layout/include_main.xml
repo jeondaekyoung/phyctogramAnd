@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_left"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/app_name"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.knowledge_seek.phyctogram.util.MyLinearView
+            android:id="@+id/ll_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="149dp"
+                    android:background="@drawable/bg_main" />
+
+                <com.pkmmte.view.CircularImageView
+                    android:id="@+id/iv_my_animal"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="90dp"
+                    android:padding="5dp"
+                    android:src="@drawable/sample"
+                    app:border="true"
+                    app:border_color="#e7e7e7"
+                    app:border_width="1dp" />
+
+                <TextView
+                    android:id="@+id/tv_users_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_my_animal"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:text="name" />
+
+                <ImageView
+                    android:id="@+id/img_refresh"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignBottom="@id/tv_users_name"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/icon_refresh" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:background="@drawable/border_grey"
+                android:orientation="horizontal">
+
+                <!-- 키 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:text="@string/includeMain_height"
+                        android:textColor="@color/color1" />
+
+                    <com.knowledge_seek.phyctogram.util.MyLinearView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_height"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:paddingRight="5dp"
+                            android:text="-"
+                            android:textColor="@color/purple"
+                            android:textSize="40dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cm"
+                            android:textColor="@color/purple"
+                            android:textSize="40dp" />
+                    </com.knowledge_seek.phyctogram.util.MyLinearView>
+
+                    <!-- 성장 값 -->
+                    <com.knowledge_seek.phyctogram.util.MyLinearView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_grow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:paddingRight="5dp"
+                            android:text="-"
+                            android:textColor="@color/color1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cm"
+                            android:textColor="@color/color1" />
+                    </com.knowledge_seek.phyctogram.util.MyLinearView>
+                </LinearLayout>
+
+                <!-- 상위 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:text="@string/includeMain_highRank"
+                        android:textColor="@color/color1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_rank"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:paddingRight="5dp"
+                            android:text="-"
+                            android:textColor="@color/purple"
+                            android:textSize="40dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="%"
+                            android:textColor="@color/purple"
+                            android:textSize="40dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_users_analysis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/border_grey"
+                android:orientation="horizontal"
+                android:padding="@dimen/activity_horizontal_margin">
+
+                <ImageView
+                    android:id="@+id/iv_icon_rp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/icon_report" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_toRightOf="@id/iv_icon_rp"
+                    android:text="@string/includeMain_reportAnalysis"
+                    android:textColor="@color/color1" />
+
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="9dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/btn_main" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_users_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/border_grey"
+                android:orientation="horizontal"
+                android:padding="@dimen/activity_horizontal_margin">
+
+                <ImageView
+                    android:id="@+id/iv_icon_sc"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/icon_search" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_toRightOf="@id/iv_icon_sc"
+                    android:text="@string/includeMain_listSearch"
+                    android:textColor="@color/color1" />
+
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="9dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/btn_main" />
+            </RelativeLayout>
+        </com.knowledge_seek.phyctogram.util.MyLinearView>
+    </ScrollView>
+</LinearLayout>

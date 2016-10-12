@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/includePwFind_findPw"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="@string/includePwFind_dataInput"
+            android:textColor="@color/grey_txt"
+            android:textSize="12dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_line" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/password" />
+
+        <EditText
+            android:id="@+id/editTextMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:background="@drawable/border_grey"
+            android:hint="@string/includePwFind_ex"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/buttonFind"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/btn_border_radius"
+            android:text="@string/includePwFind_find"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="@string/includePwFind_sign"
+            android:textColor="#ff0000"
+            android:textSize="12dp" />
+    </LinearLayout>
+</LinearLayout>

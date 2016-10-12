@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="KakaoDialogSpinner">
+        <attr name="kakao_prompt" format="string"/>
+        <attr name="kakao_entries" format="reference"/>
+        <attr name="kakao_icon" format="reference"/>
+        <attr name="kakao_dialogTitle" format="reference"/>
+        <attr name="kakao_showTitleDivider" format="boolean"/>
+        <attr name="kakao_titleTextColor" format="reference"/>
+    </declare-styleable>
+
+    <!--<declare-styleable name="CircularImageView">
+        <attr name="border" format="boolean"/>
+        <attr name="border_width" format="dimension"/>
+        <attr name="border_color" format="color"/>
+        <attr name="shadow" format="boolean"/>
+        <attr name="shadow_color" format="color"/>
+        <attr name="shadow_radius" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="Theme">
+        <attr name="circularImageViewStyle" format="reference"/>
+    </declare-styleable>-->
+</resources>

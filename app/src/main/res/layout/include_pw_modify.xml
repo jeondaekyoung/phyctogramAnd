@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.knowledge_seek.phyctogram.util.MyLinearView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purpledk"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_left"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_menu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/includePwModify_modifyPw"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+    <com.knowledge_seek.phyctogram.util.MyLinearView
+        android:id="@+id/ll_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_phyctogram"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/password" />
+
+                <com.knowledge_seek.phyctogram.util.MyEditTextView
+                    android:id="@+id/et_now_pw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/border_grey"
+                    android:hint="@string/includePwModify_realPw"
+                    android:inputType="textPassword"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:textSize="14dp" />
+
+                <com.knowledge_seek.phyctogram.util.MyEditTextView
+                    android:id="@+id/et_pw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/border_grey"
+                    android:hint="@string/includePwModify_changePw"
+                    android:inputType="textPassword"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:textSize="14dp" />
+
+                <com.knowledge_seek.phyctogram.util.MyEditTextView
+                    android:id="@+id/et_pw1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/border_grey"
+                    android:hint="@string/includePwModify_checkChangePw"
+                    android:inputType="textPassword"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:textSize="14dp" />
+
+                <com.knowledge_seek.phyctogram.util.MyLinearView
+                    android:id="@+id/ll_no_phyctogram"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/border_grey"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_horizontal_margin">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/includePwModify_joinChannel"
+                        android:textColor="@color/color7"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/tv_join_route"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:textSize="14dp" />
+                </com.knowledge_seek.phyctogram.util.MyLinearView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp">
+
+                    <Button
+                        android:id="@+id/btn_pw_mod"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/btn_border_radius"
+                        android:text="@string/includePwModify_change"
+                        android:textColor="#ffffff" />
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </com.knowledge_seek.phyctogram.util.MyLinearView>
+</com.knowledge_seek.phyctogram.util.MyLinearView>
