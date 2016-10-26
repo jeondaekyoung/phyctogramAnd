@@ -40,7 +40,7 @@ import java.util.List;
  * Created by dkfka on 2015-12-02.
  */
 public class EquipmentActivity extends BaseActivity {
-
+    final String TAG = EquipmentActivity.class.getName();
     //wifi관련
     private ScanResult scanResult;
     private WifiManager wm;
@@ -134,8 +134,8 @@ public class EquipmentActivity extends BaseActivity {
             wm = (WifiManager) getSystemService(WIFI_SERVICE);
 
             boolean checkWifi = wm.isWifiEnabled();
-
             Log.d("-진우-", "checkWifi : "+checkWifi);
+
             if(!checkWifi){
                 wm.setWifiEnabled(true);
             }
@@ -158,7 +158,7 @@ public class EquipmentActivity extends BaseActivity {
 
                 boolean checkWifi = wm.isWifiEnabled();
 
-                Log.d("-진우-", "checkWifi : "+checkWifi);
+                Log.d("-진우-", "6.0이상 checkWifi : "+checkWifi);
                 if(!checkWifi){
                     wm.setWifiEnabled(true);
                 }
@@ -180,8 +180,85 @@ public class EquipmentActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             //네임이 SCAN_RESULTS_AVAILABLE_ACTION 인 방송이 들어오면 wifi 연결함
+            wifiList.clear();
             if (intent.getAction().equals(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)) {
-                searchWifi();
+                //2016.10.13  테스트
+                int index = 0;
+                boolean isWifiConnect = false;
+                apList = wm.getScanResults(); //스캔된 wifi 정보를 받음
+                if (wm.getScanResults() != null) {
+                    int size = apList.size();
+                    for (int i = 0; i < size; i++) {
+                        scanResult = (ScanResult) apList.get(i); //wifi 정보를 하나씩 선택
+                        if(scanResult.SSID.contains("PHYCTOGRAM")){//wifi 정보를 걸러내어 list에 입력
+                            wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities));
+                            isWifiConnect = true;// 연결유무
+
+                        }
+
+                    }
+                    unregisterReceiver(wifiReceiver);    //리시버 해제
+                }
+
+                if(wifiList.size()>=2){//기기 복수일시 리스트로 선택
+                    lv_wifilist = (ListView)findViewById(com.knowledge_seek.phyctogram.R.id.lv_wifiList);
+                    wifiListAdapter = new WifiListAdapter(getApplication(), wifiList, com.knowledge_seek.phyctogram.R.layout.list_wifi);
+                    lv_wifilist.setAdapter(wifiListAdapter);
+
+                    //ListView Item 클릭 시
+                    lv_wifilist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            //선택된 wifi 정보를 봅음
+                            Wifi wifi = (Wifi) wifiListAdapter.getItem(position);
+                            String capabilities = wifi.getCapabilities(); //보안 방식을 가져옴
+                            //보안이 걸려있다면 비밀번호 입력 팝업을 오픈
+                            if(capabilities.contains("WEP")||capabilities.contains("WPA")||capabilities.contains("WPA2")||capabilities.contains("OPEN")){
+                                openPopup(wifi.getSsid(), wifi.getCapabilities());
+                            }else{
+                                //보안이 없다면 바로 연결
+                                connectWifi(wifi.getSsid(), "", wifi.getCapabilities());
+                            }
+                        }
+                    });
+
+                    btn_connWifi.setText(com.knowledge_seek.phyctogram.R.string.equipmentActivity_endSearch);
+                }
+                else if(wifiList.size()==1) {// 기기가 한대일땐 자동 연결
+                    Wifi wifi=new Wifi(wifiList.get(0).getSsid(),wifiList.get(0).getCapabilities());
+                    String capabilities = wifi.getCapabilities(); //보안 방식을 가져옴
+
+                    //보안이 걸려있다면 비밀번호 입력 팝업을 오픈
+                    if(capabilities.contains("WEP")||capabilities.contains("WPA")||capabilities.contains("WPA2")||capabilities.contains("OPEN")){
+                        Log.d(TAG, "오픈팝업");
+                        openPopup(wifi.getSsid(), wifi.getCapabilities());
+                    }else{
+                        //보안이 없다면 바로 연결
+                        Log.d(TAG, "바로연결");
+                        connectWifi(wifi.getSsid(), "", wifi.getCapabilities());
+                    }
+                }
+                else{
+
+                    Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
+                    wifiList.clear();
+                    Log.d(TAG, "searchWifi: wifiList 사이즈: "+wifiList.size());
+                }
+
+
+             /*   if (isWifiConnect){
+                    Log.d(TAG, "isWifiConnect: "+isWifiConnect+" wifi 리시버 수신끊김");
+                }
+                else{
+                    Log.d(TAG, "isWifiConnect: "+isWifiConnect+ " wifi 리시버 수신중");
+                    unregisterReceiver(wifiReceiver);    //리시버 해제
+                    Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
+                }*/
+                btn_connWifi.setText(com.knowledge_seek.phyctogram.R.string.equipmentActivity_endSearch);
+
+                Log.d(TAG, "searchWifi: wifiList 사이즈: "+wifiList.size());
+
+              // searchWifi();
             }
         }
     };
@@ -194,6 +271,7 @@ public class EquipmentActivity extends BaseActivity {
             int size = apList.size();
             for (int i = 0; i < size; i++) {
                 scanResult = (ScanResult) apList.get(i); //wifi 정보를 하나씩 선택
+
                 wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities)); //wifi 정보를 걸러내어 list에 입력
             }
         }
@@ -221,6 +299,7 @@ public class EquipmentActivity extends BaseActivity {
         });
 
         btn_connWifi.setText(com.knowledge_seek.phyctogram.R.string.equipmentActivity_endSearch);
+
     }
 
     //보안 wifi 일 경우 팝업 오픈하여 비밀번호 입력하게 함
@@ -299,7 +378,7 @@ public class EquipmentActivity extends BaseActivity {
 
         int networkId = -1; //-1 연결 정보 없음
         List<WifiConfiguration> networks = wm.getConfiguredNetworks();
-        Log.d("-진우-", "networks : " + networks.toString());
+     //   Log.d("-진우-", "networks : " + networks.toString());
 
         for(int i=0; i<networks.size(); i++){
             Log.d("-진우-", "networks.get(i).SSID : " + networks.get(i).SSID);
@@ -319,19 +398,19 @@ public class EquipmentActivity extends BaseActivity {
         boolean connection = false;
 
         if(networkId != -1){
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_connectionAlert, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_connectionAlert, Toast.LENGTH_LONG).show();
             //해당 networkId로 wifi를 연결함
             connection = wm.enableNetwork(networkId, true); //연결이 되면 true를 반환
             Log.d("-진우-", "connection : "+connection);
         }else{
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_failPW, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_failPW, Toast.LENGTH_LONG).show();
         }
 
         //연결이 되었다면
         if(connection) {
             //wifi정보를 저장
             wm.setWifiEnabled(true);
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_successConnection, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_successConnection, Toast.LENGTH_LONG).show();
 
             //연결된 wifi에 ip를 가져옴 필요 여부 판단 필요
             WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
@@ -371,8 +450,8 @@ public class EquipmentActivity extends BaseActivity {
 
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
-        int height = getListViewHeight(lv_usersList);
-        lv_usersList.getLayoutParams().height = height;
+
+        lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
         //슬라이드메뉴 셋팅(내 아이목록, 계정이름, 계정이미지)

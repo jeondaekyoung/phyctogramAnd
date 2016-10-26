@@ -37,7 +37,9 @@ public class EqAsyncTask extends AsyncTask<Object, Integer, Void> {
                 //커넥션을 닫아주어야 해서 인셉션 다시 처리함
                 int resCode = urlConn.getResponseCode();
             }catch (Exception e){
-                Log.d("-진우-", "Exception1 : " + e.getMessage());
+                Log.d("-진우-", "Exception1 : " );
+                e.printStackTrace();
+
             }
 
             //close connect

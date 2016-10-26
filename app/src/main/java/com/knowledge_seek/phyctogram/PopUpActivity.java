@@ -55,7 +55,7 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 	}
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
+
 		if(v.getId() == com.knowledge_seek.phyctogram.R.id.btn_pwdOk){
 			/*Intent i = new Intent(PopUpActivity.this,LoginActivity.class);
 			i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -44,6 +44,8 @@
     <string name="equipmentActivity_failConnection">연결에 실패하였습니다. 다시 시도해주세요.</string>
     <string name="equipmentActivity_addHW">기기 추가</string>
     <string name="equipmentActivity_addSerial">일련번호를 입력하세요.</string>
+    <string name="equipmentActivity_noDevice">주변에 \'Phyctogram\' 기기가 없거나 전원이 꺼져있습니다. 기기의 전원을 켜주세요.</string>
+
 
     <string name="fileUploadActivity_upLoadingAlert">Uploading file...</string>
     <string name="fileUploadActivity_startUpLoading">uploading started...</string>
