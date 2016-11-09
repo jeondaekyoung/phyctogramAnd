@@ -84,9 +84,9 @@ public class AdminActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //new EqAsyncTask().execute("192.168.4.1:80", "?REF", et_ref.getText() + "**");
-                String command = et_ref.getText().toString();
+                /*String command = et_ref.getText().toString();
                 tc	=	new TCP_Client_Task(AdminActivity.this);
-                tc.execute(command);
+                tc.execute(command);*/
             }
         });
         btn_adj = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_adj);

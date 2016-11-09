@@ -85,7 +85,7 @@ public class WifiPopUpActivity extends Activity{
 			int size = apList.size();
 			for (int i = 0; i < size; i++) {
 				scanResult = (ScanResult) apList.get(i);
-				wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities));
+				//wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities));
 			}
 		}
 
