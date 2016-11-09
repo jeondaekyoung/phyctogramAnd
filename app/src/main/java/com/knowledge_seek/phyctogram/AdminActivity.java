@@ -11,10 +11,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.pkmmte.view.CircularImageView;
-
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.knowledge_seek.phyctogram.util.EqAsyncTask;
+import com.knowledge_seek.phyctogram.util.TCP_Client_Task;
+import com.pkmmte.view.CircularImageView;
 
 /**
  * Created by dkfka on 2015-11-25.
@@ -32,6 +32,9 @@ public class AdminActivity extends BaseActivity {
     private EditText et_adj;
     private EditText et_useq;
     private Button btn_ref, btn_adj, btn_useq, btn_end;
+
+    //test 코드
+    TCP_Client_Task tc;
 
 
     @Override
@@ -80,8 +83,10 @@ public class AdminActivity extends BaseActivity {
         btn_ref.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new EqAsyncTask().execute("192.168.4.1:80", "?REF", et_ref.getText() + "**");
-
+                //new EqAsyncTask().execute("192.168.4.1:80", "?REF", et_ref.getText() + "**");
+                String command = et_ref.getText().toString();
+                tc	=	new TCP_Client_Task(AdminActivity.this);
+                tc.execute(command);
             }
         });
         btn_adj = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_adj);
@@ -105,6 +110,7 @@ public class AdminActivity extends BaseActivity {
                 new EqAsyncTask().execute("192.168.4.1:80", "?END_SERVER", "END_SERVER");
             }
         });
+
     }
 
     @Override

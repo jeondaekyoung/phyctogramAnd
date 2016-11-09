@@ -100,7 +100,7 @@ public class WifiPopUpActivity extends Activity{
 				Wifi wifi = (Wifi) wifiListAdapter.getItem(position); //선택된 wifi 정보 가져옴
 				String capabilities = wifi.getCapabilities(); //보안방식을 가져옴
 				//wifi에 암호가 있다면
-				if (capabilities.contains("WEP") || capabilities.contains("WPA") || capabilities.contains("WPA2") || capabilities.contains("OPEN")) {
+				if (capabilities.contains("WEP") || capabilities.contains("WPA") || capabilities.contains("WPA2")) {
 					PopUpActivity.activity = null; //첫번째 wifi 선택창과 구분
 					PopUpActivity.wifiPopUpActivity = WifiPopUpActivity.this; //WifiPopUpActivity의 주소를 넘겨서 WifiPopUpActivity의 메소드를 사용가능하게 함
 					Intent i = new Intent(getApplicationContext(), PopUpActivity.class); //set PopUpActivity
@@ -178,8 +178,8 @@ public class WifiPopUpActivity extends Activity{
 		wfc.SSID = "\"".concat( ssid ).concat("\""); //보안 방식 별 공통 사항 set ssid
 		wfc.status = WifiConfiguration.Status.DISABLED; //보안 방식 별 공통 사항 set status
 		wfc.priority = 40; ////보안 방식 별 공통 사항 set priority
-
-		if(capabilities.contains("WEP") ){
+		//wifi 보안 종류별 개별 규칙
+		if(capabilities.contains("WEP")){
 			Log.d("-진우-", "WEP 셋팅");
 			wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
 			wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
@@ -187,40 +187,52 @@ public class WifiPopUpActivity extends Activity{
 			wfc.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
 			wfc.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.SHARED);
 			wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
-
+			wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
 			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
 			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
 			wfc.wepKeys[0] = "\"".concat(password).concat("\"");
 			wfc.wepTxKeyIndex = 0;
-		}else if(capabilities.contains("WPA") ) {
+
+		}else if(capabilities.contains("WPA")  ) {
 			Log.d("-진우-", "WPA 셋팅");
-			wfc.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
+
+
 			wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
+			wfc.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
 			wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
 			wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
 			wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
+			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
+			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
 			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
 			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
+
 			wfc.preSharedKey = "\"".concat(password).concat("\"");
+
 			Log.d("-진우-", "패스워드 확인 : " + wfc.preSharedKey);
-		}else if(capabilities.contains("WPA2") ) {
+		}else if(capabilities.contains("WPA2")  ) {
 			Log.d("-진우-", "WPA2 셋팅");
-			wfc.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
+
 			wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
+			wfc.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
 			wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
 			wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
 			wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
+			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
+			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
 			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
 			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
+
 			wfc.preSharedKey = "\"".concat(password).concat("\"");
-		}else if(capabilities.contains("OPEN") ) {
+		}else if(capabilities.contains("OPEN")  ) {
 			Log.d("-진우-", "OPEN 셋팅");
+
 			wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
 			wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
 			wfc.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
 			wfc.allowedAuthAlgorithms.clear();
 			wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
-
+			wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
 			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
 			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
 			wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);

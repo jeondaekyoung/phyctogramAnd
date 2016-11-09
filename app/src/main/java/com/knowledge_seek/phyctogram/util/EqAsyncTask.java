@@ -36,6 +36,7 @@ public class EqAsyncTask extends AsyncTask<Object, Integer, Void> {
                 //현재 기기에서 수신 처리가 제대로 안되서 보내면서 오류 발생으로 인해
                 //커넥션을 닫아주어야 해서 인셉션 다시 처리함
                 int resCode = urlConn.getResponseCode();
+                Log.d( "레스코드: ",resCode+"");
             }catch (Exception e){
                 Log.d("-진우-", "Exception1 : " );
                 e.printStackTrace();

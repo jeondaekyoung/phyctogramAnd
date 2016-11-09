@@ -60,16 +60,17 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 			/*Intent i = new Intent(PopUpActivity.this,LoginActivity.class);
 			i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(i);*/
-			Log.d("-진우-", "PopUpActivity ssid : " + ssid + ", capabilities : " + capabilities + ", edit_password : " + edit_password.getText());
+			Log.d("-대경-", "PopUpActivity ssid : " + ssid + ", capabilities : " + capabilities + ", edit_password : " + edit_password.getText());
 
 			if (activity !=null) {
 				activity.connectWifi(ssid, edit_password.getText().toString(), capabilities);
-			}else{
+			}
+			else{
 				String password = edit_password.getText().toString();
 
 				//기기에 메세지를 보내고 보낸 후 입력한 wifi로 다시 연결
-				SendMessageThread sendMessageThread = new SendMessageThread(true, 0, ipAddress, ssid, password);
-				sendMessageThread.start();
+				//	SendMessageThread sendMessageThread = new SendMessageThread(true, 0, ipAddress, ssid, password);
+				// sendMessageThread.start();
 			}
 			finish();
 
