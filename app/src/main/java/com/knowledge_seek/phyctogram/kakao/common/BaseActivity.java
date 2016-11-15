@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -33,10 +34,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.knowledge_seek.phyctogram.LoginActivity;
 import com.knowledge_seek.phyctogram.MainActivity;
 import com.knowledge_seek.phyctogram.R;
@@ -53,6 +50,9 @@ import com.knowledge_seek.phyctogram.listAdapter.UsersListSlideAdapter;
 import com.knowledge_seek.phyctogram.phyctogram.SaveSharedPreference;
 import com.knowledge_seek.phyctogram.util.AnimationClose;
 import com.knowledge_seek.phyctogram.util.AnimationOpen;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by sjw on 2015-11-26.
@@ -72,7 +72,7 @@ public class BaseActivity extends Activity {
 
     //데이터정의
     public static Member member = null;                 //멤버
-    public static List<Users> usersList = new ArrayList<Users>();           //내 아이 목록
+    public static List<Users> usersList = new ArrayList<>();           //내 아이 목록
     public static Users nowUsers = new Users();                                        //메인유저
     public static String memberName = null;                                 //슬라이드 멤버 이름
     public static Bitmap memberImg = null;                                  //슬라이드 멤버 이미지
@@ -115,19 +115,22 @@ public class BaseActivity extends Activity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String action = intent.getAction();
-
-                if(action.equals(QuickstartPreferences.REGISTRATION_READY)){
-                    // 액션이 READY일 경우
-                    Log.d("-진우-", "ACTION READY");
-                } else if(action.equals(QuickstartPreferences.REGISTRATION_GENERATING)){
-                    // 액션이 GENERATING일 경우
-                    Log.d("-진우-", "ACTION GENERATING");
-                } else if(action.equals(QuickstartPreferences.REGISTRATION_COMPLETE)){
-                    // 액션이 COMPLETE일 경우
-                    String token = intent.getStringExtra("token");
-                    QuickstartPreferences.token = token;
-                    Log.d("-진우-", "ACTION COMPLETE : "+token);
+                switch (action){
+                    case QuickstartPreferences.REGISTRATION_READY :
+                        // 액션이 READY일 경우
+                        Log.d("-진우-", "ACTION READY");
+                    break;
+                    case QuickstartPreferences.REGISTRATION_GENERATING :
+                        // 액션이 GENERATING일 경우
+                        Log.d("-진우-", "ACTION GENERATING");
+                        break;
+                    case QuickstartPreferences.REGISTRATION_COMPLETE :
+                        // 액션이 COMPLETE일 경우
+                        String token = intent.getStringExtra("token");
+                        QuickstartPreferences.token = token;
+                        Log.d("-진우-", "ACTION COMPLETE : "+token);
                 }
+
             }
         };
     }
@@ -204,7 +207,12 @@ public class BaseActivity extends Activity {
         lv_usersList = (ListView) findViewById(R.id.lv_usersList);
         usersListSlideAdapter = new UsersListSlideAdapter(this);
         lv_usersList.setAdapter(usersListSlideAdapter);
-
+        lv_usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                nowUsers = (Users)usersListSlideAdapter.getItem(position);
+            }
+        });
         //슬라이드 내 이동 버튼 정의
         btn_home = (Button) findViewById(R.id.btn_home);
 
@@ -285,24 +293,27 @@ public class BaseActivity extends Activity {
                         .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능
                         .setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                if(member.getJoin_route().equals("facebook")){
-                                    AccessToken accessToken = AccessToken.getCurrentAccessToken();
-                                    //accessToken 값이 있다면 로그인 상태라고 판단
-                                    if (accessToken != null) {
-                                        LoginManager.getInstance().logOut();
-                                    }
-                                    redirectLoginActivity();
-                                } else if(member.getJoin_route().equals("kakao")){
-                                    UserManagement.requestLogout(new LogoutResponseCallback() {
-                                        @Override
-                                        public void onCompleteLogout() {
-                                            redirectLoginActivity();
+                                switch (member.getJoin_route()){
+                                    case "facebook":
+                                        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                                        //accessToken 값이 있다면 로그인 상태라고 판단
+                                        if (accessToken != null) {
+                                            LoginManager.getInstance().logOut();
                                         }
-                                    });
-
-                                } else if(member.getJoin_route().equals("phyctogram")){
-                                    SaveSharedPreference.clearMemberSeq(getApplicationContext());
-                                    redirectLoginActivity();
+                                        redirectLoginActivity();
+                                    break;
+                                    case "kakao" :
+                                        UserManagement.requestLogout(new LogoutResponseCallback() {
+                                            @Override
+                                            public void onCompleteLogout() {
+                                                redirectLoginActivity();
+                                            }
+                                        });
+                                    break;
+                                    case "phyctogram":
+                                        SaveSharedPreference.clearMemberSeq(getApplicationContext());
+                                        redirectLoginActivity();
+                                    break;
                                 }
                             }
                         })
@@ -446,7 +457,7 @@ public class BaseActivity extends Activity {
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
         ll_empty.setVisibility(View.GONE);
 
-        if(isLeftExpanded == false) {
+        if(!isLeftExpanded) {
             LinearLayout viewGroup = (LinearLayout) findViewById(R.id.ic_leftslidemenu).getParent();
             enableDisableViewGroup(viewGroup, false);
         }
@@ -527,7 +538,7 @@ public class BaseActivity extends Activity {
     * */
     public static int getListViewHeight(ListView listView) {
         ListAdapter adapter = listView.getAdapter();
-        int listViewHeight = 0;
+        int listViewHeight;
         listView.measure(View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED),
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         listViewHeight = listView.getMeasuredHeight() * adapter.getCount() + (adapter.getCount() * listView.getDividerHeight());

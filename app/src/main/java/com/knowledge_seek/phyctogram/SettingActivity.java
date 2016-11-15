@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.knowledge_seek.phyctogram.domain.Users;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
@@ -67,9 +68,9 @@ public class SettingActivity extends BaseActivity {
         lv_usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*nowUsers = (Users) usersListSlideAdapter.getItem(position);
+                nowUsers = (Users) usersListSlideAdapter.getItem(position);
                 Log.d("-진우-", "선택한 아이 : " + nowUsers.toString());
-                Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' 아이를 선택하였습니다", Toast.LENGTH_LONG).show();*/
+                Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' 아이를 선택하였습니다", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -232,9 +233,8 @@ public class SettingActivity extends BaseActivity {
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
         usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-        int height = getListViewHeight(lv_usersList);
-        lv_usersList.getLayoutParams().height = height;
-        usersListSlideAdapter.notifyDataSetChanged();
+        lv_usersList.getLayoutParams().height  = getListViewHeight(lv_usersList);
+          usersListSlideAdapter.notifyDataSetChanged();
 
         //슬라이드메뉴 셋팅(내 아이목록, 계정이름, 계정이미지)
         //SettingTask task = new SettingTask();

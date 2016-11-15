@@ -39,7 +39,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +63,8 @@ public class EquipmentActivity extends BaseActivity {
     private WifiListAdapter wifiListAdapter;
     private ImageView img_btn;
 
-    //레이아웃정의
+    //requestCode
+    private static final int REQUEST_ACT = 111;
 
 
     private ArrayList<String> E_response;
@@ -72,6 +72,8 @@ public class EquipmentActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         //화면 페이지
         ic_screen = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
@@ -160,8 +162,7 @@ public class EquipmentActivity extends BaseActivity {
     }
     //권한 체크 결과 받음
     @Override
-    @NonNull
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         if (requestCode == 11) {
             //허용 0, 비허용 -1
             if (grantResults[0] == 0){
@@ -258,17 +259,29 @@ public class EquipmentActivity extends BaseActivity {
             }
         }
 */
+        //w 명령어
         if(E_response.get(0).equals("w")&& E_response!=null){
-            String ssid="";
-            String singal = "";
-            String encription = "";
+            wifiList.clear();
+            String ssid;
+            String singal;
+            String encription;
+            String temp;
             for (int i = 2; i < E_response.size(); i++) {// i=2이유는 0번방에는 command, 1번방에는 기기에서 보내준 wifi 리스트 갯수, 2번방부터 리스트정보들
                 // 0) INVENTURE	Signal: -66 dBm	Encription: WPA2
-                ssid=E_response.get(i).substring(E_response.get(i).indexOf(") "),E_response.get(i).indexOf("\tSignal:"));
-                singal = E_response.get(i).substring(E_response.get(i).indexOf("Signal: "),E_response.get(i).indexOf(" dBm"));
-                encription = E_response.get(i).substring(E_response.get(i).indexOf("Encription:"),E_response.get(i).length());
-                Log.d(TAG, "search_Wifi ssid:"+ssid+",singal:"+singal +",Encription"+encription);
-                //wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities,String.valueOf(scanResult.level)+"dBm")); //wifi 정보를 걸러내어 list에 입력
+                //ssid=E_response.get(i).substring(E_response.get(i).indexOf(") "),E_response.get(i).indexOf("\tSignal:"));
+                temp=E_response.get(i);
+                if(temp.contains(") ")&&temp.contains("Signal: ")&&temp.contains("Encription:")){//BufferedReader로 읽을때 인코딩
+                    ssid=temp.substring(temp.indexOf(") ")+2,temp.indexOf("\tSignal:"));
+                    singal = temp.substring(temp.indexOf("Signal: ")+8,temp.indexOf(" dBm"));
+                    encription = temp.substring(temp.indexOf("Encription: ")+12,temp.length());
+                    wifiList.add(new Wifi(ssid,encription,singal+"dBm")); //wifi 정보를 걸러내어 list에 입력
+                }
+                else{
+                    continue;
+                }
+                Log.d(TAG, "search_Wifi ssid="+ssid+",singal="+singal +",Encription="+encription);
+                temp="";
+
             }
         }
 
@@ -289,7 +302,7 @@ public class EquipmentActivity extends BaseActivity {
                     openPopup(wifi.getSsid(), wifi.getCapabilities());
                 }else{
                     //보안이 없다면 바로 연결
-                    connectWifi(wifi.getSsid(), "phyctogram", wifi.getCapabilities());
+                    new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("s "+wifi.getSsid());
                 }
             }
         });
@@ -301,14 +314,37 @@ public class EquipmentActivity extends BaseActivity {
     //보안 wifi 일 경우 팝업 오픈하여 비밀번호 입력하게 함
     public void openPopup(String ssid, String capabilities){
         //현재 activity를 팝업에 셋팅함
-        PopUpActivity.activity = this;
+        //PopUpActivity.activity = this;
 
         //팝업 오픈
         Intent i = new Intent(getApplicationContext(), PopUpActivity.class);
         i.putExtra("ssid", ssid);
         i.putExtra("capabilities", capabilities);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(i);
+        //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivityForResult(i,REQUEST_ACT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: 실행");
+
+        if (resultCode != RESULT_OK) {
+            Log.d(TAG, "onActivityResult: 결과가 성공이 아님.");
+            return;
+        }
+
+        if (requestCode == REQUEST_ACT) {
+            //popupActiviy에서 가져온 ap 정보
+            String p_ssid = data.getStringExtra("p_ssid");
+            String p_password = data.getStringExtra("p_password");
+            String p_capabilities = data.getStringExtra("p_capabilities");
+            Log.d(TAG, "onActivityResult: 결과:" +p_ssid+","+p_password+","+p_capabilities);
+            new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("s "+p_ssid+" "+p_password);
+
+        } else {
+            Log.d(TAG, "onActivityResult: REQUEST_ACT가 아님.");
+        }
     }
 
     //wifi 연결 담당
@@ -390,6 +426,7 @@ public class EquipmentActivity extends BaseActivity {
         super.onResume();
         Log.d("-진우-", "EquipmentActivity.onResume() 실행");
 
+
         //슬라이드메뉴 셋팅
         initSildeMenu();
 
@@ -446,46 +483,51 @@ public class EquipmentActivity extends BaseActivity {
 
 
 
-            if(!mWm.getConnectionInfo().getSSID().contains("phyctogram_")){
-                Log.d("-대경-", "phytogram으로연결되어있지않음. ");
-                String ssid = (String) params[1];
-                String password = (String) params[2];
-                String capabilities = (String) params[3];
-                Log.d("-진우-", "ssid: " + ssid + ",password: " + password + ",capablities: " + capabilities);
-                WifiConfiguration wfc = EquipmentActivity.getWifiConfiguration(ssid, password, capabilities);
-
-                Log.d("-진우-", "wfc : " + wfc.toString());
-
-                int networkId = -1; //-1 연결 정보 없음
-                List<WifiConfiguration> networks = mWm.getConfiguredNetworks();
-                //   Log.d("-진우-", "networks : " + networks.toString());
-
-                for (int i = 0; i < networks.size(); i++) {
-                    //Log.d("-진우-", "networks.get(i).SSID : " + networks.get(i).SSID);
-                    if (networks.get(i).SSID.equals("\"".concat(ssid).concat("\""))) {
-                        Log.d("-진우-", "networks.get(i).networkId : " + networks.get(i).networkId);
-                        networkId = networks.get(i).networkId; //-1을 연결 정보가 있다면 해당 id로 변경
-                    }
-                }
-
-                //연결 정보가 없다면 네트워크를 추가하고 id를 받음
-                if (networkId == -1) {
-                    networkId = mWm.addNetwork(wfc);
-                }
-                Log.d("-진우-", "networkId : " + networkId);
-
-                //연결 여부 : false
-                boolean connection = false;
-
-                if (networkId != -1) {
-                    //Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_connectionAlert, Toast.LENGTH_LONG).show();
-                    //해당 networkId로 wifi를 연결함
-                    connection = mWm.enableNetwork(networkId, true); //연결이 되면 true를 반환
-                    Log.d("-진우-", "connection : " + connection);
-                }
-
+            if(mWm!=null&&!mWm.getConnectionInfo().getSSID().contains("phyctogram_")){
                 try {
-                    Thread.sleep(10000);
+                    Log.d("-대경-", "phytogram으로연결되어있지않음. ");
+                    String ssid = (String) params[1];
+                    String password = (String) params[2];
+                    String capabilities = (String) params[3];
+                    Log.d("-진우-", "ssid: " + ssid + ",password: " + password + ",capablities: " + capabilities);
+                    WifiConfiguration wfc = EquipmentActivity.getWifiConfiguration(ssid, password, capabilities);
+
+                    Log.d("-진우-", "wfc : " + wfc.toString());
+
+                    int networkId = -1; //-1 연결 정보 없음
+                    List<WifiConfiguration> networks = mWm.getConfiguredNetworks();
+                    //   Log.d("-진우-", "networks : " + networks.toString());
+
+                    for (int i = 0; i < networks.size(); i++) {
+                        //Log.d("-진우-", "networks.get(i).SSID : " + networks.get(i).SSID);
+                        if (networks.get(i).SSID.equals("\"".concat(ssid).concat("\""))) {
+                            Log.d("-진우-", "networks.get(i).networkId : " + networks.get(i).networkId);
+                            networkId = networks.get(i).networkId; //-1을 연결 정보가 있다면 해당 id로 변경
+                        }
+                    }
+
+                    //연결 정보가 없다면 네트워크를 추가하고 id를 받음
+                    if (networkId == -1) {
+                        networkId = mWm.addNetwork(wfc);
+                    }
+                    Log.d("-진우-", "networkId : " + networkId);
+
+                    //연결 여부 : false
+                    boolean connection = false;
+
+                    if (networkId != -1) {
+                        //Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_connectionAlert, Toast.LENGTH_LONG).show();
+                        //해당 networkId로 wifi를 연결함
+                        connection = mWm.enableNetwork(networkId, true); //연결이 되면 true를 반환
+                        Log.d("-진우-", "connection : " + connection);
+                    }
+                }catch (ArrayIndexOutOfBoundsException e){
+                    e.printStackTrace();
+
+                    return null;
+                }
+                try {
+                    Thread.sleep(5000);
                     Log.d( "thread.sleep ","10초");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -499,7 +541,7 @@ public class EquipmentActivity extends BaseActivity {
 
                 Socket socket = new Socket(SERV_IP,PORT);
                 networkWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                networkReader = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF-8"));
+                networkReader = new BufferedReader(new InputStreamReader(socket.getInputStream(),"ASCII"));
                 WriteSocket(networkWriter,command);
 
                 PrintWriter out = new PrintWriter(networkWriter, true);
@@ -507,17 +549,25 @@ public class EquipmentActivity extends BaseActivity {
 
                 String  line;
                 response = new ArrayList<String>();
+
                 //디버깅을위한 list(0) command로
                 response.add(command);
                 if(command.equals("w")){
                     int i =0;
                     while (true){
                         line = networkReader.readLine();
-                        Log.d("line:",line);
+                        Log.d("1 line",line);
+                        if(!line.contains("Signal:")){//ssid 가 30비트 이상일 경우(길 경우) 개행이 되어 signal:이 포함되있지 않으면 read라인
+                            if(!line.contains("number of available networks")){//첫라인은 제외
+                                line += networkReader.readLine();
+                            }
+
+                            Log.d("2 line",line);
+                        }
+                        Log.d("3 line",line);
                         response.add(line);
-                        line = null;
                         i++;
-                        if(i==Integer.valueOf(response.get(1).substring(response.get(1).indexOf(":")+1,response.get(1).length()))){
+                        if(i==Integer.valueOf(response.get(1).substring(response.get(1).indexOf(":")+1,response.get(1).length()))+1){//기기에서 보내준 wifi 갯수일때  break(첫라인은 info므로 +1)
                             break;
                         }
                     }
@@ -535,9 +585,6 @@ public class EquipmentActivity extends BaseActivity {
                 networkReader.close();
 
 
-            } catch (UnknownHostException e) {
-
-                e.printStackTrace();
             } catch(IOException e){
                 e.printStackTrace();
             }
@@ -546,12 +593,17 @@ public class EquipmentActivity extends BaseActivity {
         //Background 작업이 끝난 후 UI 작업을 진행 한다.
         @Override
         protected void onPostExecute(ArrayList<String>  response) {
-
-            Toast.makeText(mContext,"명령어: "+response.get(0)+"response 1 Line:"+response.get(1) , Toast.LENGTH_LONG).show();
+            super.onPostExecute(response);
+            if(response==null){
+                dialog.dismiss();
+                Toast.makeText(mContext,"기기와 연결이 비정상적으로 종료 되었습니다.\n기기와 연결을 확인해주세요.", Toast.LENGTH_LONG).show();
+                 return;
+            }
+            // Toast.makeText(mContext,"명령어: "+response.get(0)+"response 1 Line:"+response.get(1) , Toast.LENGTH_LONG).show();
             E_response=response;
             search_Wifi();
             dialog.dismiss();
-            super.onPostExecute(response);
+
         }
 
 

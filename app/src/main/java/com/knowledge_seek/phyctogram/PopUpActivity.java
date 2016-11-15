@@ -2,6 +2,7 @@ package com.knowledge_seek.phyctogram;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +18,7 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 
 	private String ssid;
 	private String capabilities;
-	private String ipAddress;
+	//private String password;
 
 	private TextView tv_ssid;
 	private EditText edit_password;
@@ -30,14 +31,14 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(com.knowledge_seek.phyctogram.R.layout.popup_wifi);
 	}
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+
 		super.onResume();
 		btn_close_popup = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_close_popup);
 		btn_pwdOk = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_pwdOk);
@@ -47,7 +48,7 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 
 		ssid = getIntent().getStringExtra("ssid");
 		capabilities = getIntent().getStringExtra("capabilities");
-		ipAddress = getIntent().getStringExtra("ipAddress");
+		//ipAddress = getIntent().getStringExtra("ipAddress");
 
 		tv_ssid = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_ssid);
 		edit_password = (EditText) findViewById(com.knowledge_seek.phyctogram.R.id.edit_password);
@@ -61,18 +62,12 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 			i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(i);*/
 			Log.d("-대경-", "PopUpActivity ssid : " + ssid + ", capabilities : " + capabilities + ", edit_password : " + edit_password.getText());
-
-			if (activity !=null) {
-				activity.connectWifi(ssid, edit_password.getText().toString(), capabilities);
-			}
-			else{
-				String password = edit_password.getText().toString();
-
-				//기기에 메세지를 보내고 보낸 후 입력한 wifi로 다시 연결
-				//	SendMessageThread sendMessageThread = new SendMessageThread(true, 0, ipAddress, ssid, password);
-				// sendMessageThread.start();
-			}
-			finish();
+				Intent i = new Intent();
+				i.putExtra("p_ssid", ssid);
+				i.putExtra("p_capabilities", capabilities);
+				i.putExtra("p_password", edit_password.getText().toString());
+				setResult(RESULT_OK, i);
+				finish();
 
 		}else if(v.getId() == com.knowledge_seek.phyctogram.R.id.btn_close_popup){
 			finish();
