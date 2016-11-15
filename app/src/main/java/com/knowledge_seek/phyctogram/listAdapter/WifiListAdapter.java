@@ -5,12 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.List;
 
 import com.knowledge_seek.phyctogram.R;
 import com.knowledge_seek.phyctogram.domain.Wifi;
+
+import java.util.List;
 
 /**
  * Created by shj on 2016-02-23.
@@ -52,6 +53,7 @@ public class WifiListAdapter extends BaseAdapter {
         }
         Wifi wifi = wifis.get(position);
         TextView tv_ssid = (TextView)convertView.findViewById(R.id.tv_ssid);
+        ImageView lv_wifiLevel = (ImageView)convertView.findViewById(R.id.iv_wifiLevel);
         //TextView tv_capabilities = (TextView)convertView.findViewById(R.id.tv_capabilities);
         tv_ssid.setText(wifis.get(position).getSsid());
         //tv_capabilities.setText(wifis.get(position).getCapabilities());

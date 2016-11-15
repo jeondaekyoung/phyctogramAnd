@@ -166,12 +166,12 @@ public class BaseActivity extends Activity {
                 .rippleAlpha(0.2f)
                 .rippleHover(true)
                 .create();
-        View view1 = findViewById(R.id.ripple1);
+      /*  View view1 = findViewById(R.id.ripple1);
         MaterialRippleLayout.on(view1)
                 .rippleColor(Color.parseColor("#C0AAE1"))
                 .rippleAlpha(0.2f)
                 .rippleHover(true)
-                .create();
+                .create();*/
 
         View view2 = findViewById(R.id.ripple2);
         MaterialRippleLayout.on(view2)

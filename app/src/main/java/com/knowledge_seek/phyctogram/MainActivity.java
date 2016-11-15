@@ -586,7 +586,18 @@ public class MainActivity extends BaseActivity {
             String imgName = "@drawable/" + heightTask.get(0).getAnimal_img().substring(0, 12);
             String packName = self.getPackageName();
             Log.d("-진우-", "확인 : " + imgName);
-            iv_my_animal.setImageResource(getResources().getIdentifier(imgName, "drawable", packName));
+            Log.d("-대경-", "확인 : " + imgName);
+
+
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(imgName, "drawable", packName));
+
+            Log.d("-대경-","Width:"+bitmap.getWidth()+",Height:"+bitmap.getHeight());
+            bitmap=bitmap.createScaledBitmap(bitmap,540,540, true);
+            Log.d("-대경-","newWidth:"+bitmap.getWidth()+",newHeight:"+bitmap.getHeight());
+
+             iv_my_animal.setImageBitmap(bitmap);
+
+            //iv_my_animal.setImageResource(getResources().getIdentifier(imgName, "drawable", packName));
             //최종신장
             tv_height.setText(String.format("%.1f", heightTask.get(0).getHeight()));
             //성장키
@@ -648,5 +659,6 @@ public class MainActivity extends BaseActivity {
             super.onPostExecute(result);
         }
     }
+
 
 }

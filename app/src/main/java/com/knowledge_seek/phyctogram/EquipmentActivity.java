@@ -271,7 +271,7 @@ public class EquipmentActivity extends BaseActivity {
                 //ssid=E_response.get(i).substring(E_response.get(i).indexOf(") "),E_response.get(i).indexOf("\tSignal:"));
                 temp=E_response.get(i);
                 if(temp.contains(") ")&&temp.contains("Signal: ")&&temp.contains("Encription:")){//BufferedReader로 읽을때 인코딩
-                    ssid=temp.substring(temp.indexOf(") ")+2,temp.indexOf("\tSignal:"));
+                    ssid=temp.substring(temp.indexOf(") ")+2,temp.indexOf("\tSignal:")).replace("�","");
                     singal = temp.substring(temp.indexOf("Signal: ")+8,temp.indexOf(" dBm"));
                     encription = temp.substring(temp.indexOf("Encription: ")+12,temp.length());
                     wifiList.add(new Wifi(ssid,encription,singal+"dBm")); //wifi 정보를 걸러내어 list에 입력
@@ -283,6 +283,7 @@ public class EquipmentActivity extends BaseActivity {
                 temp="";
 
             }
+
         }
 
         //wifi 리스트를 adapter를 통하여 ListView에 셋팅함
@@ -302,6 +303,7 @@ public class EquipmentActivity extends BaseActivity {
                     openPopup(wifi.getSsid(), wifi.getCapabilities());
                 }else{
                     //보안이 없다면 바로 연결
+                    Log.d(TAG, "onItemClick: wifi.getSsid() : "+ wifi.getSsid());
                     new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("s "+wifi.getSsid());
                 }
             }
@@ -426,7 +428,6 @@ public class EquipmentActivity extends BaseActivity {
         super.onResume();
         Log.d("-진우-", "EquipmentActivity.onResume() 실행");
 
-
         //슬라이드메뉴 셋팅
         initSildeMenu();
 
@@ -435,10 +436,6 @@ public class EquipmentActivity extends BaseActivity {
 
         lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
-
-        //슬라이드메뉴 셋팅(내 아이목록, 계정이름, 계정이미지)
-        //EquipmentTask task = new EquipmentTask();
-        //task.execute(img_profile);
 
         Log.d("-진우-", "EquipmentActivity 에서 onResume() : " + member.toString());
 
@@ -469,7 +466,8 @@ public class EquipmentActivity extends BaseActivity {
         protected void onPreExecute() {
 
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getApplicationContext().getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait)+"기기 검색 중입니다.");
+            dialog.setMessage(getApplicationContext().getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait)+"\n"+
+                    getApplicationContext().getString(com.knowledge_seek.phyctogram.R.string.equipmentActivity_searching));
             dialog.show();
             super.onPreExecute();
         }
@@ -528,7 +526,7 @@ public class EquipmentActivity extends BaseActivity {
                 }
                 try {
                     Thread.sleep(5000);
-                    Log.d( "thread.sleep ","10초");
+                    Log.d( "thread.sleep ","5초");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -538,6 +536,7 @@ public class EquipmentActivity extends BaseActivity {
                 Log.d("TCP","server connecting");
                 String  command = (String) params[0];
 
+                Log.d(TAG, "command :"+command);
 
                 Socket socket = new Socket(SERV_IP,PORT);
                 networkWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -616,7 +615,6 @@ public class EquipmentActivity extends BaseActivity {
 
     }
 
-
     @NonNull
     public static WifiConfiguration getWifiConfiguration(String ssid, String password, String capabilities) {
         WifiConfiguration wfc = new WifiConfiguration();
@@ -685,6 +683,5 @@ public class EquipmentActivity extends BaseActivity {
         }
         return wfc;
     }
-
 
 }

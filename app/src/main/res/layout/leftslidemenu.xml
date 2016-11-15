@@ -64,10 +64,6 @@
                     android:text="@string/leftSlideMenu_home" />
             </com.balysv.materialripple.MaterialRippleLayout>
 
-            <com.balysv.materialripple.MaterialRippleLayout
-                android:id="@+id/ripple1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
                 <ListView
                     android:id="@+id/lv_usersList"
@@ -77,8 +73,7 @@
                     android:divider="#e0e0e0"
                     android:dividerHeight="1dp"
                     android:drawSelectorOnTop="true" />
-            </com.balysv.materialripple.MaterialRippleLayout>
-
+          
 
             <com.balysv.materialripple.MaterialRippleLayout
                 android:id="@+id/ripple2"

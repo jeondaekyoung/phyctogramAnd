@@ -35,9 +35,9 @@
     <string name="diaryWriteActivity_registerDay">날짜를 입력해주세요.</string>
     <string name="diaryWriteActivity_alreadyDiary">이미 일기를 작성하였습니다.</string>
 
-    <string name="equipmentActivity_searchHW">기기 검색</string>
+    <string name="equipmentActivity_searchHW">기기 검색 및 연결</string>
     <string name="equipmentActivity_searching">검색중 입니다...</string>
-    <string name="equipmentActivity_endSearch">검색 완료 (재검색)</string>
+    <string name="equipmentActivity_endSearch">재검색</string>
     <string name="equipmentActivity_connectionAlert">연결 시도합니다.</string>
     <string name="equipmentActivity_failPW">비밀번호가 틀렸습니다. 다시 시도해주세요.</string>
     <string name="equipmentActivity_successConnection">연결 되었습니다.</string>
@@ -147,9 +147,9 @@
 
     <string name="includeAnalysis_finalHeight">키</string>
     <string name="includeAnalysis_highRank">상위</string>
-    <string name="includeAnalysis_avg">평균보다</string>
-    <string name="includeAnalysis_growth">성장</string>
-    <string name="includeAnalysis_analysis">8~9세 미만에 사춘기증세, 성조숙증 의심해보세요</string>
+    <string name="includeAnalysis_avg">평균</string>
+    <string name="includeAnalysis_growth">3개월동안 성장</string>
+    <string name="includeAnalysis_analysis">9세에 사춘기증세, 성조숙증 의심해보세요</string>
     <string name="includeAnalysis_analysisContentLink">솔루션 보기 +</string>
     <string name="includeAnalysis_analysisShare">공유하기</string>
 
