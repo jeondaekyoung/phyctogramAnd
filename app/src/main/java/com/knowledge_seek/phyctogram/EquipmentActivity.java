@@ -40,6 +40,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /*
@@ -246,6 +248,20 @@ public class EquipmentActivity extends BaseActivity {
         }
     };
 
+    /**
+     *  오름차순
+     * @author falbb
+     *
+     */
+    static class Signal_AscCompare implements Comparator<Wifi> {
+        @Override
+        public int compare(Wifi arg0,Wifi arg1) {
+           return Integer.valueOf(arg0.getSignal()) > Integer.valueOf(arg1.getSignal())? -1 : Integer.valueOf(arg0.getSignal()) <Integer.valueOf(arg1.getSignal())  ? 1:0;
+
+        }
+
+    }
+
     //wifi List view 셋팅
     public void search_Wifi() {
         /*unregisterReceiver(wifiReceiver);    //리시버 해제
@@ -274,7 +290,7 @@ public class EquipmentActivity extends BaseActivity {
                     ssid=temp.substring(temp.indexOf(") ")+2,temp.indexOf("\tSignal:")).replace("�","");
                     singal = temp.substring(temp.indexOf("Signal: ")+8,temp.indexOf(" dBm"));
                     encription = temp.substring(temp.indexOf("Encription: ")+12,temp.length());
-                    wifiList.add(new Wifi(ssid,encription,singal+"dBm")); //wifi 정보를 걸러내어 list에 입력
+                    wifiList.add(new Wifi(ssid,encription,singal)); //wifi 정보를 걸러내어 list에 입력
                 }
                 else{
                     continue;
@@ -283,7 +299,8 @@ public class EquipmentActivity extends BaseActivity {
                 temp="";
 
             }
-
+            Collections.sort(wifiList, new Signal_AscCompare());
+            Log.d("-대경-", "wifiList: "+wifiList);
         }
 
         //wifi 리스트를 adapter를 통하여 ListView에 셋팅함
@@ -393,29 +410,6 @@ public class EquipmentActivity extends BaseActivity {
             Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_successConnection, Toast.LENGTH_LONG).show();
 
 
-
-        /*통신방식 변경으로인한 주석 처리
-           //연결된 wifi에 ip를 가져옴 필요 여부 판단 필요
-            WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
-            DhcpInfo dhcpInfo = wm.getDhcpInfo() ;
-            int serverIp = dhcpInfo.gateway;
-            String ipAddress = String.format(
-                    "%d.%d.%d.%d",
-                    (serverIp & 0xff),
-                    (serverIp >> 8 & 0xff),
-                    (serverIp >> 16 & 0xff),
-                    (serverIp >> 24 & 0xff));
-
-            Log.d("-진우-", "ipAddress: " + ipAddress);
-
-            //기기에 member_seq 전송
-          //  new EqAsyncTask().execute("192.168.4.1:80", "member_seq", member.getMember_seq()+"**");
-
-            //연결된 픽토그램 기기에 보내줄 wifi 선택 팝업을 오픈
-            Intent i = new Intent(getApplicationContext(), WifiPopUpActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            i.putExtra("ipAddress", ipAddress);
-            startActivity(i);*/
         }else{
             Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_failConnection, Toast.LENGTH_SHORT).show();
         }
@@ -525,8 +519,8 @@ public class EquipmentActivity extends BaseActivity {
                     return null;
                 }
                 try {
-                    Thread.sleep(5000);
-                    Log.d( "thread.sleep ","5초");
+                    Thread.sleep(7000);
+                    Log.d( "thread.sleep ","wifi 연결을 위한 sleep 7초");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

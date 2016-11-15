@@ -54,6 +54,17 @@ public class WifiListAdapter extends BaseAdapter {
         Wifi wifi = wifis.get(position);
         TextView tv_ssid = (TextView)convertView.findViewById(R.id.tv_ssid);
         ImageView lv_wifiLevel = (ImageView)convertView.findViewById(R.id.iv_wifiLevel);
+        int level = Integer.valueOf(wifi.getSignal());
+        if(level>=-50){
+            lv_wifiLevel.setImageResource(R.drawable.wifi_4);
+        }else if(level>=-60){
+            lv_wifiLevel.setImageResource(R.drawable.wifi_3);
+        } else if(level>=-70){
+            lv_wifiLevel.setImageResource(R.drawable.wifi_2);
+        } else {
+            lv_wifiLevel.setImageResource(R.drawable.wifi_1);
+        }
+
         //TextView tv_capabilities = (TextView)convertView.findViewById(R.id.tv_capabilities);
         tv_ssid.setText(wifis.get(position).getSsid());
         //tv_capabilities.setText(wifis.get(position).getCapabilities());
