@@ -60,6 +60,7 @@
     <string name="joinActivity_checkContents">내용을 확인해주세요.</string>
     <string name="joinActivity_checkEmail">이메일 형식을 확인해주세요.</string>
     <string name="joinActivity_successJoinAlert">픽토그램 회원이 되셨습니다.</string>
+    <string name="joinActivity_userRegister">사용자 등록 페이지로 이동 합니다.</string>
     <string name="joinActivity_alreadyJoinAlert">이미 가입된 이메일입니다.</string>
 
     <string name="loginActivity_checkPWEmail">이메일과 패스워드를 확인해주세요.</string>

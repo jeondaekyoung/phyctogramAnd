@@ -57,7 +57,7 @@ import java.util.List;
 /**
  * Created by sjw on 2015-11-26.
  */
-public class BaseActivity extends Activity {
+public class  BaseActivity extends Activity {
 
     protected static Activity self;
 

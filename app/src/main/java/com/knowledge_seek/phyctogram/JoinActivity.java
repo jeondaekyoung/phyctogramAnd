@@ -22,13 +22,14 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-
 import com.knowledge_seek.phyctogram.domain.Member;
 import com.knowledge_seek.phyctogram.phyctogram.SaveSharedPreference;
 import com.knowledge_seek.phyctogram.retrofitapi.MemberAPI;
 import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
 import com.knowledge_seek.phyctogram.util.Utility;
+
+import java.io.IOException;
+
 import retrofit.Call;
 
 /**
@@ -338,10 +339,13 @@ public class JoinActivity extends Activity {
             if(member != null) {
                 Log.d("-진우-", "픽토그램 가입 성공 결과1 : " + member.toString());
                 Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.joinActivity_successJoinAlert, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.joinActivity_userRegister, Toast.LENGTH_SHORT).show();
                 memberActivity = member;
                 //가입완료후 로그인유지를 위해 preference를 사용한다.
                 SaveSharedPreference.setMemberSeq(getApplicationContext(), String.valueOf(memberActivity.getMember_seq()));
-                redirectMainActivity(memberActivity);
+                //redirectMainActivity(memberActivity);
+
+
             } else {
                 Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.joinActivity_alreadyJoinAlert, Toast.LENGTH_SHORT).show();
             }

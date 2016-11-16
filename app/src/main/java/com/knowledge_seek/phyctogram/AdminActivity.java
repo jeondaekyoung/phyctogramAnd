@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.knowledge_seek.phyctogram.domain.Users;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
-import com.knowledge_seek.phyctogram.util.EqAsyncTask;
 import com.pkmmte.view.CircularImageView;
 
 import java.io.BufferedReader;
@@ -27,7 +26,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 /**
@@ -102,28 +100,30 @@ public class AdminActivity extends BaseActivity {
                 tc = new ADMINTCP_Task(getApplicationContext());
                 tc.execute(command);
 
-
             }
         });
         btn_adj = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_adj);
         btn_adj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new EqAsyncTask().execute("192.168.4.1:80", "?ADJ", et_adj.getText() + "**");
+                //new EqAsyncTask().execute("192.168.4.1:80", "?ADJ", et_adj.getText() + "**");
+                /*Intent intent = new Intent(getApplicationContext(), GuideActivity.class);
+                startActivity(intent);
+                finish();*/
             }
         });
         btn_useq = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_useq);
         btn_useq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new EqAsyncTask().execute("192.168.4.1:80", "?USEQ", et_useq.getText() + "**");
+                //new EqAsyncTask().execute("192.168.4.1:80", "?USEQ", et_useq.getText() + "**");
             }
         });
         btn_end = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_end);
         btn_end.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new EqAsyncTask().execute("192.168.4.1:80", "?END_SERVER", "END_SERVER");
+                //new EqAsyncTask().execute("192.168.4.1:80", "?END_SERVER", "END_SERVER");
             }
         });
 

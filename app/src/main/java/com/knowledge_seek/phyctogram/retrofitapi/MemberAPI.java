@@ -40,9 +40,6 @@ public interface MemberAPI {
     Call<String> testget11();*/
 
 
-
-
-
     //여기부터 시작
     @POST("/rest/member/register")
     Call<Member> registerMember(@Body Member member);
