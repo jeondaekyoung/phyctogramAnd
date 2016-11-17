@@ -35,6 +35,12 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.knowledge_seek.phyctogram.domain.Height;
+import com.knowledge_seek.phyctogram.domain.Users;
+import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
+import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
+import com.knowledge_seek.phyctogram.retrofitapi.UsersAPI;
+import com.knowledge_seek.phyctogram.util.Utility;
 import com.pkmmte.view.CircularImageView;
 
 import java.io.IOException;
@@ -42,12 +48,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.knowledge_seek.phyctogram.domain.Height;
-import com.knowledge_seek.phyctogram.domain.Users;
-import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
-import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
-import com.knowledge_seek.phyctogram.retrofitapi.UsersAPI;
-import com.knowledge_seek.phyctogram.util.Utility;
 import retrofit.Call;
 
 public class UsersAnalysisActivity extends BaseActivity {
@@ -79,6 +79,8 @@ public class UsersAnalysisActivity extends BaseActivity {
 
     //그래프 레이아웃
     private CombinedChart mChart;
+    private YAxis rightAxis;
+    private YAxis leftAxis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -306,14 +308,16 @@ public class UsersAnalysisActivity extends BaseActivity {
                 CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.BUBBLE, CombinedChart.DrawOrder.CANDLE, CombinedChart.DrawOrder.LINE, CombinedChart.DrawOrder.SCATTER
         });*/
 
-        YAxis rightAxis = mChart.getAxisRight();
+        rightAxis = mChart.getAxisRight();
         rightAxis.setDrawGridLines(false);
+        rightAxis.setStartAtZero(false);
+        rightAxis.setEnabled(false);
 
-        YAxis leftAxis = mChart.getAxisLeft();
+        leftAxis = mChart.getAxisLeft();
         leftAxis.setDrawGridLines(false);
-
+        leftAxis.setStartAtZero(false);
         XAxis xAxis = mChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         //내 아이 메인(분석) 정보 등
         iv_my_animal = (ImageView)findViewById(com.knowledge_seek.phyctogram.R.id.iv_my_animal);
@@ -376,13 +380,14 @@ public class UsersAnalysisActivity extends BaseActivity {
 
         for (int index = 0 ; index < heights.size(); index++){
             //Log.d("-진우-", "키 데이터 : " + heights.get(index).toString());
-
+            if (index==0){
+                leftAxis.setAxisMinValue((float) heights.get(index).getHeight());
+            }
             String str = heights.get(index).getMesure_date();
             xAxis.add(String.valueOf(new StringBuilder().append(str.substring(5, 7)).append("/").append(str.substring(8, 10))));
 
-            height50.add(new BarEntry(Float.parseFloat(String.format("%.1f", heights.get(index).getHeight_50())), index));
-            heightMy.add(new Entry(Float.parseFloat(String.format("%.1f", heights.get(index).getHeight())), index));
-           Log.d("-진우-", "소수점 확인 : " + Float.parseFloat(String.format("%.1f", heights.get(index).getHeight_50())) + ", " + heights.get(index).getHeight_50());
+            height50.add(new BarEntry((float) heights.get(index).getHeight_50(), index));
+            heightMy.add(new Entry( (float)heights.get(index).getHeight(), index));
         }
 
         CombinedData data = new CombinedData(xAxis);
@@ -414,7 +419,6 @@ public class UsersAnalysisActivity extends BaseActivity {
         set.setDrawCubic(true);
         set.setDrawValues(true);
         set.setValueTextSize(10f);
-        //set.setValueTextColor(Color.rgb(0, 0, 0));
         set.setValueTextColor(Color.rgb(151, 118, 197));
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
 
@@ -678,12 +682,13 @@ public class UsersAnalysisActivity extends BaseActivity {
             int eMonth = Integer.parseInt(dateTo.substring(5,7));
             Log.d("-진우-", "기간2 : " + sYear + "-" + sMonth+ ", " + eYear + "-" + eMonth);
             int month_diff = (eYear - sYear)* 12 + (eMonth - sMonth);
-            double analysis_height50_diff =  Double.parseDouble(String.format("%.1f", analysisTask.get(0).getHeight_50() - analysisTask.get(analysisSize-1).getHeight_50()));
-            double analysis_height_diff =  Double.parseDouble(String.format("%.1f", analysisTask.get(0).getHeight() - analysisTask.get(analysisSize-1).getHeight()));
+            //double analysis_height50_diff =  Double.parseDouble(String.format("%.1f", analysisTask.get(0).getHeight_50() - analysisTask.get(analysisSize-1).getHeight_50()));
+            double analysis_height50_diff =   analysisTask.get(0).getHeight_50() - analysisTask.get(analysisSize-1).getHeight_50();
+            double analysis_height_diff =   analysisTask.get(0).getHeight() - analysisTask.get(analysisSize-1).getHeight();
             StringBuilder analysis_height = new StringBuilder();
             /*analysis_height.append(month_diff).append(getString(R.string.usersAnalysisActivity_month)+" ").append(analysis_height50_diff).append("cm "+getString(R.string.usersAnalysisActivity_grow));*/
             analysis_height.append(month_diff).append(getString(com.knowledge_seek.phyctogram.R.string.usersAnalysisActivity_month));
-            double diff = Double.parseDouble(String.format("%.1f", analysis_height_diff - analysis_height50_diff));
+            double diff =analysis_height_diff - analysis_height50_diff;
             Log.d("-진우-", "분석 결과2 : " + analysis_height + ", " + analysis_height_diff + ", " + analysis_height50_diff + " = "
                     + (analysis_height_diff - analysis_height50_diff) + ", " + diff);
             tv_analysis_height.setText(analysis_height);
