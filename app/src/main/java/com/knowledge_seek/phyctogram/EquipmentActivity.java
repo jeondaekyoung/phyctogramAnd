@@ -6,8 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
@@ -43,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /*
  * Created by dkfka on 2015-12-02.
@@ -68,15 +67,11 @@ public class EquipmentActivity extends BaseActivity {
     //requestCode
     private static final int REQUEST_ACT = 111;
 
-
     private ArrayList<String> E_response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         //화면 페이지
         ic_screen = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
         LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_equipment, ic_screen, true);
@@ -226,7 +221,23 @@ public class EquipmentActivity extends BaseActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             //선택된 wifi 정보를 뽑음
                             Wifi wifi = (Wifi) wifiListAdapter.getItem(position);
-                            new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities());
+                            try {
+                                E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            }
+                            if(E_response==null){
+                                Log.d("-대경-", "재연결");
+                                try {
+                                    E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
                     });
 
@@ -235,8 +246,24 @@ public class EquipmentActivity extends BaseActivity {
                 else if(wifiList.size()==1) {// 기기가 한대일땐 자동 연결
                     Wifi wifi=new Wifi(wifiList.get(0).getSsid(),wifiList.get(0).getCapabilities(),wifiList.get(0).getSignal());
                         Log.d("-대경-", "바로연결");
-                    new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities());
-               }
+                    try {
+                        E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    if(E_response==null){
+                        Log.d("-대경-", "재연결");
+                        try {
+                            E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
                 else{
             Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
                     wifiList.clear();
@@ -434,6 +461,7 @@ public class EquipmentActivity extends BaseActivity {
         Log.d("-진우-", "EquipmentActivity 에서 onResume() : " + member.toString());
 
         Log.d("-진우-", "EquipmentActivity.onResume() 끝");
+
     }
 
     private class Equipment_TCP_Client_Task extends AsyncTask <Object, Integer, ArrayList<String>> {
@@ -468,12 +496,6 @@ public class EquipmentActivity extends BaseActivity {
 
         @Override
         protected ArrayList<String> doInBackground(Object... params) {
-
-            ConnectivityManager manager =
-                    (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo wifi = manager.getActiveNetworkInfo();
-
-
 
             if(mWm!=null&&!mWm.getConnectionInfo().getSSID().contains("phyctogram_")){
                 try {
@@ -519,7 +541,7 @@ public class EquipmentActivity extends BaseActivity {
                     return null;
                 }
                 try {
-                    Thread.sleep(7000);
+                    Thread.sleep(5000);
                     Log.d( "thread.sleep ","wifi 연결을 위한 sleep 7초");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -590,10 +612,10 @@ public class EquipmentActivity extends BaseActivity {
             if(response==null){
                 dialog.dismiss();
                 Toast.makeText(mContext,"기기와 연결이 비정상적으로 종료 되었습니다.\n기기와 연결을 확인해주세요.", Toast.LENGTH_LONG).show();
-                 return;
-            }
+                return;
+             }
             // Toast.makeText(mContext,"명령어: "+response.get(0)+"response 1 Line:"+response.get(1) , Toast.LENGTH_LONG).show();
-            E_response=response;
+            //E_response=response;
             search_Wifi();
             dialog.dismiss();
 

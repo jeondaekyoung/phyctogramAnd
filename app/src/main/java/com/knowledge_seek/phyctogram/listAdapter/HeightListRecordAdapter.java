@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.List;
-
 import com.knowledge_seek.phyctogram.R;
 import com.knowledge_seek.phyctogram.domain.Height;
+
+import java.util.List;
 
 /**
  * Created by sjw on 2015-12-11.
@@ -60,10 +60,12 @@ public class HeightListRecordAdapter extends BaseAdapter {
         recordHeight.setText(String.valueOf(height.getHeight()));
         if(Double.valueOf(height.getGrow()) >= 0){
             recordSa.setText("+");
+            recordGrow.setText(String.valueOf(height.getGrow()));
         } else {
-            recordSa.setText("");
+            recordSa.setText("-");
+            recordGrow.setText(String.valueOf(height.getGrow()).substring(1));
         }
-        recordGrow.setText(String.valueOf(height.getGrow()));
+
         recordRank.setText(height.getRank() + "%");
 
         return convertView;

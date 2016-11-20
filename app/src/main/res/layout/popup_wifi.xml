@@ -13,7 +13,7 @@
         android:gravity="center"
         android:text="U+Net0243"
         android:textColor="#fff"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
 
     <TextView
@@ -34,7 +34,7 @@
         android:ems="10"
         android:inputType="textPassword"
         android:padding="16dp"
-        android:text="33" />
+        android:text="" />
 
 
     <LinearLayout

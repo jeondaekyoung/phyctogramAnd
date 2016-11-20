@@ -352,8 +352,7 @@ public class UsersAnalysisActivity extends BaseActivity {
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
         usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-        int height = getListViewHeight(lv_usersList);
-        lv_usersList.getLayoutParams().height = height;
+        lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
         //슬라이드메뉴 셋팅(내 아이 목록, 계정이미지, 내 아이 메인(분석)정보)
@@ -381,13 +380,20 @@ public class UsersAnalysisActivity extends BaseActivity {
         for (int index = 0 ; index < heights.size(); index++){
             //Log.d("-진우-", "키 데이터 : " + heights.get(index).toString());
             if (index==0){
-                leftAxis.setAxisMinValue((float) heights.get(index).getHeight());
-            }
-            String str = heights.get(index).getMesure_date();
-            xAxis.add(String.valueOf(new StringBuilder().append(str.substring(5, 7)).append("/").append(str.substring(8, 10))));
+                if((float) heights.get(index).getHeight_50()<(float) heights.get(index).getHeight()){
+                    leftAxis.setAxisMinValue((float) heights.get(index).getHeight_50());
+                }else{
+                    leftAxis.setAxisMinValue((float) heights.get(index).getHeight());
+                }
 
+            }
+            String str = heights.get(index).getMesure_date().substring(2);//날짜에서 년도 '20' 삭제
+            Log.d("mesure_date","drawGraph: "+str);
+            //xAxis.add(String.valueOf(new StringBuilder().append(str.substring(5, 7)).append("/").append(str.substring(8, 10))));
+            xAxis.add(String.valueOf(new StringBuilder().append(str.replaceAll("-","/"))));
             height50.add(new BarEntry((float) heights.get(index).getHeight_50(), index));
             heightMy.add(new Entry( (float)heights.get(index).getHeight(), index));
+            Log.d("-진우-", "소수점 확인 : " + Float.parseFloat(String.format("%.1f", heights.get(index).getHeight_50())) + ", " + heights.get(index).getHeight_50());
         }
 
         CombinedData data = new CombinedData(xAxis);
@@ -402,7 +408,7 @@ public class UsersAnalysisActivity extends BaseActivity {
 
     /**
      * 내 아이 성장곡선
-     * @return
+     * @return LineData
      */
     private LineData generateLineData(ArrayList<Entry> my) {
 
@@ -428,7 +434,7 @@ public class UsersAnalysisActivity extends BaseActivity {
 
     /**
      * 평균 성장 그래프
-     * @return
+     * @return BarData
      */
     private BarData generateBarData(ArrayList<BarEntry> ave) {
 
@@ -688,7 +694,7 @@ public class UsersAnalysisActivity extends BaseActivity {
             StringBuilder analysis_height = new StringBuilder();
             /*analysis_height.append(month_diff).append(getString(R.string.usersAnalysisActivity_month)+" ").append(analysis_height50_diff).append("cm "+getString(R.string.usersAnalysisActivity_grow));*/
             analysis_height.append(month_diff).append(getString(com.knowledge_seek.phyctogram.R.string.usersAnalysisActivity_month));
-            double diff =analysis_height_diff - analysis_height50_diff;
+            double diff = Double.parseDouble(String.format("%.1f", analysis_height_diff - analysis_height50_diff));
             Log.d("-진우-", "분석 결과2 : " + analysis_height + ", " + analysis_height_diff + ", " + analysis_height50_diff + " = "
                     + (analysis_height_diff - analysis_height50_diff) + ", " + diff);
             tv_analysis_height.setText(analysis_height);
