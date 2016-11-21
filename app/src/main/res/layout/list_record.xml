@@ -23,14 +23,6 @@
         android:text="157.3"
         android:textSize="16dp" />
 
-    <TextView
-        android:id="@+id/record_sa"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="end"
-        android:text="+"
-        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/record_grow"
@@ -41,9 +33,17 @@
         android:text="33"
         android:textSize="16dp" />
 
+    <ImageView
+        android:id="@+id/record_sa"
+        android:layout_width="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/record_up"
+        android:textSize="16dp" />
+
     <TextView
-        android:id="@+id/record_rank"
-        android:layout_width="0dp"
+    android:id="@+id/record_rank"
+    android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="4"
         android:gravity="end"

@@ -41,17 +41,62 @@
             android:orientation="vertical"
             android:padding="@dimen/activity_horizontal_margin">
 
-            <!--<TextView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/includeRecord_searchDay" />-->
+                android:text="@string/includeRecord_searchDay" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/btn_border_record"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    android:text="당일"
+                    android:textAlignment="center"
+                    android:textColor="@color/purpledk" />
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/btn_border_record"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    android:text="1주일"
+                    android:textAlignment="center"
+                    android:textColor="@color/purpledk" />
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/btn_border_record"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    android:text="1개월"
+                    android:textAlignment="center"
+                    android:textColor="@color/purpledk" />
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/btn_border_record"
+                    android:paddingBottom="3dp"
+                    android:paddingTop="3dp"
+                    android:text="3개월"
+                    android:textAlignment="center"
+                    android:textColor="@color/purpledk" />
+                <!--<TextView
                     android:id="@+id/tv_datepickFrom"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -76,11 +121,11 @@
                     android:background="@drawable/border_grey"
                     android:gravity="center"
                     android:hint="@string/includeRecord_writeDay"
-                    android:padding="@dimen/activity_horizontal_margin" />
+                    android:padding="@dimen/activity_horizontal_margin" />-->
 
             </LinearLayout>
 
-            <Button
+            <!--<Button
                 android:id="@+id/btn_findHeight"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
@@ -88,7 +133,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/btn_border_radius"
                 android:text="@string/includeRecord_search"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff" />-->
         </LinearLayout>
 
         <LinearLayout
