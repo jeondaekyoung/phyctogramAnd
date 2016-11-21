@@ -3,7 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,8 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/activity_horizontal_margin"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
+            android:onClick="linearOnClick"
             android:orientation="vertical">
 
             <ImageView

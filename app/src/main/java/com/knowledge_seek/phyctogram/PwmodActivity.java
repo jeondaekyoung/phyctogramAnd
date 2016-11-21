@@ -15,14 +15,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pkmmte.view.CircularImageView;
-
-import java.util.List;
-
 import com.knowledge_seek.phyctogram.domain.Users;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.knowledge_seek.phyctogram.retrofitapi.MemberAPI;
 import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
+import com.pkmmte.view.CircularImageView;
+
+import java.util.List;
+
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -132,10 +132,12 @@ public class PwmodActivity extends BaseActivity {
         if (member.getJoin_route().equals("kakao")) {
             ll_phyctogram.setVisibility(View.GONE);
             ll_no_phyctogram.setVisibility(View.VISIBLE);
+            btn_pw_mod.setVisibility(View.GONE);
             tv_join_route.setText(com.knowledge_seek.phyctogram.R.string.pwmodActivity_kakaoPW);
         } else if (member.getJoin_route().equals("facebook")) {
             ll_phyctogram.setVisibility(View.GONE);
             ll_no_phyctogram.setVisibility(View.VISIBLE);
+            btn_pw_mod.setVisibility(View.GONE);
             tv_join_route.setText(com.knowledge_seek.phyctogram.R.string.pwmodActivity_facebookPW);
         } else {
             ll_phyctogram.setVisibility(View.VISIBLE);

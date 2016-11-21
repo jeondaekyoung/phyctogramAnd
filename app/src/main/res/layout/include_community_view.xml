@@ -31,7 +31,9 @@
         android:id="@id/ll_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:onClick="linearOnClick"
+        >
 
         <com.knowledge_seek.phyctogram.util.MyLinearView
             android:id="@+id/mylinear"

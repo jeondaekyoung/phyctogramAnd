@@ -3,7 +3,9 @@
     android:layout_width="270dip"
     android:layout_height="wrap_content"
     android:background="@color/grey_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:onClick="linearOnClick"
+    >
 
     <TextView
         android:id="@id/tv_ssid"

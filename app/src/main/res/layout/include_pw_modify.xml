@@ -38,52 +38,57 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/ll_phyctogram"
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/activity_horizontal_margin"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
-
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
                     android:layout_gravity="center"
                     android:src="@drawable/password" />
 
-                <com.knowledge_seek.phyctogram.util.MyEditTextView
-                    android:id="@+id/et_now_pw"
+                <LinearLayout
+                    android:id="@+id/ll_phyctogram"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_horizontal_margin"
-                    android:background="@drawable/border_grey"
-                    android:hint="@string/includePwModify_realPw"
-                    android:inputType="textPassword"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:textSize="14dp" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <com.knowledge_seek.phyctogram.util.MyEditTextView
+                        android:id="@+id/et_now_pw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:background="@drawable/border_grey"
+                        android:hint="@string/includePwModify_realPw"
+                        android:inputType="textPassword"
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:textSize="14dp" />
 
-                <com.knowledge_seek.phyctogram.util.MyEditTextView
-                    android:id="@+id/et_pw"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/border_grey"
-                    android:hint="@string/includePwModify_changePw"
-                    android:inputType="textPassword"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:textSize="14dp" />
+                    <com.knowledge_seek.phyctogram.util.MyEditTextView
+                        android:id="@+id/et_pw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/border_grey"
+                        android:hint="@string/includePwModify_changePw"
+                        android:inputType="textPassword"
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:textSize="14dp" />
 
-                <com.knowledge_seek.phyctogram.util.MyEditTextView
-                    android:id="@+id/et_pw1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/border_grey"
-                    android:hint="@string/includePwModify_checkChangePw"
-                    android:inputType="textPassword"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:textSize="14dp" />
+                    <com.knowledge_seek.phyctogram.util.MyEditTextView
+                        android:id="@+id/et_pw1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/border_grey"
+                        android:hint="@string/includePwModify_checkChangePw"
+                        android:inputType="textPassword"
+                        android:padding="@dimen/activity_horizontal_margin"
+                        android:textSize="14dp" />
+                </LinearLayout>
 
                 <com.knowledge_seek.phyctogram.util.MyLinearView
                     android:id="@+id/ll_no_phyctogram"

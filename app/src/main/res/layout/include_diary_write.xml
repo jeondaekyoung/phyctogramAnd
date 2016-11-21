@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,7 +33,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <com.knowledge_seek.phyctogram.util.MyLinearView
             android:id="@+id/ll_fragment"
             android:layout_width="match_parent"

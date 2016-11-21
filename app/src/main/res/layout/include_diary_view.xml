@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:onClick="linearOnClick"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,13 +29,16 @@
             android:text="@string/diaryWriteActivity_registerChild"
             android:textColor="#ffffff" />
     </RelativeLayout>
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <com.knowledge_seek.phyctogram.util.MyLinearView
         android:id="@id/ll_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <com.knowledge_seek.phyctogram.util.MyEditTextView
             android:id="@+id/et_diary_date"
@@ -138,4 +143,5 @@
             </RelativeLayout>
         </LinearLayout>
     </com.knowledge_seek.phyctogram.util.MyLinearView>
+    </ScrollView>
 </LinearLayout>
