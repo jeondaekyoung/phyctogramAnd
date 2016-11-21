@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -95,6 +96,9 @@ public class  BaseActivity extends Activity {
     //GCM
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
+
+    //키보드 숨기기
+    private InputMethodManager imm;
 
     /**
      * Instance ID를 이용하여 디바이스 토큰을 가져오는 RegistrationIntentService를 실행한다.
@@ -545,6 +549,15 @@ public class  BaseActivity extends Activity {
         return listViewHeight;
     }
 
+    public void linearOnClick(View v) {
+        Log.d("linearOnClick: ","실행");
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
+    }
 
 
 }

@@ -7,7 +7,9 @@
     android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:paddingTop="20dp">
+    android:paddingTop="20dp"
+    android:onClick="linearOnClick"
+    >
 
     <ImageView
         android:layout_width="220dp"
@@ -40,7 +42,7 @@
         android:padding="@dimen/activity_horizontal_margin"
         android:paddingLeft="10dp"
         android:password="true"
-        android:textSize="12dp" />
+        android:textSize="12sp" />
 
     <Button
         android:id="@+id/btn_member_login"
@@ -53,7 +55,7 @@
         android:padding="@dimen/activity_horizontal_margin"
         android:text="@string/activityLogin_login"
         android:textColor="#ffffff"
-        android:textSize="12dp" />
+        android:textSize="12sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -72,7 +74,7 @@
             android:gravity="center"
             android:text="@string/activityLogin_kakaoLogin"
             android:textColor="#2F1310"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/btn_login_fb"
@@ -83,7 +85,7 @@
             android:paddingBottom="17dp"
             android:paddingTop="17dp"
             android:textColor="#ffffff"
-            android:textSize="12dp"
+            android:textSize="12sp"
             facebook:com_facebook_login_text="@string/activityLogin_facebookLogin"
             facebook:com_facebook_logout_text="@string/activityLogin_facebookLogin" />
     </LinearLayout>
@@ -100,7 +102,7 @@
             android:layout_height="wrap_content"
             android:text="@string/activityLogin_findPW"
             android:textColor="@color/grey_txt"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -115,7 +117,7 @@
             android:gravity="right"
             android:text="@string/activityJoin_join"
             android:textColor="@color/grey_txt"
-            android:textSize="12dp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <RelativeLayout
@@ -130,7 +132,7 @@
             android:layout_marginBottom="10dp"
             android:text="copyright ⓒ 2015 Knowledge-seek Co., Ltd. all rights reserved"
             android:textColor="@color/grey_txt2"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
     </RelativeLayout>
 
 </LinearLayout>

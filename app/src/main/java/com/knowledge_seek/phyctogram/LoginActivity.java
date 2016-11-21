@@ -34,6 +34,12 @@ import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.StoryProtocol;
 import com.kakao.util.helper.TalkProtocol;
+import com.knowledge_seek.phyctogram.domain.Member;
+import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
+import com.knowledge_seek.phyctogram.phyctogram.SaveSharedPreference;
+import com.knowledge_seek.phyctogram.retrofitapi.MemberAPI;
+import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
+import com.knowledge_seek.phyctogram.util.Utility;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,12 +49,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.knowledge_seek.phyctogram.domain.Member;
-import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
-import com.knowledge_seek.phyctogram.phyctogram.SaveSharedPreference;
-import com.knowledge_seek.phyctogram.retrofitapi.MemberAPI;
-import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
-import com.knowledge_seek.phyctogram.util.Utility;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -73,6 +73,8 @@ public class LoginActivity extends BaseActivity {
     private Button btn_member_login;                                                    //픽토그램
     private TextView tv_join_member;
     private TextView tv_find_pw;
+
+
 
     //데이터
     private Member memberActivity = new Member();
@@ -220,7 +222,10 @@ public class LoginActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+
     } //end create
+
 
     //유저저장
     private void registerMember(Member member) {

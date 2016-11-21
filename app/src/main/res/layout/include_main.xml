@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/purpledk"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+
+        >
 
         <ImageButton
             android:id="@+id/btn_left"

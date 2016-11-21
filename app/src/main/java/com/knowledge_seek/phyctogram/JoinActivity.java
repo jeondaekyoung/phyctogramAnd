@@ -1,6 +1,5 @@
 package com.knowledge_seek.phyctogram;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.knowledge_seek.phyctogram.domain.Member;
+import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.knowledge_seek.phyctogram.phyctogram.SaveSharedPreference;
 import com.knowledge_seek.phyctogram.retrofitapi.MemberAPI;
 import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
@@ -35,7 +35,7 @@ import retrofit.Call;
 /**
  * Created by dkfka on 2015-11-26.
  */
-public class JoinActivity extends Activity {
+public class JoinActivity extends BaseActivity {
 
     //데이터
     private Member memberActivity;
@@ -56,6 +56,9 @@ public class JoinActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.knowledge_seek.phyctogram.R.layout.activity_join);
+
+
+
 
         member = new Member();
         textViewPw = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.textViewPw);
@@ -301,6 +304,7 @@ public class JoinActivity extends Activity {
         startActivity(intent);
         finish();
     }
+
 
     //멤버 읽어오기
     private class RegisterMemberTask extends AsyncTask<Object, Void, Member> {
