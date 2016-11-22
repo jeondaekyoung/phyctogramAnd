@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.knowledge_seek.phyctogram.R;
@@ -54,15 +55,15 @@ public class HeightListRecordAdapter extends BaseAdapter {
         TextView recordDate = (TextView)convertView.findViewById(R.id.recordDate);
         TextView recordHeight = (TextView)convertView.findViewById(R.id.recordHeight);
         TextView recordGrow = (TextView)convertView.findViewById(R.id.record_grow);
-        TextView recordSa = (TextView)convertView.findViewById(R.id.record_sa);
+        ImageView recordSa = (ImageView) convertView.findViewById(R.id.record_sa);
         TextView recordRank = (TextView)convertView.findViewById(R.id.record_rank);
         recordDate.setText(String.valueOf(height.getMesure_date()));
         recordHeight.setText(String.valueOf(height.getHeight()));
         if(Double.valueOf(height.getGrow()) >= 0){
-            recordSa.setText("+");
+            recordSa.setImageResource(R.drawable.record_up);
             recordGrow.setText(String.valueOf(height.getGrow()));
         } else {
-            recordSa.setText("-");
+            recordSa.setImageResource(R.drawable.record_down);
             recordGrow.setText(String.valueOf(height.getGrow()).substring(1));
         }
 

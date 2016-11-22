@@ -6,10 +6,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -76,6 +80,12 @@ public class MainActivity extends BaseActivity {
     //private RelativeLayout rl_popularTop3;
 
     //private ScrollView sv_main;
+
+    //실시간 데이터 처리를 위한 webView
+    private WebView webView;
+    //자바스크립트 스레드 핸들러
+    private final Handler jsHandler = new Handler();
+
 
     //데이터정의
     private List<SqlCommntyListView> sqlCommntyListViewList = null;     //수다방 인기 Top3
@@ -302,10 +312,37 @@ public class MainActivity extends BaseActivity {
                 task.execute(img_profile);
             }
         });
+        //웹뷰 세팅
+        webView = (WebView)findViewById(R.id.webView);
+        WebSettings webSettings=webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+
+        webView.addJavascriptInterface(new AndroidBridge() ,"AppJs");
+    }//end onCreate
+    //웹과 연결
+    class AndroidBridge {
+        @JavascriptInterface
+        public void setHeight(final String height,final String rank,final String glow,final String img) {
+            jsHandler.post(new Runnable() {
+                public void run() {
+                    tv_height.setText(height);
+                    tv_rank.setText(rank);
+                    tv_grow.setText(glow);
+
+                    String imgName = "@drawable/" + img;
+                    String packName = self.getPackageName();
+
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(imgName, "drawable", packName));
+
+                    bitmap=bitmap.createScaledBitmap(bitmap,540,540, true);
+
+                    iv_my_animal.setImageBitmap(bitmap);
+                }
+         });
+        }
+
     }
-
-
-
     //private SendInitMessageThread sendInitMessageThread;
     @Override
     protected void onResume() {
@@ -359,6 +396,7 @@ public class MainActivity extends BaseActivity {
     protected void onStop() {
         super.onStop();
         //sendInitMessageThread.stopThread();
+        webView.loadUrl("javaScript:closeSocket()");
     }
 
     //메인페이지 초기 데이터조회(슬라이드 내 아이 목록, 계정이미지, 수다방인기Top3, 내 아이 메인(분석)정보)
@@ -604,7 +642,7 @@ public class MainActivity extends BaseActivity {
             }
             //상위
             tv_rank.setText(String.valueOf(heightTask.get(0).getRank()));
-
+            webView.loadUrl("http://www.phyctogram.com/height/webSocket.do?user_seq="+ heightTask.get(0).getUser_seq());
             dialog.dismiss();
             super.onPostExecute(aVoid);
         }
@@ -647,7 +685,8 @@ public class MainActivity extends BaseActivity {
         //Background 작업이 끝난 후 UI 작업을 진행 한다.
         @Override
         protected void onPostExecute(String result) {
-            if(result.equals("success")){
+
+            if(result!=null&&result.equals("success")){
                 Log.d("-진우-", "Token  저장에 성공하였습니다");
             } else {
                 Log.d("-진우-", "Token 저장에 실패하였습니다");

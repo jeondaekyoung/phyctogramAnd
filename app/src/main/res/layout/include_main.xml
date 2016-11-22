@@ -197,6 +197,22 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_webView"
+                android:layout_width="match_parent"
+                android:layout_height="149dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="8dp">
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </WebView>
+
+
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/btn_users_analysis"
