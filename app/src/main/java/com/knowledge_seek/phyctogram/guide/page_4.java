@@ -14,7 +14,7 @@ import com.knowledge_seek.phyctogram.R;
 /**
  * Created by dkfka on 2016-11-16.
  */
-public class page_1 extends android.support.v4.app.Fragment {
+public class page_4 extends android.support.v4.app.Fragment {
 
     RelativeLayout RelativeLayout;
     RadioButton radioButton,radioButton2,radioButton3,radioButton4;
@@ -28,6 +28,7 @@ public class page_1 extends android.support.v4.app.Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         RelativeLayout=(RelativeLayout)inflater.inflate(R.layout.include_guide,container,false);
         page_num=(TextView)RelativeLayout.findViewById(R.id.page_num);
         guide_iV= (ImageView)RelativeLayout.findViewById(R.id.guide_iV);
@@ -36,7 +37,8 @@ public class page_1 extends android.support.v4.app.Fragment {
         radioButton3 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton3);
         radioButton4 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton4);
 
-        page_num.setText("1.기기 설치 후 \n 전원을 켜주세요");
+        TextView page_num = (TextView) RelativeLayout.findViewById(R.id.page_num);
+        page_num.setText("아이를 등록하면 모든/n 준비과정이 완료됩니다!");
         radioButton.setChecked(true);
         radioButton2.setChecked(false);
         radioButton3.setChecked(false);

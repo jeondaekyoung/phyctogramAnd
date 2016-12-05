@@ -201,7 +201,7 @@ public class EquipmentActivity extends BaseActivity {
                     for (int i = 0; i < size; i++) {
                         scanResult = (ScanResult) apList.get(i); //wifi 정보를 하나씩 선택
                         if(scanResult.SSID.contains("phyctogram_")){//wifi 정보를 걸러내어 list에 입력
-                            wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities,String.valueOf(scanResult.level)+"dBm"));
+                            wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities,String.valueOf(scanResult.level)));
                             //isWifiConnect = true;// 연결유무
 
                         }

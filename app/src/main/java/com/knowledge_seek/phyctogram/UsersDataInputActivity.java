@@ -16,17 +16,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pkmmte.view.CircularImageView;
-
-import java.io.IOException;
-import java.util.List;
-
 import com.knowledge_seek.phyctogram.domain.Height;
 import com.knowledge_seek.phyctogram.domain.Users;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.knowledge_seek.phyctogram.retrofitapi.HeightAPI;
 import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
 import com.knowledge_seek.phyctogram.util.Utility;
+import com.pkmmte.view.CircularImageView;
+
+import java.io.IOException;
+import java.util.List;
+
 import retrofit.Call;
 
 /**
@@ -134,6 +134,7 @@ public class UsersDataInputActivity extends BaseActivity {
                 usersHeight.setMesure_date(mesure_date);
 
                 Log.d("-진우-", "키 저장하기 : " + usersHeight.toString());
+
                 Log.d("-진우-", "json : " + Utility.height2json(usersHeight));
 
                 RegisterHeightTask task = new RegisterHeightTask(usersHeight);

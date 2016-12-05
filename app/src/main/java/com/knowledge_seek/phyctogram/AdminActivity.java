@@ -2,6 +2,7 @@ package com.knowledge_seek.phyctogram;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -107,9 +108,10 @@ public class AdminActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //new EqAsyncTask().execute("192.168.4.1:80", "?ADJ", et_adj.getText() + "**");
-                /*Intent intent = new Intent(getApplicationContext(), GuideActivity.class);
+                Intent intent = new Intent(getApplicationContext(), GuideActivity.class);
                 startActivity(intent);
-                finish();*/
+                finish();
+
             }
         });
         btn_useq = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_useq);
@@ -117,6 +119,9 @@ public class AdminActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //new EqAsyncTask().execute("192.168.4.1:80", "?USEQ", et_useq.getText() + "**");
+                Intent intent = new Intent(getApplicationContext(), GuideActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         btn_end = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_end);

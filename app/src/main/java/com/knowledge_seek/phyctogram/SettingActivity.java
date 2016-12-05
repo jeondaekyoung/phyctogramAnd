@@ -240,7 +240,7 @@ public class SettingActivity extends BaseActivity {
         //SettingTask task = new SettingTask();
         //task.execute(img_profile);
 
-        Log.d("-진우-", "SettingActivity 에서 onResume() : " + member.toString());
+        //Log.d("-진우-", "SettingActivity 에서 onResume() : " + member.toString());
 
         Log.d("-진우-", "SettingActivity.onResume() 끝");
     }
