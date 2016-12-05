@@ -52,6 +52,9 @@ public class EquipmentActivity extends BaseActivity {
     private ScanResult scanResult;
     private WifiManager wm;
     private List apList;
+    private WifiListAdapter wifiListAdapter;
+    private List<Wifi> wifiList = new ArrayList<>();
+    private ListView lv_wifilist;
 
     //레이아웃정의 - 슬라이드메뉴
     private LinearLayout ic_screen;
@@ -59,9 +62,7 @@ public class EquipmentActivity extends BaseActivity {
     private CircularImageView img_profile;      //슬라이드 내 이미지
     private TextView tv_member_name;            //슬라이드 내 이름
     private Button btn_connWifi;
-    private List<Wifi> wifiList = new ArrayList<>();
-    private ListView lv_wifilist;
-    private WifiListAdapter wifiListAdapter;
+
     private ImageView img_btn;
 
     //requestCode
@@ -391,57 +392,6 @@ public class EquipmentActivity extends BaseActivity {
         } else {
             Log.d(TAG, "onActivityResult: REQUEST_ACT가 아님.");
         }
-    }
-
-    //wifi 연결 담당
-    public boolean connectWifi(String ssid, String password, String capabilities) {
-        Log.d("-진우-", "ssid: " + ssid + ",password: " + password + ",capablities: " + capabilities);
-        WifiConfiguration wfc = getWifiConfiguration(ssid, password, capabilities);
-
-        Log.d("-진우-", "wfc : " + wfc.toString());
-
-        int networkId = -1; //-1 연결 정보 없음
-        List<WifiConfiguration> networks = wm.getConfiguredNetworks();
-     //   Log.d("-진우-", "networks : " + networks.toString());
-
-        for(int i=0; i<networks.size(); i++){
-            Log.d("-진우-", "networks.get(i).SSID : " + networks.get(i).SSID);
-            if(networks.get(i).SSID.equals("\"".concat( ssid ).concat("\""))){
-                Log.d("-진우-", "networks.get(i).networkId : " + networks.get(i).networkId);
-                networkId = networks.get(i).networkId; //-1을 연결 정보가 있다면 해당 id로 변경
-            }
-        }
-
-        //연결 정보가 없다면 네트워크를 추가하고 id를 받음
-        if(networkId == -1) {
-            networkId = wm.addNetwork(wfc);
-        }
-        Log.d("-진우-", "networkId : " + networkId);
-
-        //연결 여부 : false
-        boolean connection = false;
-
-        if(networkId != -1){
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_connectionAlert, Toast.LENGTH_LONG).show();
-            //해당 networkId로 wifi를 연결함
-            connection = wm.enableNetwork(networkId, true); //연결이 되면 true를 반환
-            Log.d("-진우-", "connection : "+connection);
-        }else{
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_failPW, Toast.LENGTH_LONG).show();
-        }
-
-        //연결이 되었다면
-        if(connection) {
-            //wifi정보를 저장
-            wm.setWifiEnabled(true);
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_successConnection, Toast.LENGTH_LONG).show();
-
-
-        }else{
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_failConnection, Toast.LENGTH_SHORT).show();
-        }
-        btn_connWifi.setText(com.knowledge_seek.phyctogram.R.string.equipmentActivity_endSearch);
-        return true;
     }
 
     @Override

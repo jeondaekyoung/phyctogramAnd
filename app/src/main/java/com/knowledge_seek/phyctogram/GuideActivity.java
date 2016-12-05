@@ -2,12 +2,14 @@ package com.knowledge_seek.phyctogram;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.RadioButton;
 
 import com.knowledge_seek.phyctogram.guide.page_1;
@@ -20,11 +22,15 @@ import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
  * Created by dkfka on 2016-11-16.
  */
 public class GuideActivity extends FragmentActivity {
-    int MAX_PAGE=3;
+
+    final String TAG = EquipmentActivity.class.getName();
+    int MAX_PAGE=4;
     Fragment cur_fragment=new Fragment();
     AlertDialog.Builder dialog;
     boolean dialogFlag=true;
     RadioButton radioButton,radioButton2,radioButton3,radioButton4;
+
+    public static final int REQUEST_ACT = 112;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,5 +106,27 @@ public class GuideActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         BaseActivity.setStatusBarColor(this,R.color.purpledk);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: 실행");
+
+        if (resultCode != EquipmentActivity.RESULT_OK) {
+            Log.d(TAG, "onActivityResult: 결과가 성공이 아님.");
+            return;
+        }
+
+        if (requestCode == GuideActivity.REQUEST_ACT) {
+            //popupActiviy에서 가져온 ap 정보
+            String p_ssid = data.getStringExtra("p_ssid");
+            String p_password = data.getStringExtra("p_password");
+            String p_capabilities = data.getStringExtra("p_capabilities");
+            Log.d(TAG, "onActivityResult: 결과:" +p_ssid+","+p_password+","+p_capabilities);
+            //new Equipment_TCP_Client_Task(this,wm).execute("s "+p_ssid+" "+p_password);
+
+        } else {
+            Log.d(TAG, "onActivityResult: REQUEST_ACT가 아님.");
+        }
     }
 }
