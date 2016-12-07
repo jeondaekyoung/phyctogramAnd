@@ -20,14 +20,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pkmmte.view.CircularImageView;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-
 import com.knowledge_seek.phyctogram.domain.Height;
 import com.knowledge_seek.phyctogram.domain.Users;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
@@ -35,6 +27,18 @@ import com.knowledge_seek.phyctogram.listAdapter.HeightListRecordAdapter;
 import com.knowledge_seek.phyctogram.retrofitapi.HeightAPI;
 import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
 import com.knowledge_seek.phyctogram.util.Utility;
+import com.pkmmte.view.CircularImageView;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
+import java.util.SimpleTimeZone;
+
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -59,7 +63,7 @@ public class RecordActivity extends BaseActivity {
     private ListView lv_record;
     private HeightListRecordAdapter heightListRecordAdapter;
     private TextView tv_users_name;     //아이 이름 출력
-
+    private TextView record_today,record_week,record_1month,record_3month;
 
     //데이터정의
     int year, month, day;
@@ -128,6 +132,68 @@ public class RecordActivity extends BaseActivity {
         });
         tv_datepickFrom = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_datepickFrom);
         tv_datepickTo = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_datepickTo);
+
+        //기록 조회 버튼별 세팅
+
+        record_today = (TextView)findViewById(R.id.record_day);
+        record_today.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Log.d("-대경-", "당일: "+ getdate_custom(0));//0 당일 , 1 일주일 , 2 한달 , 3 세달
+                String dateFrom = getdate_custom(0);
+                String dateTo = getdate_custom(0);
+                String user_seq = String.valueOf(nowUsers.getUser_seq());
+                heightList.clear();     //리스트 초기화
+                pageCnt = 0;            //페이지수 초기화
+                FindHeightByUserSeqFTTask task = new FindHeightByUserSeqFTTask(user_seq, dateFrom, dateTo, pageCnt);
+                task.execute();
+            }
+        });
+        record_week = (TextView)findViewById(R.id.record_week);
+        record_week.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String dateFrom = getdate_custom(1);
+                String dateTo = getdate_custom(0);
+                String user_seq = String.valueOf(nowUsers.getUser_seq());
+                heightList.clear();     //리스트 초기화
+                pageCnt = 0;            //페이지수 초기화
+                FindHeightByUserSeqFTTask task = new FindHeightByUserSeqFTTask(user_seq, dateFrom, dateTo, pageCnt);
+                task.execute();
+
+            }
+        });
+        record_1month = (TextView)findViewById(R.id.record_1month);
+        record_1month.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String dateFrom = getdate_custom(2);
+                String dateTo = getdate_custom(0);
+                String user_seq = String.valueOf(nowUsers.getUser_seq());
+                heightList.clear();     //리스트 초기화
+                pageCnt = 0;            //페이지수 초기화
+                FindHeightByUserSeqFTTask task = new FindHeightByUserSeqFTTask(user_seq, dateFrom, dateTo, pageCnt);
+                task.execute();
+
+            }
+        });
+        record_3month = (TextView)findViewById(R.id.record_3month);
+        record_3month.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String dateFrom = getdate_custom(3);
+                String dateTo = getdate_custom(0);
+                String user_seq = String.valueOf(nowUsers.getUser_seq());
+                heightList.clear();     //리스트 초기화
+                pageCnt = 0;            //페이지수 초기화
+                FindHeightByUserSeqFTTask task = new FindHeightByUserSeqFTTask(user_seq, dateFrom, dateTo, pageCnt);
+                task.execute();
+
+            }
+        });
 
         //기록 조회 리스트뷰 셋팅
         lv_record = (ListView)findViewById(com.knowledge_seek.phyctogram.R.id.lv_record);
@@ -221,6 +287,7 @@ public class RecordActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String datepickFrom = tv_datepickFrom.getText().toString();
+
                 /*if(datepickFrom == null || datepickFrom.length() <= 0) {
                     //디폴트 1년전 날짜로 셋팅
                     new DatePickerDialog(RecordActivity.this, dateSetListenerFrom, year, month, day).show();
@@ -249,6 +316,50 @@ public class RecordActivity extends BaseActivity {
                 setTheme(com.knowledge_seek.phyctogram.R.style.AppTheme);
             }
         });
+    }
+
+    /**
+     *
+     * @param mod
+     * 0 당일 , 1 일주일 , 2 한달 , 3 세달
+     * @return String result
+     *
+     */
+    public static String getdate_custom(int mod) {
+
+        Calendar cal = Calendar.getInstance(new SimpleTimeZone(0x1ee6280,"KST"));
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String result="";
+        Date date;
+        switch (mod){
+
+            case 0:
+              date=cal.getTime();//당일
+                result=formatter.format(date);
+                break;
+
+            case 1:
+                cal.add(Calendar.DATE,-7);//일주일전
+              date=cal.getTime();
+                result=formatter.format(date);
+
+                break;
+            //1달전
+            case 2:
+                cal.add(Calendar.MONTH,-1);
+              date=cal.getTime();
+                result=formatter.format(date);
+                break;
+            //3달전
+            case 3:
+                cal.add(Calendar.MONTH,-3);
+              date=cal.getTime();
+                result=formatter.format(date);
+                break;
+
+        }
+
+        return  result;
     }
 
     @Override

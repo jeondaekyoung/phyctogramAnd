@@ -55,6 +55,8 @@ public class EquipmentActivity extends BaseActivity {
     private WifiListAdapter wifiListAdapter;
     private List<Wifi> wifiList = new ArrayList<>();
     private ListView lv_wifilist;
+    private ArrayList<String> E_response;
+
 
     //레이아웃정의 - 슬라이드메뉴
     private LinearLayout ic_screen;
@@ -68,7 +70,7 @@ public class EquipmentActivity extends BaseActivity {
     //requestCode
     private static final int REQUEST_ACT = 111;
 
-    private ArrayList<String> E_response;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

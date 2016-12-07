@@ -1,49 +1,20 @@
 package com.knowledge_seek.phyctogram.guide;
 
-import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.knowledge_seek.phyctogram.EquipmentActivity;
 import com.knowledge_seek.phyctogram.GuideActivity;
-import com.knowledge_seek.phyctogram.PopUpActivity;
 import com.knowledge_seek.phyctogram.R;
-import com.knowledge_seek.phyctogram.domain.Wifi;
-import com.knowledge_seek.phyctogram.listAdapter.WifiListAdapter;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by dkfka on 2016-11-16.
@@ -53,19 +24,20 @@ public class page_2 extends android.support.v4.app.Fragment {
     final String TAG = page_2.class.getName();
 
     RelativeLayout RelativeLayout;
-    RadioButton radioButton,radioButton2,radioButton3,radioButton4;
+    RadioButton radioButton2;
     ImageView guide_iV;
     TextView page_num;
-    ListView lv_wifiList;
+    RadioGroup rg_group;
 
-
-    //wifi관련
+    /*//wifi관련
     private ScanResult scanResult;
     private WifiManager wm;
     private List apList;
     private WifiListAdapter wifiListAdapter;
     private List<Wifi> wifiList = new ArrayList<>();
-    private ListView lv_wifilist;
+    private ListView guide_LV;
+*/
+
 
     private ArrayList<String> E_response;
     @Override
@@ -74,33 +46,55 @@ public class page_2 extends android.support.v4.app.Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         RelativeLayout=(RelativeLayout)inflater.inflate(R.layout.include_guide,container,false);
         page_num=(TextView)RelativeLayout.findViewById(R.id.page_num);
         guide_iV= (ImageView)RelativeLayout.findViewById(R.id.guide_iV);
-        radioButton = (RadioButton)RelativeLayout.findViewById(R.id.radioButton);
         radioButton2 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton2);
-        radioButton3 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton3);
-        radioButton4 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton4);
 
         page_num.setText("2.\nWi-Fi에 연결하세요");
         guide_iV.setVisibility(View.GONE);
-
-        lv_wifiList=new ListView(getActivity());
-        //lv_wifiList.setAdapter();
-
-        lv_wifiList.setLayoutParams(RelativeLayout.getLayoutParams());
-
-        radioButton.setChecked(false);
         radioButton2.setChecked(true);
-        radioButton3.setChecked(false);
-        radioButton4.setChecked(false);
+
+        rg_group = (RadioGroup) RelativeLayout.findViewById(R.id.rg_group);
+        rg_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+
+                    case R.id.radioButton:
+                        GuideActivity.viewPager.setCurrentItem(0);
+                        radioButton2.setChecked(true);
+                        break;
+                    case R.id.radioButton3:
+                        GuideActivity.viewPager.setCurrentItem(2);
+                        radioButton2.setChecked(true);
+                        break;
+                    case R.id.radioButton4:
+                        GuideActivity.viewPager.setCurrentItem(3);
+                        radioButton2.setChecked(true);
+                        break;
+                }
+            }
+        });
+
+       // lv_wifiList=new ListView(getActivity());
+        //lv_wifiList.setAdapter(wifiListAdapter);
+
+        //lv_wifiList.setLayoutParams(RelativeLayout.getLayoutParams());
 
         return RelativeLayout;
     }
 
-    //wifi 초기화 및 검색 start
+    /*//wifi 초기화 및 검색 start
     public void searchStartWifi(){
         //마시멜로 버전 이상이라면 권한 체크 요청함
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -170,23 +164,22 @@ public class page_2 extends android.support.v4.app.Fragment {
                     int size = apList.size();
                     for (int i = 0; i < size; i++) {
                         scanResult = (ScanResult) apList.get(i); //wifi 정보를 하나씩 선택
-                        if(scanResult.SSID.contains("phyctogram_")){//wifi 정보를 걸러내어 list에 입력
+                        //if(scanResult.SSID.contains("phyctogram_")){//wifi 정보를 걸러내어 list에 입력
                             wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities,String.valueOf(scanResult.level)));
                             //isWifiConnect = true;// 연결유무
-
-                        }
+                    //}
 
                     }
                     getActivity().unregisterReceiver(wifiReceiver);    //리시버 해제
                 }
 
                 if(wifiList.size()>=2){//기기 복수일시 리스트로 선택
-                    lv_wifilist = (ListView)getActivity().findViewById(com.knowledge_seek.phyctogram.R.id.lv_wifiList);
+                    guide_LV = (ListView)getActivity().findViewById(R.id.guide_LV);
                     wifiListAdapter = new WifiListAdapter(getActivity().getApplication(), wifiList, com.knowledge_seek.phyctogram.R.layout.list_wifi);
-                    lv_wifilist.setAdapter(wifiListAdapter);
+                    guide_LV.setAdapter(wifiListAdapter);
 
                     //ListView Item 클릭 시
-                    lv_wifilist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    guide_LV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             //선택된 wifi 정보를 뽑음
@@ -234,7 +227,7 @@ public class page_2 extends android.support.v4.app.Fragment {
                     }
                 }
                 else{
-                    Toast.makeText(getActivity(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.equipmentActivity_noDevice, Toast.LENGTH_LONG).show();
                     wifiList.clear();
                 }
 
@@ -244,11 +237,11 @@ public class page_2 extends android.support.v4.app.Fragment {
         }
     };
 
-    /**
+    *//**
      *  오름차순
      * @author falbb
      *
-     */
+     *//*
     static class Signal_AscCompare implements Comparator<Wifi> {
         @Override
         public int compare(Wifi arg0,Wifi arg1) {
@@ -260,7 +253,7 @@ public class page_2 extends android.support.v4.app.Fragment {
 
     //wifi List view 셋팅
     public void search_Wifi() {
-        /*unregisterReceiver(wifiReceiver);    //리시버 해제
+        *//*unregisterReceiver(wifiReceiver);    //리시버 해제
         apList = wm.getScanResults(); //스캔된 wifi 정보를 받음
         if (wm.getScanResults() != null) {
             int size = apList.size();
@@ -270,7 +263,7 @@ public class page_2 extends android.support.v4.app.Fragment {
                 wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities,String.valueOf(scanResult.level)+"dBm")); //wifi 정보를 걸러내어 list에 입력
             }
         }
-*/
+*//*
         //w 명령어
         if(E_response.get(0).equals("w")&& E_response!=null){
             wifiList.clear();
@@ -300,12 +293,12 @@ public class page_2 extends android.support.v4.app.Fragment {
         }
 
         //wifi 리스트를 adapter를 통하여 ListView에 셋팅함
-        lv_wifilist = (ListView)getActivity().findViewById(com.knowledge_seek.phyctogram.R.id.lv_wifiList);
+        guide_LV = (ListView)getActivity().findViewById(com.knowledge_seek.phyctogram.R.id.lv_wifiList);
         wifiListAdapter = new WifiListAdapter(getActivity(), wifiList, com.knowledge_seek.phyctogram.R.layout.list_wifi);
-        lv_wifilist.setAdapter(wifiListAdapter);
+        guide_LV.setAdapter(wifiListAdapter);
 
         //ListView Item 클릭 시
-        lv_wifilist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        guide_LV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //선택된 wifi 정보를 봅음
@@ -336,9 +329,6 @@ public class page_2 extends android.support.v4.app.Fragment {
         //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivityForResult(i,GuideActivity.REQUEST_ACT);
     }
-
-
-
 
 
     private class Equipment_TCP_Client_Task extends AsyncTask<Object, Integer, ArrayList<String>> {
@@ -575,5 +565,5 @@ public class page_2 extends android.support.v4.app.Fragment {
             wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
         }
         return wfc;
-    }
+    }*/
 }

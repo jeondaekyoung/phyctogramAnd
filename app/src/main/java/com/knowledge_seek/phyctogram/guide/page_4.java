@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.knowledge_seek.phyctogram.GuideActivity;
 import com.knowledge_seek.phyctogram.R;
 
 /**
@@ -17,9 +19,10 @@ import com.knowledge_seek.phyctogram.R;
 public class page_4 extends android.support.v4.app.Fragment {
 
     RelativeLayout RelativeLayout;
-    RadioButton radioButton,radioButton2,radioButton3,radioButton4;
+    RadioButton radioButton4;
     ImageView guide_iV;
     TextView page_num;
+    RadioGroup rg_group;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,18 +35,33 @@ public class page_4 extends android.support.v4.app.Fragment {
         RelativeLayout=(RelativeLayout)inflater.inflate(R.layout.include_guide,container,false);
         page_num=(TextView)RelativeLayout.findViewById(R.id.page_num);
         guide_iV= (ImageView)RelativeLayout.findViewById(R.id.guide_iV);
-        radioButton = (RadioButton)RelativeLayout.findViewById(R.id.radioButton);
-        radioButton2 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton2);
-        radioButton3 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton3);
         radioButton4 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton4);
 
-        TextView page_num = (TextView) RelativeLayout.findViewById(R.id.page_num);
         page_num.setText("아이를 등록하면 모든\n준비과정이 완료됩니다!");
-        radioButton.setChecked(false);
-        radioButton2.setChecked(false);
-        radioButton3.setChecked(false);
+
         radioButton4.setChecked(true);
 
+        rg_group = (RadioGroup) RelativeLayout.findViewById(R.id.rg_group);
+        rg_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+
+                    case R.id.radioButton:
+                        GuideActivity.viewPager.setCurrentItem(0);
+                        radioButton4.setChecked(true);
+                        break;
+                    case R.id.radioButton2:
+                        GuideActivity.viewPager.setCurrentItem(1);
+                        radioButton4.setChecked(true);
+                        break;
+                    case R.id.radioButton3:
+                        GuideActivity.viewPager.setCurrentItem(2);
+                        radioButton4.setChecked(true);
+                        break;
+                }
+            }
+        });
 
         return RelativeLayout;
     }
