@@ -36,7 +36,7 @@ public class page_1 extends android.support.v4.app.Fragment {
         radioButton3 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton3);
         radioButton4 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton4);
 
-        page_num.setText("1.기기 설치 후 \n 전원을 켜주세요");
+        page_num.setText("1.\n기기 설치 후\n전원을 켜주세요");
         radioButton.setChecked(true);
         radioButton2.setChecked(false);
         radioButton3.setChecked(false);

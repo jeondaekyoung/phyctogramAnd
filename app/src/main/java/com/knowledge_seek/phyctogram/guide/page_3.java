@@ -38,7 +38,7 @@ public class page_3 extends android.support.v4.app.Fragment {
         radioButton4 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton4);
 
         TextView page_num=(TextView)RelativeLayout.findViewById(R.id.page_num);
-        page_num.setText("3.바닥까지의 높이를\n 측정 합니다.");
+        page_num.setText("3.\n바닥까지의 높이를\n측정 합니다");
         radioButton.setChecked(false);
         radioButton2.setChecked(false);
         radioButton3.setChecked(true);

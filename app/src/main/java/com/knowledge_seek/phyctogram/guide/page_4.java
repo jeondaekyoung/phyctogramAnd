@@ -38,7 +38,7 @@ public class page_4 extends android.support.v4.app.Fragment {
         radioButton4 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton4);
 
         TextView page_num = (TextView) RelativeLayout.findViewById(R.id.page_num);
-        page_num.setText("아이를 등록하면 모든\n 준비과정이 완료됩니다!");
+        page_num.setText("아이를 등록하면 모든\n준비과정이 완료됩니다!");
         radioButton.setChecked(false);
         radioButton2.setChecked(false);
         radioButton3.setChecked(false);

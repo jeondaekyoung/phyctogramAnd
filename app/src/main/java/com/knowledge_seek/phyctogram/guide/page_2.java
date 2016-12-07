@@ -84,7 +84,7 @@ public class page_2 extends android.support.v4.app.Fragment {
         radioButton3 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton3);
         radioButton4 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton4);
 
-        page_num.setText("2.Wi-Fi에 연결하세요");
+        page_num.setText("2.\nWi-Fi에 연결하세요");
         guide_iV.setVisibility(View.GONE);
 
         lv_wifiList=new ListView(getActivity());
