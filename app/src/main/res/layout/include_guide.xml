@@ -16,26 +16,24 @@
         android:textColor="#FFFFFF"
         android:textSize="24dp" />
 
-        <ListView
-            android:id="@+id/guide_lv"
-            android:layout_width="240dp"
-            android:layout_height="336dp"
-            android:layout_gravity="center"
-            android:background="@drawable/border_radius_white"
-            android:padding="7dp"
+    <ListView
+        android:id="@+id/guide_lv"
+        android:layout_width="240dp"
+        android:layout_height="336dp"
+        android:layout_below="@+id/page_num"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/border_radius_white"
+        android:padding="5dp" />
 
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="73dp"
-            android:layout_marginTop="161dp" />
-        <!--<ImageButton
-            android:id="@+id/addEquip"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/float_button_03"
-            android:padding="5dp" />-->
+    <!--<ImageButton
+        android:id="@+id/addEquip"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/float_button_03"
+        android:padding="5dp" />-->
 
     <ImageView
         android:id="@+id/guide_iV"
@@ -59,35 +57,35 @@
             android:id="@+id/rg_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-        <RadioButton
-            android:id="@+id/radioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:buttonTint="@color/color6" />
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:buttonTint="@color/color6" />
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:buttonTint="@color/color6" />
 
-        <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:buttonTint="@color/color6" />
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:buttonTint="@color/color6" />
 
-        <RadioButton
-            android:id="@+id/radioButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:buttonTint="@color/color6" />
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:buttonTint="@color/color6" />
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:buttonTint="@color/color6" />
         </RadioGroup>
 
     </LinearLayout>
@@ -96,12 +94,12 @@
         android:id="@+id/guide_LV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="#f1f1f1"
-        android:dividerHeight="1dp"
         android:layout_above="@+id/ll1"
-        android:layout_marginBottom="161dp"
+        android:layout_alignEnd="@+id/guide_iV"
         android:layout_alignStart="@+id/guide_iV"
-        android:layout_alignEnd="@+id/guide_iV" />
+        android:layout_marginBottom="161dp"
+        android:divider="#f1f1f1"
+        android:dividerHeight="1dp" />
 
 
 </RelativeLayout>
