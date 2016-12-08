@@ -76,11 +76,11 @@ public class EquipmentActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //화면 페이지
-        ic_screen = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_equipment, ic_screen, true);
+        ic_screen = (LinearLayout)findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_equipment, ic_screen, true);
 
         //test
-        img_btn = (ImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_btn);
+        img_btn = (ImageView) findViewById(R.id.img_btn);
         img_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,25 +91,25 @@ public class EquipmentActivity extends BaseActivity {
         });
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //기기 검색 버튼 셋팅
-        btn_connWifi = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.connWifiBtn);
-        btn_connWifi.setText(com.knowledge_seek.phyctogram.R.string.equipmentActivity_searchHW);
+        btn_connWifi = (Button) findViewById(R.id.connWifiBtn);
+        btn_connWifi.setText(R.string.equipmentActivity_searchHW);
         btn_connWifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_connWifi.setText(com.knowledge_seek.phyctogram.R.string.equipmentActivity_searching);
+                btn_connWifi.setText(R.string.equipmentActivity_searching);
                 searchStartWifi();
 
             }
         });
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
@@ -124,7 +124,7 @@ public class EquipmentActivity extends BaseActivity {
             }
         });
         //레이아웃 정의
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,8 +214,8 @@ public class EquipmentActivity extends BaseActivity {
                 }
 
                 if(wifiList.size()>=2){//기기 복수일시 리스트로 선택
-                    lv_wifilist = (ListView)findViewById(com.knowledge_seek.phyctogram.R.id.lv_wifiList);
-                    wifiListAdapter = new WifiListAdapter(getApplication(), wifiList, com.knowledge_seek.phyctogram.R.layout.list_wifi);
+                    lv_wifilist = (ListView)findViewById(R.id.lv_wifiList);
+                    wifiListAdapter = new WifiListAdapter(getApplication(), wifiList, R.layout.list_wifi);
                     lv_wifilist.setAdapter(wifiListAdapter);
 
                     //ListView Item 클릭 시
@@ -244,7 +244,7 @@ public class EquipmentActivity extends BaseActivity {
                         }
                     });
 
-                    btn_connWifi.setText(com.knowledge_seek.phyctogram.R.string.equipmentActivity_endSearch);
+                    btn_connWifi.setText(R.string.equipmentActivity_endSearch);
                 }
                 else if(wifiList.size()==1) {// 기기가 한대일땐 자동 연결
                     Wifi wifi=new Wifi(wifiList.get(0).getSsid(),wifiList.get(0).getCapabilities(),wifiList.get(0).getSignal());
@@ -272,7 +272,7 @@ public class EquipmentActivity extends BaseActivity {
                     wifiList.clear();
                 }
 
-                btn_connWifi.setText(com.knowledge_seek.phyctogram.R.string.equipmentActivity_endSearch);
+                btn_connWifi.setText(R.string.equipmentActivity_endSearch);
               // searchWifi();
             }
         }
@@ -324,8 +324,8 @@ public class EquipmentActivity extends BaseActivity {
         }
 
         //wifi 리스트를 adapter를 통하여 ListView에 셋팅함
-        lv_wifilist = (ListView)findViewById(com.knowledge_seek.phyctogram.R.id.lv_wifiList);
-        wifiListAdapter = new WifiListAdapter(this, wifiList, com.knowledge_seek.phyctogram.R.layout.list_wifi);
+        lv_wifilist = (ListView)findViewById(R.id.lv_wifiList);
+        wifiListAdapter = new WifiListAdapter(this, wifiList, R.layout.list_wifi);
         lv_wifilist.setAdapter(wifiListAdapter);
 
         //ListView Item 클릭 시
@@ -346,7 +346,7 @@ public class EquipmentActivity extends BaseActivity {
             }
         });
 
-        btn_connWifi.setText(com.knowledge_seek.phyctogram.R.string.equipmentActivity_endSearch);
+        btn_connWifi.setText(R.string.equipmentActivity_endSearch);
 
     }
 
@@ -470,10 +470,10 @@ public class EquipmentActivity extends BaseActivity {
                     Log.d("-진우-", "networkId : " + networkId);
 
                     //연결 여부 : false
-                    boolean connection = false;
+                    boolean connection;
 
                     if (networkId != -1) {
-                        //Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_connectionAlert, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), R.string.equipmentActivity_connectionAlert, Toast.LENGTH_LONG).show();
                         //해당 networkId로 wifi를 연결함
                         connection = mWm.enableNetwork(networkId, true); //연결이 되면 true를 반환
                         Log.d("-진우-", "connection : " + connection);

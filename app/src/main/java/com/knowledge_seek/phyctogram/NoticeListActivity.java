@@ -14,17 +14,17 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.knowledge_seek.phyctogram.domain.Notice;
+import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
+import com.knowledge_seek.phyctogram.listAdapter.NoticeListAdapter;
+import com.knowledge_seek.phyctogram.retrofitapi.NoticeAPI;
+import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
 import com.pkmmte.view.CircularImageView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.knowledge_seek.phyctogram.domain.Notice;
-import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
-import com.knowledge_seek.phyctogram.listAdapter.NoticeListAdapter;
-import com.knowledge_seek.phyctogram.retrofitapi.NoticeAPI;
-import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
 import retrofit.Call;
 
 /**
@@ -53,17 +53,17 @@ public class NoticeListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //화면 페이지
-        ic_screen = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_notice_list, ic_screen, true);
+        ic_screen = (LinearLayout)findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_notice_list, ic_screen, true);
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
@@ -79,7 +79,7 @@ public class NoticeListActivity extends BaseActivity {
             }
         });
         //레이아웃 정의
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,8 +88,8 @@ public class NoticeListActivity extends BaseActivity {
         });
 
         //공지 글 목록
-        lv_noticeList = (ListView)findViewById(com.knowledge_seek.phyctogram.R.id.lv_noticeList);
-        noticeListAdapter = new NoticeListAdapter(this, noticeList, com.knowledge_seek.phyctogram.R.layout.list_notice);
+        lv_noticeList = (ListView)findViewById(R.id.lv_noticeList);
+        noticeListAdapter = new NoticeListAdapter(this, noticeList, R.layout.list_notice);
         lv_noticeList.setAdapter(noticeListAdapter);
         lv_noticeList.setOnScrollListener(scrollListener);
 
@@ -120,8 +120,7 @@ public class NoticeListActivity extends BaseActivity {
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
         usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-        int height = getListViewHeight(lv_usersList);
-        lv_usersList.getLayoutParams().height = height;
+        lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
         Log.d("-진우-", "CommunityListActivity.onResume() : " + member.toString());
@@ -154,7 +153,7 @@ public class NoticeListActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }

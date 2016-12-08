@@ -55,17 +55,17 @@ public class AdminActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //화면 페이지
-        ic_screen = (LinearLayout) findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_admin, ic_screen, true);
+        ic_screen = (LinearLayout) findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_admin, ic_screen, true);
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
@@ -80,7 +80,7 @@ public class AdminActivity extends BaseActivity {
             }
         });
         //레이아웃 정의
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,11 +88,11 @@ public class AdminActivity extends BaseActivity {
             }
         });
 
-        et_ref = (EditText) findViewById(com.knowledge_seek.phyctogram.R.id.et_ref);
-        et_adj = (EditText) findViewById(com.knowledge_seek.phyctogram.R.id.et_adj);
-        et_useq = (EditText) findViewById(com.knowledge_seek.phyctogram.R.id.et_useq);
+        et_ref = (EditText) findViewById(R.id.et_ref);
+        et_adj = (EditText) findViewById(R.id.et_adj);
+        et_useq = (EditText) findViewById(R.id.et_useq);
 
-        btn_ref = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_ref);
+        btn_ref = (Button) findViewById(R.id.btn_ref);
         btn_ref.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +103,7 @@ public class AdminActivity extends BaseActivity {
 
             }
         });
-        btn_adj = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_adj);
+        btn_adj = (Button) findViewById(R.id.btn_adj);
         btn_adj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +114,7 @@ public class AdminActivity extends BaseActivity {
 
             }
         });
-        btn_useq = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_useq);
+        btn_useq = (Button) findViewById(R.id.btn_useq);
         btn_useq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +124,7 @@ public class AdminActivity extends BaseActivity {
                 finish();
             }
         });
-        btn_end = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_end);
+        btn_end = (Button) findViewById(R.id.btn_end);
         btn_end.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,7 +181,7 @@ public class AdminActivity extends BaseActivity {
         protected void onPreExecute() {
             dialog= new ProgressDialog(AdminActivity.this);
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(mContext.getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(mContext.getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }

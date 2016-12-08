@@ -55,47 +55,47 @@ public class JoinActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.knowledge_seek.phyctogram.R.layout.activity_join);
+        setContentView(R.layout.activity_join);
 
 
 
 
         member = new Member();
-        textViewPw = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.textViewPw);
-        et_name = (EditText)findViewById(com.knowledge_seek.phyctogram.R.id.et_name);
-        et_email = (EditText)findViewById(com.knowledge_seek.phyctogram.R.id.et_email);
-        et_pw = (EditText)findViewById(com.knowledge_seek.phyctogram.R.id.et_pw);
+        textViewPw = (TextView) findViewById(R.id.textViewPw);
+        et_name = (EditText)findViewById(R.id.et_name);
+        et_email = (EditText)findViewById(R.id.et_email);
+        et_pw = (EditText)findViewById(R.id.et_pw);
         et_pw.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (et_pw.getText().toString().length()>0) {
                     if (et_pw.getText().toString().equals(et_pw1.getText().toString())) {
                         textViewPw.setTextColor(Color.parseColor("#01DF3A"));
-                        textViewPw.setText(com.knowledge_seek.phyctogram.R.string.joinActivity_agreePW);
+                        textViewPw.setText(R.string.joinActivity_agreePW);
                     } else {
                         textViewPw.setTextColor(Color.parseColor("#ff0000"));
-                        textViewPw.setText(com.knowledge_seek.phyctogram.R.string.joinActivity_discordPW);
+                        textViewPw.setText(R.string.joinActivity_discordPW);
                     }
                 }
             }
         });
-        et_pw1 = (EditText)findViewById(com.knowledge_seek.phyctogram.R.id.et_pw1);
+        et_pw1 = (EditText)findViewById(R.id.et_pw1);
         et_pw1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (et_pw.getText().toString().length()>0) {
                     if (et_pw.getText().toString().equals(et_pw1.getText().toString())) {
                         textViewPw.setTextColor(Color.parseColor("#01DF3A"));
-                        textViewPw.setText(com.knowledge_seek.phyctogram.R.string.joinActivity_agreePW);
+                        textViewPw.setText(R.string.joinActivity_agreePW);
                     } else {
                         textViewPw.setTextColor(Color.parseColor("#ff0000"));
-                        textViewPw.setText(com.knowledge_seek.phyctogram.R.string.joinActivity_discordPW);
+                        textViewPw.setText(R.string.joinActivity_discordPW);
                     }
                 }
             }
         });
-        btn_join_member = (Button)findViewById(com.knowledge_seek.phyctogram.R.id.btn_join_member);
-        sv_layout = (ScrollView)findViewById(com.knowledge_seek.phyctogram.R.id.sv_layout);
+        btn_join_member = (Button)findViewById(R.id.btn_join_member);
+        sv_layout = (ScrollView)findViewById(R.id.sv_layout);
         sv_layout.setVerticalScrollBarEnabled(false);
         sv_layout.setHorizontalScrollBarEnabled(false);
 
@@ -117,7 +117,7 @@ public class JoinActivity extends BaseActivity {
 
                 //약관 동의체크
                 if(!(agreement1.isChecked() && agreement2.isChecked())){
-                    Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.joinActivity_agreeClause, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.joinActivity_agreeClause, Toast.LENGTH_SHORT).show();
                     return ;
                 }
 
@@ -133,11 +133,11 @@ public class JoinActivity extends BaseActivity {
 
 
         //이용약관 동의 및 개인정보취급방침 동의
-        allAgreement =(CheckBox) findViewById(com.knowledge_seek.phyctogram.R.id.allAgreement);
-        agreement1 = (CheckBox) findViewById(com.knowledge_seek.phyctogram.R.id.agreement1);
-        agreement2 = (CheckBox) findViewById(com.knowledge_seek.phyctogram.R.id.agreement2);
-        agreement1_view = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.agreement1_view);
-        agreement2_view = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.agreement2_view);
+        allAgreement =(CheckBox) findViewById(R.id.allAgreement);
+        agreement1 = (CheckBox) findViewById(R.id.agreement1);
+        agreement2 = (CheckBox) findViewById(R.id.agreement2);
+        agreement1_view = (TextView)findViewById(R.id.agreement1_view);
+        agreement2_view = (TextView)findViewById(R.id.agreement2_view);
 
         allAgreement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -159,13 +159,13 @@ public class JoinActivity extends BaseActivity {
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
                 View layout;
-                layout = inflater.inflate(com.knowledge_seek.phyctogram.R.layout.popup_agree, (ViewGroup) findViewById(com.knowledge_seek.phyctogram.R.id.agreeText));
+                layout = inflater.inflate(R.layout.popup_agree, (ViewGroup) findViewById(R.id.agreeText));
                 AlertDialog.Builder aDialog = new AlertDialog.Builder(JoinActivity.this);
 
-                aDialog.setTitle(com.knowledge_seek.phyctogram.R.string.joinActivity_clause);
+                aDialog.setTitle(R.string.joinActivity_clause);
                 aDialog.setView(layout);
 
-                aDialog.setNegativeButton(com.knowledge_seek.phyctogram.R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
+                aDialog.setNegativeButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 });
@@ -181,13 +181,13 @@ public class JoinActivity extends BaseActivity {
                 LayoutInflater inflater2 = (LayoutInflater) mContext2.getSystemService(LAYOUT_INFLATER_SERVICE);
 
                 View layout;
-                layout = inflater2.inflate(com.knowledge_seek.phyctogram.R.layout.popup_agree2, (ViewGroup) findViewById(com.knowledge_seek.phyctogram.R.id.agreeText));
+                layout = inflater2.inflate(R.layout.popup_agree2, (ViewGroup) findViewById(R.id.agreeText));
                 AlertDialog.Builder aDialog2 = new AlertDialog.Builder(JoinActivity.this);
 
-                aDialog2.setTitle(com.knowledge_seek.phyctogram.R.string.joinActivity_individualInfo);
+                aDialog2.setTitle(R.string.joinActivity_individualInfo);
                 aDialog2.setView(layout);
 
-                aDialog2.setNegativeButton(com.knowledge_seek.phyctogram.R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
+                aDialog2.setNegativeButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 });
@@ -258,10 +258,10 @@ public class JoinActivity extends BaseActivity {
         if (et_pw.getText().toString().length()>0) {
             if (et_pw.getText().toString().equals(et_pw1.getText().toString())) {
                 textViewPw.setTextColor(Color.parseColor("#01DF3A"));
-                textViewPw.setText(com.knowledge_seek.phyctogram.R.string.joinActivity_agreePW);
+                textViewPw.setText(R.string.joinActivity_agreePW);
             } else {
                 textViewPw.setTextColor(Color.parseColor("#ff0000"));
-                textViewPw.setText(com.knowledge_seek.phyctogram.R.string.joinActivity_discordPW);
+                textViewPw.setText(R.string.joinActivity_discordPW);
             }
         }
         return super.onTouchEvent(event);
@@ -270,7 +270,7 @@ public class JoinActivity extends BaseActivity {
     //패스워드 체크
     private boolean checkpw(String word1, String word2){
         if(word1.length() <= 0 || word2.length() <= 0 || !word1.equals(word2)){
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.joinActivity_checkPW, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.joinActivity_checkPW, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -278,14 +278,14 @@ public class JoinActivity extends BaseActivity {
     //멤버 내용 체크
     private boolean checkMember(Member member){
         if(member.getName().length() <= 0 || member.getEmail().length() <= 0 || member.getPassword().length() <= 0){
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.joinActivity_checkContents, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.joinActivity_checkContents, Toast.LENGTH_SHORT).show();
             return false;
         }
 
         if (member.getEmail().contains("@")&&member.getEmail().contains(".")){
             return true;
         }else{
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.joinActivity_checkEmail, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.joinActivity_checkEmail, Toast.LENGTH_SHORT).show();
             return false;
         }
     }
@@ -316,7 +316,7 @@ public class JoinActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -342,8 +342,8 @@ public class JoinActivity extends BaseActivity {
         protected void onPostExecute(Member member) {
             if(member != null) {
                 Log.d("-진우-", "픽토그램 가입 성공 결과1 : " + member.toString());
-                Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.joinActivity_successJoinAlert, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.joinActivity_userRegister, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.joinActivity_successJoinAlert, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.joinActivity_userRegister, Toast.LENGTH_SHORT).show();
                 memberActivity = member;
                 //가입완료후 로그인유지를 위해 preference를 사용한다.
                 SaveSharedPreference.setMemberSeq(getApplicationContext(), String.valueOf(memberActivity.getMember_seq()));
@@ -351,7 +351,7 @@ public class JoinActivity extends BaseActivity {
 
 
             } else {
-                Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.joinActivity_alreadyJoinAlert, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.joinActivity_alreadyJoinAlert, Toast.LENGTH_SHORT).show();
             }
 
             dialog.dismiss();

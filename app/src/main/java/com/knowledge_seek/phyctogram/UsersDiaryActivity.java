@@ -15,12 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pkmmte.view.CircularImageView;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.knowledge_seek.phyctogram.domain.Diary;
 import com.knowledge_seek.phyctogram.domain.Users;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
@@ -29,6 +23,12 @@ import com.knowledge_seek.phyctogram.listAdapter.MonthItem;
 import com.knowledge_seek.phyctogram.retrofitapi.DiaryAPI;
 import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
 import com.knowledge_seek.phyctogram.util.Utility;
+import com.pkmmte.view.CircularImageView;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit.Call;
 
 /**
@@ -64,23 +64,23 @@ public class UsersDiaryActivity extends BaseActivity {
         Log.d("-진우-", "UsersDiaryActivity.onCreate() 실행");
 
         //화면 페이지
-        ic_screen = (LinearLayout) findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_calendar, ic_screen, true);
+        ic_screen = (LinearLayout) findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_calendar, ic_screen, true);
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
 
         //메인페이지 내 아이 이름 출력
-        tv_users_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_users_name);
+        tv_users_name = (TextView) findViewById(R.id.tv_users_name);
         if (nowUsers != null) {
             tv_users_name.setText(nowUsers.getName());
         }
@@ -91,7 +91,7 @@ public class UsersDiaryActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 nowUsers = (Users) usersListSlideAdapter.getItem(position);
                 Log.d("-진우-", "선택한 아이 : " + nowUsers.toString());
-                Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' "+getString(com.knowledge_seek.phyctogram.R.string.characterActivity_choiceChild), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' "+getString(R.string.characterActivity_choiceChild), Toast.LENGTH_LONG).show();
 
                 tv_users_name.setText(nowUsers.getName());
 
@@ -112,7 +112,7 @@ public class UsersDiaryActivity extends BaseActivity {
         });
 
         //레이아웃 정의
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +121,7 @@ public class UsersDiaryActivity extends BaseActivity {
         });
 
         //그리드뷰 객체 참조 및 설정
-        gv_monthView = (GridView) findViewById(com.knowledge_seek.phyctogram.R.id.gv_monthView);
+        gv_monthView = (GridView) findViewById(R.id.gv_monthView);
         calendarMonthAdapter = new CalendarMonthAdapter(this);
         gv_monthView.setAdapter(calendarMonthAdapter);
         //그리드뷰(달력) 리스너 설정
@@ -164,11 +164,11 @@ public class UsersDiaryActivity extends BaseActivity {
         });
 
         //년월출력
-        tv_monthText = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_monthText);
+        tv_monthText = (TextView) findViewById(R.id.tv_monthText);
         setMonthText();
 
         //이전달가기, 다음달가기
-        btn_monthPrevious = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_monthPrevious);
+        btn_monthPrevious = (Button) findViewById(R.id.btn_monthPrevious);
         btn_monthPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,7 +182,7 @@ public class UsersDiaryActivity extends BaseActivity {
                 }
             }
         });
-        btn_monthNext = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_monthNext);
+        btn_monthNext = (Button) findViewById(R.id.btn_monthNext);
         btn_monthNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,7 +198,7 @@ public class UsersDiaryActivity extends BaseActivity {
         });
 
         //일기쓰기
-        imBtn_diary_write = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.imBtn_diary_write);
+        imBtn_diary_write = (ImageButton) findViewById(R.id.imBtn_diary_write);
         imBtn_diary_write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,7 +209,7 @@ public class UsersDiaryActivity extends BaseActivity {
                     startActivity(intent);
                     //finish();
                 } else {
-                    Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.diaryWriteActivity_registerChild, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.diaryWriteActivity_registerChild, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -227,8 +227,7 @@ public class UsersDiaryActivity extends BaseActivity {
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
         usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-        int height = getListViewHeight(lv_usersList);
-        lv_usersList.getLayoutParams().height = height;
+        lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
         //달력페이지에 출력할 일기 불러오기
@@ -246,7 +245,7 @@ public class UsersDiaryActivity extends BaseActivity {
     private void setMonthText() {
         curYear = calendarMonthAdapter.getCurYear();
         curMonth = calendarMonthAdapter.getCurMonth();
-        tv_monthText.setText(curYear + getString(com.knowledge_seek.phyctogram.R.string.usersDiaryActivity_year)+" " + (curMonth + 1) + getString(com.knowledge_seek.phyctogram.R.string.usersDiaryActivity_month));
+        tv_monthText.setText(curYear + getString(R.string.usersDiaryActivity_year)+" " + (curMonth + 1) + getString(R.string.usersDiaryActivity_month));
 
         curYearStr = String.valueOf(curYear);
         curMonthStr = String.valueOf(curMonth + 1);
@@ -265,7 +264,7 @@ public class UsersDiaryActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }

@@ -18,15 +18,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
+import com.knowledge_seek.phyctogram.retrofitapi.FileUploadService;
+import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
 import com.pkmmte.view.CircularImageView;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 
 import java.io.File;
 
-import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
-import com.knowledge_seek.phyctogram.retrofitapi.FileUploadService;
-import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -59,17 +59,17 @@ public class FileUploadActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
 
         //화면 페이지
-        ic_screen = (LinearLayout) findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_fileupload, ic_screen, true);
+        ic_screen = (LinearLayout) findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_fileupload, ic_screen, true);
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
@@ -82,7 +82,7 @@ public class FileUploadActivity extends BaseActivity implements View.OnClickList
             }
         });
         //레이아웃 정의
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,10 +90,10 @@ public class FileUploadActivity extends BaseActivity implements View.OnClickList
             }
         });
 
-        uploadButton = (Button)findViewById(com.knowledge_seek.phyctogram.R.id.uploadButton);
-        messageText  = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.messageText);
-        btnselectpic = (Button)findViewById(com.knowledge_seek.phyctogram.R.id.button_selectpic);
-        imageview = (ImageView)findViewById(com.knowledge_seek.phyctogram.R.id.imageView_pic);
+        uploadButton = (Button)findViewById(R.id.uploadButton);
+        messageText  = (TextView)findViewById(R.id.messageText);
+        btnselectpic = (Button)findViewById(R.id.button_selectpic);
+        imageview = (ImageView)findViewById(R.id.imageView_pic);
 
         btnselectpic.setOnClickListener(this);
         uploadButton.setOnClickListener(this);
@@ -110,8 +110,7 @@ public class FileUploadActivity extends BaseActivity implements View.OnClickList
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
         usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-        int height = getListViewHeight(lv_usersList);
-        lv_usersList.getLayoutParams().height = height;
+        lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
         //슬라이드메뉴 셋팅(내 아이 목록, 계정이미지, 개월수, 캐릭터이미지)
@@ -187,8 +186,8 @@ public class FileUploadActivity extends BaseActivity implements View.OnClickList
         }
         else if (arg0==uploadButton) {
 
-            dialog = ProgressDialog.show(FileUploadActivity.this, "", getString(com.knowledge_seek.phyctogram.R.string.fileUploadActivity_upLoadingAlert), true);
-            messageText.setText(com.knowledge_seek.phyctogram.R.string.fileUploadActivity_startUpLoading);
+            dialog = ProgressDialog.show(FileUploadActivity.this, "", getString(R.string.fileUploadActivity_upLoadingAlert), true);
+            messageText.setText(R.string.fileUploadActivity_startUpLoading);
             new Thread(new Runnable() {
                 public void run() {
 
@@ -215,7 +214,7 @@ public class FileUploadActivity extends BaseActivity implements View.OnClickList
 
             //Bitmap bitmap = BitmapFactory.decodeFile(imagepath);
             //imageview.setImageBitmap(bitmap);
-            messageText.setText(getString(com.knowledge_seek.phyctogram.R.string.fileUploadActivity_fileInfo)+ " " + imagepath);
+            messageText.setText(getString(R.string.fileUploadActivity_fileInfo)+ " " + imagepath);
         }
 
     }

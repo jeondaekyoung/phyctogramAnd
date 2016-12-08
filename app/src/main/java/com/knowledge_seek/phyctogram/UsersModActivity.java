@@ -17,16 +17,16 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pkmmte.view.CircularImageView;
-
-import java.io.IOException;
-import java.util.List;
-
 import com.knowledge_seek.phyctogram.domain.Users;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
 import com.knowledge_seek.phyctogram.retrofitapi.UsersAPI;
 import com.knowledge_seek.phyctogram.util.Utility;
+import com.pkmmte.view.CircularImageView;
+
+import java.io.IOException;
+import java.util.List;
+
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -60,8 +60,8 @@ public class UsersModActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //화면 페이지
-        ic_screen = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_users_mod, ic_screen, true);
+        ic_screen = (LinearLayout)findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_users_mod, ic_screen, true);
 
 
         //데이터셋팅
@@ -74,13 +74,13 @@ public class UsersModActivity extends BaseActivity {
         }
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
@@ -92,7 +92,7 @@ public class UsersModActivity extends BaseActivity {
                 nowUsers = (Users) usersListSlideAdapter.getItem(position);
                 users = nowUsers;
                 Log.d("-진우-", "선택한 아이 : " + nowUsers.toString());
-                Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' "+getString(com.knowledge_seek.phyctogram.R.string.characterActivity_choiceChild), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' "+getString(R.string.characterActivity_choiceChild), Toast.LENGTH_LONG).show();
 
                 //선택 아이로 인한 순서 변경
                 Utility.seqChange(usersList, nowUsers.getUser_seq());
@@ -106,7 +106,7 @@ public class UsersModActivity extends BaseActivity {
         });
 
         //사이드 메뉴 버튼
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,12 +115,12 @@ public class UsersModActivity extends BaseActivity {
         });
 
         //레이아웃 정의
-        et_name = (EditText)findViewById(com.knowledge_seek.phyctogram.R.id.et_name);
-        et_initials = (EditText)findViewById(com.knowledge_seek.phyctogram.R.id.et_initials);
-        dp_lifedate = (DatePicker)findViewById(com.knowledge_seek.phyctogram.R.id.dp_lifedate);
-        rb_female = (RadioButton)findViewById(com.knowledge_seek.phyctogram.R.id.rb_female);
-        rb_male = (RadioButton)findViewById(com.knowledge_seek.phyctogram.R.id.rb_male);
-        btn_usersmod = (Button)findViewById(com.knowledge_seek.phyctogram.R.id.btn_usersmod);
+        et_name = (EditText)findViewById(R.id.et_name);
+        et_initials = (EditText)findViewById(R.id.et_initials);
+        dp_lifedate = (DatePicker)findViewById(R.id.dp_lifedate);
+        rb_female = (RadioButton)findViewById(R.id.rb_female);
+        rb_male = (RadioButton)findViewById(R.id.rb_male);
+        btn_usersmod = (Button)findViewById(R.id.btn_usersmod);
         btn_usersmod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,7 +148,7 @@ public class UsersModActivity extends BaseActivity {
                     public void onResponse(Response<String> response, Retrofit retrofit) {
                         Log.d("-진우-", "내 아이 수정 성공 결과 : " + response.body());
                         if (response.body().equals("success")) {
-                            Toast.makeText(UsersModActivity.this, com.knowledge_seek.phyctogram.R.string.diaryViewActivity_modifyAlert, Toast.LENGTH_LONG).show();
+                            Toast.makeText(UsersModActivity.this, R.string.diaryViewActivity_modifyAlert, Toast.LENGTH_LONG).show();
                         }
                         FindUsersTask task = new FindUsersTask();
                         task.execute();
@@ -193,8 +193,7 @@ public class UsersModActivity extends BaseActivity {
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
         usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-        int height = getListViewHeight(lv_usersList);
-        lv_usersList.getLayoutParams().height = height;
+        lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
         //슬라이드메뉴 셋팅(내 아이 목록, 계정이름, 계정이미지)
@@ -210,16 +209,16 @@ public class UsersModActivity extends BaseActivity {
     private boolean checkUsers(Users users){
         //Log.d("-진우-", users.toString());
         if(users.getName().length() <= 0){
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.usersAddActivity_checkName, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.usersAddActivity_checkName, Toast.LENGTH_SHORT).show();
             return false;
         }
         if(users.getInitials().length() <= 0 || users.getInitials().length() >= 4) {
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.usersAddActivity_checkInitials, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.usersAddActivity_checkInitials, Toast.LENGTH_SHORT).show();
             return false;
         } else {
             //Toast.makeText(getApplicationContext(), users.getInitials() + " : " + users.getInitials().matches("^[A-Z0-9]*$"), Toast.LENGTH_SHORT).show();
             if(!users.getInitials().matches("^[A-Z0-9]*$")){
-                Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.usersAddActivity_checkInitials, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.usersAddActivity_checkInitials, Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
@@ -236,7 +235,7 @@ public class UsersModActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -338,7 +337,7 @@ public class UsersModActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }

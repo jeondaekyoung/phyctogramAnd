@@ -105,7 +105,7 @@ public class GuideActivity extends FragmentActivity {
 
                       if (state == ViewPager.SCROLL_STATE_DRAGGING) {
                             if(targetPage==0){
-                                    //dialog.show();
+                                    dialog.show();
                             }
                       }
                   }
@@ -262,7 +262,7 @@ public class GuideActivity extends FragmentActivity {
                     //
                     // guide_lv = (ListView)findViewById(R.id.guide_lv);
 
-                    wifiListAdapter = new WifiListAdapter(getApplication(), wifiList, com.knowledge_seek.phyctogram.R.layout.list_wifi);
+                    wifiListAdapter = new WifiListAdapter(getApplication(), wifiList, R.layout.list_wifi);
                     guide_lv.setAdapter(wifiListAdapter);
                     Log.d(TAG, "onReceive: "+wifiList);
                     //ListView Item 클릭 시
@@ -371,8 +371,8 @@ public class GuideActivity extends FragmentActivity {
         }
 
         //wifi 리스트를 adapter를 통하여 ListView에 셋팅함
-        guide_lv = (ListView)findViewById(com.knowledge_seek.phyctogram.R.id.guide_lv);
-        wifiListAdapter = new WifiListAdapter(this, wifiList, com.knowledge_seek.phyctogram.R.layout.list_wifi);
+        guide_lv = (ListView)findViewById(R.id.guide_lv);
+        wifiListAdapter = new WifiListAdapter(this, wifiList, R.layout.list_wifi);
         guide_lv.setAdapter(wifiListAdapter);
 
         //ListView Item 클릭 시
@@ -421,8 +421,8 @@ public class GuideActivity extends FragmentActivity {
         protected void onPreExecute() {
 
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getApplicationContext().getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait)+"\n"+
-                    getApplicationContext().getString(com.knowledge_seek.phyctogram.R.string.equipmentActivity_searching));
+            dialog.setMessage(getApplicationContext().getString(R.string.commonActivity_wait)+"\n"+
+                    getApplicationContext().getString(R.string.equipmentActivity_searching));
             dialog.show();
             super.onPreExecute();
         }
@@ -475,8 +475,8 @@ public class GuideActivity extends FragmentActivity {
         protected void onPreExecute() {
 
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getApplicationContext().getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait)+"\n"+
-                    getApplicationContext().getString(com.knowledge_seek.phyctogram.R.string.equipmentActivity_searching));
+            dialog.setMessage(getApplicationContext().getString(R.string.commonActivity_wait)+"\n"+
+                    getApplicationContext().getString(R.string.equipmentActivity_searching));
             dialog.show();
             super.onPreExecute();
         }
@@ -517,7 +517,7 @@ public class GuideActivity extends FragmentActivity {
                     boolean connection = false;
 
                     if (networkId != -1) {
-                        //Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.equipmentActivity_connectionAlert, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), R.string.equipmentActivity_connectionAlert, Toast.LENGTH_LONG).show();
                         //해당 networkId로 wifi를 연결함
                         connection = mWm.enableNetwork(networkId, true); //연결이 되면 true를 반환
                         Log.d("-진우-", "connection : " + connection);

@@ -34,14 +34,14 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(com.knowledge_seek.phyctogram.R.layout.popup_wifi);
+		setContentView(R.layout.popup_wifi);
 	}
 	@Override
 	protected void onResume() {
 
 		super.onResume();
-		btn_close_popup = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_close_popup);
-		btn_pwdOk = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_pwdOk);
+		btn_close_popup = (Button) findViewById(R.id.btn_close_popup);
+		btn_pwdOk = (Button) findViewById(R.id.btn_pwdOk);
 
 		btn_close_popup.setOnClickListener(this);
 		btn_pwdOk.setOnClickListener(this);
@@ -50,14 +50,14 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 		capabilities = getIntent().getStringExtra("capabilities");
 		//ipAddress = getIntent().getStringExtra("ipAddress");
 
-		tv_ssid = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_ssid);
-		edit_password = (EditText) findViewById(com.knowledge_seek.phyctogram.R.id.edit_password);
+		tv_ssid = (TextView) findViewById(R.id.tv_ssid);
+		edit_password = (EditText) findViewById(R.id.edit_password);
 		tv_ssid.setText(ssid);
 	}
 	@Override
 	public void onClick(View v) {
 
-		if(v.getId() == com.knowledge_seek.phyctogram.R.id.btn_pwdOk){
+		if(v.getId() == R.id.btn_pwdOk){
 			/*Intent i = new Intent(PopUpActivity.this,LoginActivity.class);
 			i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(i);*/
@@ -69,7 +69,7 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 				setResult(RESULT_OK, i);
 				finish();
 
-		}else if(v.getId() == com.knowledge_seek.phyctogram.R.id.btn_close_popup){
+		}else if(v.getId() == R.id.btn_close_popup){
 			finish();
 		}
 	}
@@ -93,7 +93,7 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 			dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
-			dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+			dialog.setMessage(getString(R.string.commonActivity_wait));
 			dialog.show();
 		}
 

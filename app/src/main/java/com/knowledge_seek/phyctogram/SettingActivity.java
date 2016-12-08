@@ -1,10 +1,7 @@
 package com.knowledge_seek.phyctogram;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +16,6 @@ import com.knowledge_seek.phyctogram.domain.Users;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.pkmmte.view.CircularImageView;
 
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -49,17 +45,17 @@ public class SettingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //화면 페이지
-        ic_screen = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_setting, ic_screen, true);
+        ic_screen = (LinearLayout)findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_setting, ic_screen, true);
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView)findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView)findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView)findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
@@ -75,7 +71,7 @@ public class SettingActivity extends BaseActivity {
             }
         });
         //레이아웃 정의
-        btn_left = (ImageButton)findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton)findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,43 +79,8 @@ public class SettingActivity extends BaseActivity {
             }
         });
 
-        /*View view1 = findViewById(R.id.ripple01);
-        MaterialRippleLayout.on(view1)
-                .rippleColor(Color.parseColor("#C0AAE1"))
-                .rippleAlpha(0.2f)
-                .rippleHover(true)
-                .create();
-
-        View view2 = findViewById(R.id.ripple02);
-        MaterialRippleLayout.on(view2)
-                .rippleColor(Color.parseColor("#C0AAE1"))
-                .rippleAlpha(0.2f)
-                .rippleHover(true)
-                .create();
-
-        View view3 = findViewById(R.id.ripple03);
-        MaterialRippleLayout.on(view3)
-                .rippleColor(Color.parseColor("#C0AAE1"))
-                .rippleAlpha(0.2f)
-                .rippleHover(true)
-                .create();
-
-        View view4 = findViewById(R.id.ripple04);
-        MaterialRippleLayout.on(view4)
-                .rippleColor(Color.parseColor("#C0AAE1"))
-                .rippleAlpha(0.2f)
-                .rippleHover(true)
-                .create();
-
-        View view5 = findViewById(R.id.ripple05);
-        MaterialRippleLayout.on(view5)
-                .rippleColor(Color.parseColor("#C0AAE1"))
-                .rippleAlpha(0.2f)
-                .rippleHover(true)
-                .create();
-*/
         //공지사항
-        tv_notice = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.tv_notice);
+        tv_notice = (LinearLayout)findViewById(R.id.tv_notice);
         tv_notice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +90,7 @@ public class SettingActivity extends BaseActivity {
             }
         });
         //내기기
-        tv_equip = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.tv_equip);
+        tv_equip = (LinearLayout)findViewById(R.id.tv_equip);
         tv_equip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +102,7 @@ public class SettingActivity extends BaseActivity {
             }
         });
         //비밀번호 변경
-        tv_pwmod = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.tv_pwmod);
+        tv_pwmod = (LinearLayout)findViewById(R.id.tv_pwmod);
         tv_pwmod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,7 +114,7 @@ public class SettingActivity extends BaseActivity {
             }
         });
         //회원탈퇴
-        tv_withdraw = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.tv_withdraw);
+        tv_withdraw = (LinearLayout)findViewById(R.id.tv_withdraw);
         tv_withdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +126,7 @@ public class SettingActivity extends BaseActivity {
             }
         });
         //문의하기
-        tv_qa = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.tv_qa);
+        tv_qa = (LinearLayout)findViewById(R.id.tv_qa);
         tv_qa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,7 +139,7 @@ public class SettingActivity extends BaseActivity {
         });
 
         //언어변경 (영문)
-        li_lan_en = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.li_lan_en);
+        li_lan_en = (LinearLayout)findViewById(R.id.li_lan_en);
         li_lan_en.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,7 +154,7 @@ public class SettingActivity extends BaseActivity {
             }
         });
         //언어변경 (중문)
-        li_lan_cn = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.li_lan_cn);
+        li_lan_cn = (LinearLayout)findViewById(R.id.li_lan_cn);
         li_lan_cn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,7 +168,7 @@ public class SettingActivity extends BaseActivity {
             }
         });
         //언어변경 (한글)
-        li_lan_ko = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.li_lan_ko);
+        li_lan_ko = (LinearLayout)findViewById(R.id.li_lan_ko);
         li_lan_ko.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,113 +197,7 @@ public class SettingActivity extends BaseActivity {
         lv_usersList.getLayoutParams().height  = getListViewHeight(lv_usersList);
           usersListSlideAdapter.notifyDataSetChanged();
 
-        //슬라이드메뉴 셋팅(내 아이목록, 계정이름, 계정이미지)
-        //SettingTask task = new SettingTask();
-        //task.execute(img_profile);
-
-        //Log.d("-진우-", "SettingActivity 에서 onResume() : " + member.toString());
-
         Log.d("-진우-", "SettingActivity.onResume() 끝");
     }
 
-    //설정페이지 초기 데이터조회(슬라이드 내 아이 목록, 계정이름, 계정이미지)
-    private class SettingTask extends AsyncTask<Object, Void, Bitmap>{
-
-        private ProgressDialog dialog = new ProgressDialog(SettingActivity.this);
-        private List<Users> usersTask;
-        private CircularImageView img_profileTask;
-
-        //Background 작업 시작전에 UI 작업을 진행 한다.
-        @Override
-        protected void onPreExecute() {
-            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
-            dialog.show();
-            super.onPreExecute();
-        }
-
-        //Background 작업을 진행 한다.
-        @Override
-        protected Bitmap doInBackground(Object... params) {
-            Bitmap mBitmap = null;
-            img_profileTask = (CircularImageView)params[0];
-
-            //슬라이드메뉴에 있는 내 아이 목록
-            /*UsersAPI service = ServiceGenerator.createService(UsersAPI.class, "Users");
-            Call<List<Users>> call = service.findUsersByMember(String.valueOf(member.getMember_seq()));
-            try {
-                usersTask = call.execute().body();
-            } catch (IOException e){
-                Log.d("-진우-", "내 아이 목록 가져오기 실패");
-            }*/
-
-            /*String image_url = null;
-            if(member.getJoin_route().equals("kakao")){
-                image_url = member.getKakao_thumbnailimagepath();
-                //이미지 불러오기
-                InputStream in = null;
-                try {
-                    Log.d("-진우-", "이미지 주소 : " + image_url);
-                    in = new URL(image_url).openStream();
-                    mBitmap = BitmapFactory.decodeStream(in);
-                    in.close();
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-            } else if(member.getJoin_route().equals("facebook")){
-                image_url = "http://graph.facebook.com/" + member.getFacebook_id() + "/picture?type=large";
-                //이미지 불러오기
-                InputStream in = null;
-                try {
-                    //페이스북은 jpg파일이 링크 걸린 것이 아니다.
-                    //http://graph.facebook.com/userid/picture?type=large
-                    Log.d("-진우-", "이미지 주소 : " + image_url);
-
-                    OkHttpClient client = new OkHttpClient();
-                    Request request = new Request.Builder()
-                            .url(image_url)
-                            .build();
-                    com.squareup.okhttp.Response response = client.newCall(request).execute();
-                    in = response.body().byteStream();
-                    mBitmap = BitmapFactory.decodeStream(in);
-                    in.close();
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-            }*/
-            return mBitmap;
-        }
-
-        //Background 작업이 끝난 후 UI 작업을 진행 한다.
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            /*if(bitmap != null){
-                Log.d("-진우-", "이미지읽어옴");
-                img_profileTask.setImageBitmap(bitmap);
-            }
-
-            if(usersTask != null && usersTask.size() > 0){
-                Log.d("-진우-", "내 아이는 몇명? " + usersTask.size());
-                for(Users u : usersTask){
-                    Log.d("-진우-", "내 아이 : " + u.toString());
-                }
-                usersList = usersTask;
-
-                usersListSlideAdapter.setUsersList(usersList);
-                if(nowUsers == null){
-                    nowUsers = usersTask.get(0);
-                }
-                Log.d("-진우-", "메인 유저는 " + nowUsers.toString());
-            } else {
-                Log.d("-진우-", "성공했으나 등록된 내아이가 없습니다");
-            }
-
-            int height = getListViewHeight(lv_usersList);
-            lv_usersList.getLayoutParams().height = height;
-            usersListSlideAdapter.notifyDataSetChanged();*/
-
-            dialog.dismiss();
-            super.onPostExecute(bitmap);
-        }
-    }
 }

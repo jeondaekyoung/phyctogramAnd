@@ -15,7 +15,7 @@ import com.pkmmte.view.CircularImageView;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 
 /**
- * Created by dkfka on 2016-02-11.
+ * Created by jdk on 2016-02-11!
  */
 public class NoticeViewActivity extends BaseActivity {
 
@@ -36,17 +36,17 @@ public class NoticeViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //화면 페이지
-        ic_screen = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_notice_view, ic_screen, true);
+        ic_screen = (LinearLayout)findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_notice_view, ic_screen, true);
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
@@ -63,7 +63,7 @@ public class NoticeViewActivity extends BaseActivity {
         });
 
         //레이아웃 정의
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,16 +86,16 @@ public class NoticeViewActivity extends BaseActivity {
         }
 
         //텍스트뷰 스크롤바 달기
-        TextView tv_content = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.notice_content);
+        TextView tv_content = (TextView) findViewById(R.id.notice_content);
         tv_content.setMovementMethod(new ScrollingMovementMethod());
         tv_content.setText(notice);
 
         //공지사항 타이틀
-        TextView notice_title = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.notice_title);
+        TextView notice_title = (TextView) findViewById(R.id.notice_title);
         notice_title.setText(title);
 
         //공지사항 날짜
-        TextView notice_date = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.notice_date);
+        TextView notice_date = (TextView) findViewById(R.id.notice_date);
         notice_date.setText(writing_de);
 
         /*webview = (WebView) findViewById(R.id.wb_notice);
@@ -117,8 +117,7 @@ public class NoticeViewActivity extends BaseActivity {
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
         usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-        int height = getListViewHeight(lv_usersList);
-        lv_usersList.getLayoutParams().height = height;
+        lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
         Log.d("-진우-", "NoticeViewActivity.onResume() : " + member.toString());

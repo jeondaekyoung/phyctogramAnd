@@ -114,8 +114,8 @@ public class MainActivity extends BaseActivity {
         Log.d("-진우-", "MainActivity.onCreate() 실행");
 
         //화면 페이지
-        ic_screen = (LinearLayout) findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_main, ic_screen, true);
+        ic_screen = (LinearLayout) findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_main, ic_screen, true);
 
         //데이터셋팅
         Bundle bundle = this.getIntent().getExtras();
@@ -144,7 +144,7 @@ public class MainActivity extends BaseActivity {
         }
 
         //슬라이드 내 이름
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         //슬라이드 내 멤버 이름 셋팅
         if (memberName != null) {
             Log.d("-진우-", memberName);
@@ -152,16 +152,16 @@ public class MainActivity extends BaseActivity {
         }
 
         //슬라이드 내 이미지
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
 
-        tv_users_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_users_name);
+        tv_users_name = (TextView) findViewById(R.id.tv_users_name);
         //슬라이드 내 아이 목록(ListView)에서 아이 선택시
         lv_usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 nowUsers = (Users) usersListSlideAdapter.getItem(position);
                 Log.d("-진우-", "선택한 아이 : " + nowUsers.toString());
-                Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' "+getString(com.knowledge_seek.phyctogram.R.string.characterActivity_choiceChild), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' "+getString(R.string.characterActivity_choiceChild), Toast.LENGTH_LONG).show();
 
                 if (tv_users_name != null) {
                     tv_users_name.setText(nowUsers.getName());
@@ -180,7 +180,7 @@ public class MainActivity extends BaseActivity {
         });
 
         //레이아웃 정의
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,7 +189,7 @@ public class MainActivity extends BaseActivity {
         });
 
         //캐릭터
-        iv_my_animal = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.iv_my_animal);
+        iv_my_animal = (CircularImageView) findViewById(R.id.iv_my_animal);
         iv_my_animal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,12 +200,12 @@ public class MainActivity extends BaseActivity {
             }
         });
         //기록조회
-        btn_users_record = (RelativeLayout) findViewById(com.knowledge_seek.phyctogram.R.id.btn_users_record);
+        btn_users_record = (RelativeLayout) findViewById(R.id.btn_users_record);
         btn_users_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (usersList == null || usersList.size() <= 0) {
-                    Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.diaryWriteActivity_registerChild, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.diaryWriteActivity_registerChild, Toast.LENGTH_LONG).show();
                     return;
                 }
                 Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
@@ -215,12 +215,12 @@ public class MainActivity extends BaseActivity {
             }
         });
         //분석리포트
-        btn_users_analysis = (RelativeLayout) findViewById(com.knowledge_seek.phyctogram.R.id.btn_users_analysis);
+        btn_users_analysis = (RelativeLayout) findViewById(R.id.btn_users_analysis);
         btn_users_analysis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (usersList == null || usersList.size() <= 0) {
-                    Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.diaryWriteActivity_registerChild, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.diaryWriteActivity_registerChild, Toast.LENGTH_LONG).show();
                     return;
                 }
                 Intent intent = new Intent(getApplicationContext(), UsersAnalysisActivity.class);
@@ -297,13 +297,13 @@ public class MainActivity extends BaseActivity {
 
 
         //내 아이 메인(분석) 정보
-        tv_height = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_height);
-        tv_grow = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_grow);
-        tv_rank = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_rank);
+        tv_height = (TextView) findViewById(R.id.tv_height);
+        tv_grow = (TextView) findViewById(R.id.tv_grow);
+        tv_rank = (TextView) findViewById(R.id.tv_rank);
 
         //sv_main = (ScrollView)findViewById(R.id.sv_main);
 
-        img_refresh = (ImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_refresh);
+        img_refresh = (ImageView) findViewById(R.id.img_refresh);
         img_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -411,7 +411,7 @@ public class MainActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -512,9 +512,7 @@ public class MainActivity extends BaseActivity {
                 Log.d("-진우-", "순서 바꾼 후 내 아이 목록 : " + usersList.size());
                 usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
                 usersListSlideAdapter.setUsersList(usersList);
-
-                int height = getListViewHeight(lv_usersList);
-                lv_usersList.getLayoutParams().height = height;
+                lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
                 usersListSlideAdapter.notifyDataSetChanged();
 
                 //내 아이 메인(분석) 정보 계산하기
@@ -578,7 +576,7 @@ public class MainActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -611,7 +609,7 @@ public class MainActivity extends BaseActivity {
 
             if (heightTask.size() == 0) {
                 //기록이 없으면 끝
-                iv_my_animal.setImageResource(com.knowledge_seek.phyctogram.R.drawable.sample);
+                iv_my_animal.setImageResource(R.drawable.sample);
                 tv_height.setText("-");
                 tv_grow.setText("-");
                 tv_rank.setText("-");

@@ -88,23 +88,23 @@ public class UsersAnalysisActivity extends BaseActivity {
         Log.d("-진우-", "UsersAnalysisActivity.onCreate() 실행");
 
         //화면페이지
-        ic_screen = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_analysis, ic_screen, true);
+        ic_screen = (LinearLayout)findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_analysis, ic_screen, true);
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
 
         //메인페이지 내 아이 이름 출력
-        tv_users_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_users_name);
+        tv_users_name = (TextView) findViewById(R.id.tv_users_name);
         if (nowUsers != null) {
             tv_users_name.setText(nowUsers.getName());
         }
@@ -115,7 +115,7 @@ public class UsersAnalysisActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 nowUsers = (Users)usersListSlideAdapter.getItem(position);
                 Log.d("-진우-", "선택한 아이 : " + nowUsers.toString());
-                Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' "+getString(com.knowledge_seek.phyctogram.R.string.characterActivity_choiceChild), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' "+getString(R.string.characterActivity_choiceChild), Toast.LENGTH_LONG).show();
 
                 tv_users_name.setText(nowUsers.getName());
 
@@ -134,7 +134,7 @@ public class UsersAnalysisActivity extends BaseActivity {
         });
 
         //레이아웃 정의
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,9 +142,9 @@ public class UsersAnalysisActivity extends BaseActivity {
             }
         });
 
-        ll_capture = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ll_capture);
+        ll_capture = (LinearLayout)findViewById(R.id.ll_capture);
         //리포트 공유 팝업
-        btn_share = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_share);
+        btn_share = (Button) findViewById(R.id.btn_share);
         btn_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,23 +155,23 @@ public class UsersAnalysisActivity extends BaseActivity {
                 //Drawing cache에 저장된 뷰의 이미지를 Bitmap 형태로 반환합니다.
                 Bitmap cache = ll_capture.getDrawingCache();
 
-                View popupView = getLayoutInflater().inflate(com.knowledge_seek.phyctogram.R.layout.activity_report_share, null);
+                View popupView = getLayoutInflater().inflate(R.layout.activity_report_share, null);
                 //레이아웃 정의
-                Button btn_close = (Button)popupView.findViewById(com.knowledge_seek.phyctogram.R.id.btn_close);
+                Button btn_close = (Button)popupView.findViewById(R.id.btn_close);
                 btn_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         popup.dismiss();
                     }
                 });
-                ImageView iv_capture= (ImageView)popupView.findViewById(com.knowledge_seek.phyctogram.R.id.iv_capture);
+                ImageView iv_capture= (ImageView)popupView.findViewById(R.id.iv_capture);
                 captureView = Bitmap.createBitmap(cache);
                 iv_capture.setImageBitmap(captureView);
 
                 //실제로 올릴 이미지 캡쳐
-                final LinearLayout ll_capture_2 = (LinearLayout) popupView.findViewById(com.knowledge_seek.phyctogram.R.id.ll_capture_2);
+                final LinearLayout ll_capture_2 = (LinearLayout) popupView.findViewById(R.id.ll_capture_2);
 
-                ImageButton imBtn_fb = (ImageButton)popupView.findViewById(com.knowledge_seek.phyctogram.R.id.imBtn_fb);
+                ImageButton imBtn_fb = (ImageButton)popupView.findViewById(R.id.imBtn_fb);
                 imBtn_fb.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -183,7 +183,7 @@ public class UsersAnalysisActivity extends BaseActivity {
                             String appPackage = "com.facebook.katana";
                             PackageInfo pi = pm.getPackageInfo(appPackage, PackageManager.GET_ACTIVITIES);
                         } catch (PackageManager.NameNotFoundException e) {
-                            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.usersAnalysisActivity_initFacebook, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.usersAnalysisActivity_initFacebook, Toast.LENGTH_SHORT).show();
                             return ;
                         }
                         //실제로 올릴 이미지 캡쳐-2
@@ -206,7 +206,7 @@ public class UsersAnalysisActivity extends BaseActivity {
                         startActivity(intent);
                     }
                 });
-                ImageButton imBtn_ks = (ImageButton)popupView.findViewById(com.knowledge_seek.phyctogram.R.id.imBtn_ks);
+                ImageButton imBtn_ks = (ImageButton)popupView.findViewById(R.id.imBtn_ks);
                 imBtn_ks.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -218,7 +218,7 @@ public class UsersAnalysisActivity extends BaseActivity {
                             String appPackage = "com.kakao.story";
                             PackageInfo pi = pm.getPackageInfo(appPackage, PackageManager.GET_ACTIVITIES);
                         } catch (PackageManager.NameNotFoundException e) {
-                            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.usersAnalysisActivity_initkakaoStroy, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.usersAnalysisActivity_initkakaoStroy, Toast.LENGTH_SHORT).show();
                             return ;
                         }
 
@@ -240,7 +240,7 @@ public class UsersAnalysisActivity extends BaseActivity {
 
                     }
                 });
-                ImageButton imBtn_kt = (ImageButton)popupView.findViewById(com.knowledge_seek.phyctogram.R.id.imBtn_kt);
+                ImageButton imBtn_kt = (ImageButton)popupView.findViewById(R.id.imBtn_kt);
                 imBtn_kt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -252,7 +252,7 @@ public class UsersAnalysisActivity extends BaseActivity {
                             String appPackage = "com.kakao.talk";
                             PackageInfo pi = pm.getPackageInfo(appPackage, PackageManager.GET_ACTIVITIES);
                         } catch (PackageManager.NameNotFoundException e) {
-                            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.usersAnalysisActivity_initkakao, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.usersAnalysisActivity_initkakao, Toast.LENGTH_SHORT).show();
                             /*Uri uri = Uri.parse("market://search?q=pname:com.kakao.talk");
                             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                             startActivity(intent);*/
@@ -294,7 +294,7 @@ public class UsersAnalysisActivity extends BaseActivity {
         });
 
         //그래프 셋팅
-        mChart = (CombinedChart) findViewById(com.knowledge_seek.phyctogram.R.id.chart1);
+        mChart = (CombinedChart) findViewById(R.id.chart1);
         mChart.setDescription("");
         mChart.setBackgroundColor(Color.WHITE);
         mChart.setDrawGridBackground(false);
@@ -320,7 +320,7 @@ public class UsersAnalysisActivity extends BaseActivity {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         //내 아이 메인(분석) 정보 등
-        iv_my_animal = (ImageView)findViewById(com.knowledge_seek.phyctogram.R.id.iv_my_animal);
+        iv_my_animal = (ImageView)findViewById(R.id.iv_my_animal);
         iv_my_animal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -330,15 +330,15 @@ public class UsersAnalysisActivity extends BaseActivity {
                 //finish();
             }
         });
-        tv_height = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_height);
-        tv_grow = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_grow);
-        tv_rank = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_rank);
-        tv_analysis_height50 = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_analysis_height50);
-        iv_analysis_height50_diff = (ImageView)findViewById(com.knowledge_seek.phyctogram.R.id.iv_analysis_height50_diff);
-        tv_analysis_height50_diff = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_analysis_height50_diff);
-        tv_analysis_height = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_analysis_height);
-        iv_analysis_height_diff = (ImageView)findViewById(com.knowledge_seek.phyctogram.R.id.iv_analysis_height_diff);
-        tv_analysis_height_diff = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_analysis_height_diff);
+        tv_height = (TextView)findViewById(R.id.tv_height);
+        tv_grow = (TextView)findViewById(R.id.tv_grow);
+        tv_rank = (TextView)findViewById(R.id.tv_rank);
+        tv_analysis_height50 = (TextView)findViewById(R.id.tv_analysis_height50);
+        iv_analysis_height50_diff = (ImageView)findViewById(R.id.iv_analysis_height50_diff);
+        tv_analysis_height50_diff = (TextView)findViewById(R.id.tv_analysis_height50_diff);
+        tv_analysis_height = (TextView)findViewById(R.id.tv_analysis_height);
+        iv_analysis_height_diff = (ImageView)findViewById(R.id.iv_analysis_height_diff);
+        tv_analysis_height_diff = (TextView)findViewById(R.id.tv_analysis_height_diff);
     }
 
     @Override
@@ -414,7 +414,7 @@ public class UsersAnalysisActivity extends BaseActivity {
 
         LineData d = new LineData();
 
-        LineDataSet set = new LineDataSet(my, getString(com.knowledge_seek.phyctogram.R.string.usersAnalysisActivity_childChart));
+        LineDataSet set = new LineDataSet(my, getString(R.string.usersAnalysisActivity_childChart));
         set.setColor(Color.rgb(151, 118, 197));
         set.setLineWidth(2.0f);
 
@@ -440,7 +440,7 @@ public class UsersAnalysisActivity extends BaseActivity {
 
         BarData d = new BarData();
 
-        BarDataSet set = new BarDataSet(ave, getString(com.knowledge_seek.phyctogram.R.string.usersAnalysisActivity_avgChart));
+        BarDataSet set = new BarDataSet(ave, getString(R.string.usersAnalysisActivity_avgChart));
         set.setColor(Color.rgb(255, 240, 205));
         set.setValueTextColor(Color.rgb(255, 200, 90));
         set.setValueTextSize(10f);
@@ -462,7 +462,7 @@ public class UsersAnalysisActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -565,7 +565,7 @@ public class UsersAnalysisActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -605,7 +605,7 @@ public class UsersAnalysisActivity extends BaseActivity {
 
             if(heightTask.size() == 0){
                 //기록이 없으면 끝
-                iv_my_animal.setImageResource(com.knowledge_seek.phyctogram.R.drawable.sample);
+                iv_my_animal.setImageResource(R.drawable.sample);
                 tv_height.setText("-");
                 tv_grow.setText("-");
                 tv_rank.setText("-");
@@ -656,14 +656,14 @@ public class UsersAnalysisActivity extends BaseActivity {
             }
             StringBuilder analysis_height50 = new StringBuilder();
             /*analysis_height50.append(getString(R.string.usersAnalysisActivity_avg)+" ").append(analysisTask.get(0).getHeight_50()).append("cm 보다");*/
-            analysis_height50.append(getString(com.knowledge_seek.phyctogram.R.string.usersAnalysisActivity_avg));
+            analysis_height50.append(getString(R.string.usersAnalysisActivity_avg));
             double analysis_height050_diff = Double.parseDouble(String.format("%.1f", analysisTask.get(0).getHeight() - analysisTask.get(0).getHeight_50()));
             //Log.d("-진우-", "분석 결과 : " + analysis_height50 + ", " + analysis_height050_diff);
             tv_analysis_height50.setText(analysis_height50);
             if(analysis_height050_diff > 0){
-                iv_analysis_height50_diff.setImageResource(com.knowledge_seek.phyctogram.R.drawable.icon_report_up);
+                iv_analysis_height50_diff.setImageResource(R.drawable.icon_report_up);
             } else {
-                iv_analysis_height50_diff.setImageResource(com.knowledge_seek.phyctogram.R.drawable.icon_report_down);
+                iv_analysis_height50_diff.setImageResource(R.drawable.icon_report_down);
             }
             tv_analysis_height50_diff.setText(String.valueOf(Math.abs(analysis_height050_diff)));
 
@@ -693,15 +693,15 @@ public class UsersAnalysisActivity extends BaseActivity {
             double analysis_height_diff =   analysisTask.get(0).getHeight() - analysisTask.get(analysisSize-1).getHeight();
             StringBuilder analysis_height = new StringBuilder();
             /*analysis_height.append(month_diff).append(getString(R.string.usersAnalysisActivity_month)+" ").append(analysis_height50_diff).append("cm "+getString(R.string.usersAnalysisActivity_grow));*/
-            analysis_height.append(month_diff).append(getString(com.knowledge_seek.phyctogram.R.string.usersAnalysisActivity_month));
+            analysis_height.append(month_diff).append(getString(R.string.usersAnalysisActivity_month));
             double diff = Double.parseDouble(String.format("%.1f", analysis_height_diff - analysis_height50_diff));
             Log.d("-진우-", "분석 결과2 : " + analysis_height + ", " + analysis_height_diff + ", " + analysis_height50_diff + " = "
                     + (analysis_height_diff - analysis_height50_diff) + ", " + diff);
             tv_analysis_height.setText(analysis_height);
             if(diff > 0){
-                iv_analysis_height_diff.setImageResource(com.knowledge_seek.phyctogram.R.drawable.icon_report_up);
+                iv_analysis_height_diff.setImageResource(R.drawable.icon_report_up);
             } else {
-                iv_analysis_height_diff.setImageResource(com.knowledge_seek.phyctogram.R.drawable.icon_report_down);
+                iv_analysis_height_diff.setImageResource(R.drawable.icon_report_down);
             }
             tv_analysis_height_diff.setText(String.valueOf(Math.abs(diff)));
 

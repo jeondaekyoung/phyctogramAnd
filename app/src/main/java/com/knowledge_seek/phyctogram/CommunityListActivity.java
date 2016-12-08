@@ -15,17 +15,17 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.knowledge_seek.phyctogram.domain.SqlCommntyListView;
+import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
+import com.knowledge_seek.phyctogram.listAdapter.SqlCommntyListViewListAdapter;
+import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
+import com.knowledge_seek.phyctogram.retrofitapi.SqlCommntyListViewAPI;
 import com.pkmmte.view.CircularImageView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.knowledge_seek.phyctogram.domain.SqlCommntyListView;
-import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
-import com.knowledge_seek.phyctogram.listAdapter.SqlCommntyListViewListAdapter;
-import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
-import com.knowledge_seek.phyctogram.retrofitapi.SqlCommntyListViewAPI;
 import retrofit.Call;
 
 /**
@@ -57,17 +57,17 @@ public class CommunityListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //화면 페이지
-        ic_screen = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_community_list, ic_screen, true);
+        ic_screen = (LinearLayout)findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_community_list, ic_screen, true);
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
@@ -83,7 +83,7 @@ public class CommunityListActivity extends BaseActivity {
         });
 
         //레이아웃 정의
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +91,7 @@ public class CommunityListActivity extends BaseActivity {
             }
         });
         //수다방 글쓰기
-        imBtn_community_write = (ImageButton)findViewById(com.knowledge_seek.phyctogram.R.id.imBtn_community_write);
+        imBtn_community_write = (ImageButton)findViewById(R.id.imBtn_community_write);
         imBtn_community_write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,12 +102,12 @@ public class CommunityListActivity extends BaseActivity {
             }
         });
         //최신 글 목록 읽어오기
-        btn_commntyLatest = (Button)findViewById(com.knowledge_seek.phyctogram.R.id.btn_commntyLatest);
+        btn_commntyLatest = (Button)findViewById(R.id.btn_commntyLatest);
         btn_commntyLatest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_commntyLatest.setBackgroundResource(com.knowledge_seek.phyctogram.R.drawable.btn_on);
-                btn_commntyPlpular.setBackgroundResource(com.knowledge_seek.phyctogram.R.drawable.btn_off);
+                btn_commntyLatest.setBackgroundResource(R.drawable.btn_on);
+                btn_commntyPlpular.setBackgroundResource(R.drawable.btn_off);
                 pageCnt = 0;
                 sqlCommntyListViewList.clear();
                 FindCommntyLatestTask task = new FindCommntyLatestTask(pageCnt);
@@ -115,12 +115,12 @@ public class CommunityListActivity extends BaseActivity {
             }
         });
         //인기 글 목록 읽어오기
-        btn_commntyPlpular = (Button)findViewById(com.knowledge_seek.phyctogram.R.id.btn_commntyPopular);
+        btn_commntyPlpular = (Button)findViewById(R.id.btn_commntyPopular);
         btn_commntyPlpular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_commntyPlpular.setBackgroundResource(com.knowledge_seek.phyctogram.R.drawable.btn_on);
-                btn_commntyLatest.setBackgroundResource(com.knowledge_seek.phyctogram.R.drawable.btn_off);
+                btn_commntyPlpular.setBackgroundResource(R.drawable.btn_on);
+                btn_commntyLatest.setBackgroundResource(R.drawable.btn_off);
                 pageCnt = 0;
                 sqlCommntyListViewList.clear();
                 FindCommntyPopularTask task = new FindCommntyPopularTask(pageCnt);
@@ -130,9 +130,9 @@ public class CommunityListActivity extends BaseActivity {
 
 
         //커뮤니티 글 목록
-        lv_sqlcommntyList_communityList = (ListView)findViewById(com.knowledge_seek.phyctogram.R.id.lv_sqlcommntyList_communityList);
+        lv_sqlcommntyList_communityList = (ListView)findViewById(R.id.lv_sqlcommntyList_communityList);
         //set adapter
-        sqlCommntyListViewListAdapter = new SqlCommntyListViewListAdapter(this, sqlCommntyListViewList, com.knowledge_seek.phyctogram.R.layout.list_community );
+        sqlCommntyListViewListAdapter = new SqlCommntyListViewListAdapter(this, sqlCommntyListViewList, R.layout.list_community );
         lv_sqlcommntyList_communityList.setAdapter(sqlCommntyListViewListAdapter);
         //set scrollListener
         lv_sqlcommntyList_communityList.setOnScrollListener(scrollListenerLatest);
@@ -163,10 +163,8 @@ public class CommunityListActivity extends BaseActivity {
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
         usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-        //리스트뷰의 높이를 구함
-        int height = getListViewHeight(lv_usersList);
-        //리스트뷰의 높이를 셋팅
-        lv_usersList.getLayoutParams().height = height;
+        //리스트뷰의 높이를 셋팅 (리스트뷰의 높이를 구함)
+        lv_usersList.getLayoutParams().height  = getListViewHeight(lv_usersList);
         //data 갱신
         usersListSlideAdapter.notifyDataSetChanged();
 
@@ -174,8 +172,8 @@ public class CommunityListActivity extends BaseActivity {
 
         //새로읽어오기
         pageCnt = 0;
-        btn_commntyLatest.setBackgroundResource(com.knowledge_seek.phyctogram.R.drawable.btn_on);
-        btn_commntyPlpular.setBackgroundResource(com.knowledge_seek.phyctogram.R.drawable.btn_off);
+        btn_commntyLatest.setBackgroundResource(R.drawable.btn_on);
+        btn_commntyPlpular.setBackgroundResource(R.drawable.btn_off);
         //최신 글 목록 읽어오기
         FindCommntyLatestTask task2 = new FindCommntyLatestTask(pageCnt);
         task2.execute();
@@ -198,7 +196,7 @@ public class CommunityListActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(com.knowledge_seek.phyctogram.R.string.commonActivity_wait+"");
+            dialog.setMessage(R.string.commonActivity_wait+"");
             dialog.show();
             super.onPreExecute();
         }
@@ -263,7 +261,7 @@ public class CommunityListActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(com.knowledge_seek.phyctogram.R.string.commonActivity_wait+"");
+            dialog.setMessage(R.string.commonActivity_wait+"");
             dialog.show();
             super.onPreExecute();
         }

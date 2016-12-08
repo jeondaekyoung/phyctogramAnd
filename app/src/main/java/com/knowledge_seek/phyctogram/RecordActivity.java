@@ -78,23 +78,23 @@ public class RecordActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //화면 페이지
-        ic_screen = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_record, ic_screen, true);
+        ic_screen = (LinearLayout)findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_record, ic_screen, true);
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView)findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView)findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView)findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
 
         //메인페이지 내 아이 이름 출력
-        tv_users_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_users_name);
+        tv_users_name = (TextView) findViewById(R.id.tv_users_name);
         if (nowUsers != null) {
             tv_users_name.setText(nowUsers.getName());
         }
@@ -105,7 +105,7 @@ public class RecordActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 nowUsers = (Users) usersListSlideAdapter.getItem(position);
                 Log.d("-진우-", "선택한 아이 : " + nowUsers.toString());
-                        Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' "+getString(com.knowledge_seek.phyctogram.R.string.characterActivity_choiceChild), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' "+getString(R.string.characterActivity_choiceChild), Toast.LENGTH_LONG).show();
 
                 tv_users_name.setText(nowUsers.getName());
 
@@ -123,15 +123,15 @@ public class RecordActivity extends BaseActivity {
         });
 
         //레이아웃 정의
-        btn_left = (ImageButton)findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton)findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 menuLeftSlideAnimationToggle();
             }
         });
-        tv_datepickFrom = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_datepickFrom);
-        tv_datepickTo = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_datepickTo);
+        tv_datepickFrom = (TextView)findViewById(R.id.tv_datepickFrom);
+        tv_datepickTo = (TextView)findViewById(R.id.tv_datepickTo);
 
         //기록 조회 버튼별 세팅
 
@@ -196,8 +196,8 @@ public class RecordActivity extends BaseActivity {
         });
 
         //기록 조회 리스트뷰 셋팅
-        lv_record = (ListView)findViewById(com.knowledge_seek.phyctogram.R.id.lv_record);
-        heightListRecordAdapter = new HeightListRecordAdapter(this, heightList, com.knowledge_seek.phyctogram.R.layout.list_record);
+        lv_record = (ListView)findViewById(R.id.lv_record);
+        heightListRecordAdapter = new HeightListRecordAdapter(this, heightList, R.layout.list_record);
         lv_record.setAdapter(heightListRecordAdapter);
         lv_record.setOnScrollListener(scrollListener);
 
@@ -209,9 +209,9 @@ public class RecordActivity extends BaseActivity {
                 final Height height = (Height)heightListRecordAdapter.getItem(position);
                 Log.d("-진우-", "삭제 : " + height.toString());
                 AlertDialog.Builder dialog = new AlertDialog.Builder(RecordActivity.this);
-                dialog.setTitle(com.knowledge_seek.phyctogram.R.string.diaryViewActivity_delete);
-                dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.recordActivity_deleteData)+" " + height.getMesure_date() + ", " + height.getHeight() + "cm");
-                dialog.setPositiveButton(com.knowledge_seek.phyctogram.R.string.commonActivity_yes, new DialogInterface.OnClickListener() {
+                dialog.setTitle(R.string.diaryViewActivity_delete);
+                dialog.setMessage(getString(R.string.recordActivity_deleteData)+" " + height.getMesure_date() + ", " + height.getHeight() + "cm");
+                dialog.setPositiveButton(R.string.commonActivity_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -221,7 +221,7 @@ public class RecordActivity extends BaseActivity {
                             @Override
                             public void onResponse(Response<String> response, Retrofit retrofit) {
                                 Log.d("-진우-", "키 삭제 성공 결과 : " + response.body());
-                                Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.recordActivity_sucessDeleteHeight, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), R.string.recordActivity_sucessDeleteHeight, Toast.LENGTH_LONG).show();
                                 Log.d("-진우-", "삭제전 : " + heightList.size());
                                 heightList.remove(height);
                                 Log.d("-진우-", "삭제후 : " + heightList.size());
@@ -242,7 +242,7 @@ public class RecordActivity extends BaseActivity {
                     }
 
                 });
-                dialog.setNegativeButton(com.knowledge_seek.phyctogram.R.string.commonActivity_no, new DialogInterface.OnClickListener() {
+                dialog.setNegativeButton(R.string.commonActivity_no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -255,7 +255,7 @@ public class RecordActivity extends BaseActivity {
 
 
         //기록 조회 검색 클
-        btn_findHeight = (Button)findViewById(com.knowledge_seek.phyctogram.R.id.btn_findHeight);
+        btn_findHeight = (Button)findViewById(R.id.btn_findHeight);
         btn_findHeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -266,7 +266,7 @@ public class RecordActivity extends BaseActivity {
                     return;
                 }
                 if(nowUsers.getUser_seq() == 0){
-                    Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.diaryWriteActivity_registerChild, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.diaryWriteActivity_registerChild, Toast.LENGTH_SHORT).show();
                     return ;
                 }
 
@@ -297,7 +297,7 @@ public class RecordActivity extends BaseActivity {
                 }*/
                 new DatePickerDialog(RecordActivity.this, dateSetListenerFrom, Integer.valueOf(datepickFrom.substring(0,4)),
                         Integer.valueOf(datepickFrom.substring(5,7))-1, Integer.valueOf(datepickFrom.substring(8))).show();
-                setTheme(com.knowledge_seek.phyctogram.R.style.AppTheme);
+                setTheme(R.style.AppTheme);
             }
         });
         tv_datepickTo.setOnClickListener(new View.OnClickListener() {
@@ -313,7 +313,7 @@ public class RecordActivity extends BaseActivity {
                 }*/
                 new DatePickerDialog(RecordActivity.this, dateSetListenerTo, Integer.valueOf(datepickTo.substring(0,4)),
                         Integer.valueOf(datepickTo.substring(5,7))-1, Integer.valueOf(datepickTo.substring(8))).show();
-                setTheme(com.knowledge_seek.phyctogram.R.style.AppTheme);
+                setTheme(R.style.AppTheme);
             }
         });
     }
@@ -372,8 +372,7 @@ public class RecordActivity extends BaseActivity {
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
         usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-        int height = getListViewHeight(lv_usersList);
-        lv_usersList.getLayoutParams().height = height;
+        lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
         //슬라이드메뉴 셋팅(내 아이목록, 계정이미지)
@@ -382,7 +381,7 @@ public class RecordActivity extends BaseActivity {
 
         //디폴트날짜로 기록조회
         if(nowUsers.getUser_seq() == 0){
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.diaryWriteActivity_registerChild, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.diaryWriteActivity_registerChild, Toast.LENGTH_SHORT).show();
         } else {
             String dateFrom = tv_datepickFrom.getText().toString();
             String dateTo = tv_datepickTo.getText().toString();
@@ -430,7 +429,7 @@ public class RecordActivity extends BaseActivity {
     //날짜 입력 체크
     private boolean checkDate(String dateFrom, String dateTo){
         if(dateFrom.length() <= 0 || dateTo.length() <= 0){
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.diaryWriteActivity_registerDay, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.diaryWriteActivity_registerDay, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -447,7 +446,7 @@ public class RecordActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -563,7 +562,7 @@ public class RecordActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }

@@ -17,16 +17,16 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pkmmte.view.CircularImageView;
-
-import java.io.IOException;
-import java.util.List;
-
 import com.knowledge_seek.phyctogram.domain.Users;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
 import com.knowledge_seek.phyctogram.retrofitapi.UsersAPI;
 import com.knowledge_seek.phyctogram.util.Utility;
+import com.pkmmte.view.CircularImageView;
+
+import java.io.IOException;
+import java.util.List;
+
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -60,17 +60,17 @@ public class UsersAddActivity extends BaseActivity {
         Log.d("-진우-", "UsersAddActivity.onCreate() 실행");
 
         //화면페이지
-        ic_screen = (LinearLayout) findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_users_add, ic_screen, true);
+        ic_screen = (LinearLayout) findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_users_add, ic_screen, true);
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
@@ -87,7 +87,7 @@ public class UsersAddActivity extends BaseActivity {
         });
 
         //레이아웃 정의
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,13 +99,13 @@ public class UsersAddActivity extends BaseActivity {
         users = new Users();
 
         //레이아웃 정의
-        et_name = (EditText) findViewById(com.knowledge_seek.phyctogram.R.id.et_name);
-        et_initials = (EditText) findViewById(com.knowledge_seek.phyctogram.R.id.et_initials);
-        dp_lifedate = (DatePicker) findViewById(com.knowledge_seek.phyctogram.R.id.dp_lifedate);
+        et_name = (EditText) findViewById(R.id.et_name);
+        et_initials = (EditText) findViewById(R.id.et_initials);
+        dp_lifedate = (DatePicker) findViewById(R.id.dp_lifedate);
         //rg_sexdstn = (RadioGroup)findViewById(R.id.rg_sexdstn);
-        rb_female = (RadioButton) findViewById(com.knowledge_seek.phyctogram.R.id.rb_female);
-        rb_male = (RadioButton) findViewById(com.knowledge_seek.phyctogram.R.id.rb_male);
-        btn_usersadd = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_usersadd);
+        rb_female = (RadioButton) findViewById(R.id.rb_female);
+        rb_male = (RadioButton) findViewById(R.id.rb_male);
+        btn_usersadd = (Button) findViewById(R.id.btn_usersadd);
         btn_usersadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +141,7 @@ public class UsersAddActivity extends BaseActivity {
                     public void onResponse(Response<String> response, Retrofit retrofit) {
                         Log.d("-진우-", "내 아이 등록 결과 : " + response.body());
                         if (response.body() != null && response.body().equals("success")) {
-                            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.usersAddActivity_registerChild, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.usersAddActivity_registerChild, Toast.LENGTH_LONG).show();
                             onBackPressed();
                         }
                     }
@@ -167,8 +167,7 @@ public class UsersAddActivity extends BaseActivity {
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
         usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-        int height = getListViewHeight(lv_usersList);
-        lv_usersList.getLayoutParams().height = height;
+        lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
         //슬라이드메뉴 셋팅(내 아이 목록, 계정이미지)
@@ -186,16 +185,16 @@ public class UsersAddActivity extends BaseActivity {
     private boolean checkUsers(Users users) {
         //Log.d("-진우-", users.toString());
         if (users.getName().length() <= 0) {
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.usersAddActivity_checkName, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.usersAddActivity_checkName, Toast.LENGTH_SHORT).show();
             return false;
         }
         if (users.getInitials().length() <= 0 || users.getInitials().length() >= 4) {
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.usersAddActivity_checkInitials, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.usersAddActivity_checkInitials, Toast.LENGTH_SHORT).show();
             return false;
         } else {
             //Toast.makeText(getApplicationContext(), users.getInitials() + " : " + users.getInitials().matches("^[A-Z0-9]*$"), Toast.LENGTH_SHORT).show();
             if (!users.getInitials().matches("^[A-Z0-9]*$")) {
-                Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.usersAddActivity_checkInitials, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.usersAddActivity_checkInitials, Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
@@ -212,7 +211,7 @@ public class UsersAddActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -309,7 +308,7 @@ public class UsersAddActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -346,8 +345,7 @@ public class UsersAddActivity extends BaseActivity {
             } else {
                 Log.d("-진우-", "성공했으나 등록된 내아이가 없습니다.");
             }
-            int height = getListViewHeight(lv_usersList);
-            lv_usersList.getLayoutParams().height = height;
+            lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
             usersListSlideAdapter.notifyDataSetChanged();
 
             dialog.dismiss();

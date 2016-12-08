@@ -10,12 +10,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.io.IOException;
-
 import com.knowledge_seek.phyctogram.gcm.QuickstartPreferences;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.knowledge_seek.phyctogram.retrofitapi.MemberAPI;
 import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
+
+import java.io.IOException;
+
 import retrofit.Call;
 
 /**
@@ -33,16 +34,16 @@ public class PwfindActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //화면 페이지
-        ic_screen = (LinearLayout) findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_pw_find, ic_screen, true);
+        ic_screen = (LinearLayout) findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_pw_find, ic_screen, true);
 
-        editTextMail = (EditText) findViewById(com.knowledge_seek.phyctogram.R.id.editTextMail);
-        buttonFind = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.buttonFind);
+        editTextMail = (EditText) findViewById(R.id.editTextMail);
+        buttonFind = (Button) findViewById(R.id.buttonFind);
         buttonFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (editTextMail.getText().length() < 0) {
-                    Toast.makeText(v.getContext(), com.knowledge_seek.phyctogram.R.string.pwfindActivity_registerEmail, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), R.string.pwfindActivity_registerEmail, Toast.LENGTH_SHORT).show();
                 } else {
                     //저장된 토큰이 있다면
                     if (QuickstartPreferences.token != null) {
@@ -50,7 +51,7 @@ public class PwfindActivity extends BaseActivity {
                         FindPwTask task = new FindPwTask(editTextMail.getText().toString(), QuickstartPreferences.token);
                         task.execute();
                     } else {
-                        Toast.makeText(v.getContext(), com.knowledge_seek.phyctogram.R.string.pwfindActivity_notPush, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(v.getContext(), R.string.pwfindActivity_notPush, Toast.LENGTH_SHORT).show();
                         Log.d("-진우-", "PwfindActivity - Token 발급 불가");
                     }
                 }
@@ -96,20 +97,28 @@ public class PwfindActivity extends BaseActivity {
         @Override
         protected void onPostExecute(String result) {
             if (result != null) {
-                if (result.equals("success")) {
-                    Toast.makeText(PwfindActivity.this, com.knowledge_seek.phyctogram.R.string.pwfindActivity_sendPush, Toast.LENGTH_LONG).show();
-                    Log.d("-진우-", "비밀번호 찾기에 성공하였습니다.");
-                    finish();
-                } else if (result.equals("wrongMail")) {
-                    Toast.makeText(PwfindActivity.this, com.knowledge_seek.phyctogram.R.string.pwfindActivity_failEmail, Toast.LENGTH_LONG).show();
-                    Log.d("-진우-", "메일주소가 잘못되었습니다.");
-                } else {
-                    Toast.makeText(PwfindActivity.this, com.knowledge_seek.phyctogram.R.string.pwfindActivity_failFindPW, Toast.LENGTH_LONG).show();
-                    Log.d("-진우-", "비밀번호 찾기에 실패하였습니다.");
-                }
-            } else {
+                    switch (result){
+                        case "success":
+                            Toast.makeText(PwfindActivity.this, R.string.pwfindActivity_sendPush, Toast.LENGTH_LONG).show();
+                            Log.d("-진우-", "비밀번호 찾기에 성공하였습니다.");
+                            finish();
+                            break;
+                        case "wrongMail":
+                            Toast.makeText(PwfindActivity.this, R.string.pwfindActivity_failEmail, Toast.LENGTH_LONG).show();
+                            Log.d("-진우-", "메일주소가 잘못되었습니다.");
+                            break;
+                        default:
+                            Toast.makeText(PwfindActivity.this, R.string.pwfindActivity_failFindPW, Toast.LENGTH_LONG).show();
+                            Log.d("-진우-", "비밀번호 찾기에 실패하였습니다.");
+                            break;
+                    }
+            }
+
+            else {
                 Log.d("-진우-", "result null");
             }
+
+
             super.onPostExecute(result);
         }
     }

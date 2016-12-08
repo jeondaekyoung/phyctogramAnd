@@ -18,17 +18,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pkmmte.view.CircularImageView;
-
-import java.io.IOException;
-import java.util.List;
-
 import com.knowledge_seek.phyctogram.domain.Users;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.knowledge_seek.phyctogram.listAdapter.UsersListManageAdapter;
 import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
 import com.knowledge_seek.phyctogram.retrofitapi.UsersAPI;
 import com.knowledge_seek.phyctogram.util.Utility;
+import com.pkmmte.view.CircularImageView;
+
+import java.io.IOException;
+import java.util.List;
+
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -56,17 +56,17 @@ public class UsersManageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //화면 페이지
-        ic_screen = (LinearLayout) findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_users_manage, ic_screen, true);
+        ic_screen = (LinearLayout) findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_users_manage, ic_screen, true);
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
@@ -83,7 +83,7 @@ public class UsersManageActivity extends BaseActivity {
         });
 
         //슬라이드 메뉴 버튼
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +92,7 @@ public class UsersManageActivity extends BaseActivity {
         });
 
         //레이아웃정의
-        btn_usersadd = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_usersadd);
+        btn_usersadd = (Button) findViewById(R.id.btn_usersadd);
         btn_usersadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +104,7 @@ public class UsersManageActivity extends BaseActivity {
                 //finish();
             }
         });
-        lv_usersList_manage = (ListView) findViewById(com.knowledge_seek.phyctogram.R.id.lv_usersList_manage);
+        lv_usersList_manage = (ListView) findViewById(R.id.lv_usersList_manage);
         usersListManageAdapter = new UsersListManageAdapter(this);
         lv_usersList_manage.setAdapter(usersListManageAdapter);
 
@@ -129,8 +129,8 @@ public class UsersManageActivity extends BaseActivity {
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(UsersManageActivity.this);
                 dialog.setTitle("'" + users.getName() + "' 삭제");
-                dialog.setMessage(com.knowledge_seek.phyctogram.R.string.usersManageActivity_deleteChildAsk);
-                dialog.setPositiveButton(com.knowledge_seek.phyctogram.R.string.commonActivity_yes, new DialogInterface.OnClickListener() {
+                dialog.setMessage(R.string.usersManageActivity_deleteChildAsk);
+                dialog.setPositiveButton(R.string.commonActivity_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         UsersAPI service = ServiceGenerator.createService(UsersAPI.class);
@@ -143,7 +143,7 @@ public class UsersManageActivity extends BaseActivity {
                                 intent.putExtra("member", member);
                                 startActivity(intent);
                                 finish();*/
-                                Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.usersManageActivity_successDeleteChild, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), R.string.usersManageActivity_successDeleteChild, Toast.LENGTH_LONG).show();
 
                                 if (nowUsers.getUser_seq() == users.getUser_seq()) {
                                     nowUsers = new Users();
@@ -157,12 +157,12 @@ public class UsersManageActivity extends BaseActivity {
 
                             @Override
                             public void onFailure(Throwable t) {
-                                Log.d("-진우-", com.knowledge_seek.phyctogram.R.string.usersManageActivity_failDeleteChild + t.getMessage() + ", " + t.getCause() + ", " + t.getStackTrace());
+                                Log.d("-진우-", R.string.usersManageActivity_failDeleteChild + t.getMessage() + ", " + t.getCause() + ", " + t.getStackTrace());
                             }
                         });
                     }
                 });
-                dialog.setNegativeButton(com.knowledge_seek.phyctogram.R.string.commonActivity_no, new DialogInterface.OnClickListener() {
+                dialog.setNegativeButton(R.string.commonActivity_no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -223,7 +223,7 @@ public class UsersManageActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -325,7 +325,7 @@ public class UsersManageActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -367,13 +367,11 @@ public class UsersManageActivity extends BaseActivity {
 
             usersListSlideAdapter.setUsersList(usersList);
             usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-            int height = getListViewHeight(lv_usersList);
-            lv_usersList.getLayoutParams().height = height;
+            lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
             usersListSlideAdapter.notifyDataSetChanged();
 
             usersListManageAdapter.setUsersList(usersList);
-            height = getListViewHeight(lv_usersList_manage);
-            lv_usersList_manage.getLayoutParams().height = height;
+            lv_usersList_manage.getLayoutParams().height = getListViewHeight(lv_usersList_manage);
             usersListManageAdapter.notifyDataSetChanged();
 
             dialog.dismiss();

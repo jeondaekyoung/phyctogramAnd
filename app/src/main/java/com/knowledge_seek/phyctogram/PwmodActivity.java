@@ -54,17 +54,17 @@ public class PwmodActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //화면 페이지
-        ic_screen = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_pw_modify, ic_screen, true);
+        ic_screen = (LinearLayout)findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_pw_modify, ic_screen, true);
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
@@ -79,7 +79,7 @@ public class PwmodActivity extends BaseActivity {
             }
         });
         //레이아웃 정의
-        btn_left = (ImageButton)findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton)findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,13 +87,13 @@ public class PwmodActivity extends BaseActivity {
             }
         });
 
-        ll_phyctogram = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ll_phyctogram);
-        ll_no_phyctogram = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ll_no_phyctogram);
-        tv_join_route = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_join_route);
-        et_now_pw = (EditText)findViewById(com.knowledge_seek.phyctogram.R.id.et_now_pw);
-        et_pw = (EditText)findViewById(com.knowledge_seek.phyctogram.R.id.et_pw);
-        et_pw1 = (EditText)findViewById(com.knowledge_seek.phyctogram.R.id.et_pw1);
-        btn_pw_mod = (Button)findViewById(com.knowledge_seek.phyctogram.R.id.btn_pw_mod);
+        ll_phyctogram = (LinearLayout)findViewById(R.id.ll_phyctogram);
+        ll_no_phyctogram = (LinearLayout)findViewById(R.id.ll_no_phyctogram);
+        tv_join_route = (TextView)findViewById(R.id.tv_join_route);
+        et_now_pw = (EditText)findViewById(R.id.et_now_pw);
+        et_pw = (EditText)findViewById(R.id.et_pw);
+        et_pw1 = (EditText)findViewById(R.id.et_pw1);
+        btn_pw_mod = (Button)findViewById(R.id.btn_pw_mod);
         btn_pw_mod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,11 +113,11 @@ public class PwmodActivity extends BaseActivity {
                     public void onResponse(Response<String> response, Retrofit retrofit) {
                         String result = response.body();
                         if("wrongPw".equals(result)){
-                            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.pwmodActivity_failPW, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.pwmodActivity_failPW, Toast.LENGTH_SHORT).show();
                         } else if("fail".equals(result)){
-                            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.pwmodActivity_failChangePW, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.pwmodActivity_failChangePW, Toast.LENGTH_SHORT).show();
                         } else if("success".equals(result)){
-                            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.pwmodActivity_successChangePW, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.pwmodActivity_successChangePW, Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     }
@@ -133,12 +133,12 @@ public class PwmodActivity extends BaseActivity {
             ll_phyctogram.setVisibility(View.GONE);
             ll_no_phyctogram.setVisibility(View.VISIBLE);
             btn_pw_mod.setVisibility(View.GONE);
-            tv_join_route.setText(com.knowledge_seek.phyctogram.R.string.pwmodActivity_kakaoPW);
+            tv_join_route.setText(R.string.pwmodActivity_kakaoPW);
         } else if (member.getJoin_route().equals("facebook")) {
             ll_phyctogram.setVisibility(View.GONE);
             ll_no_phyctogram.setVisibility(View.VISIBLE);
             btn_pw_mod.setVisibility(View.GONE);
-            tv_join_route.setText(com.knowledge_seek.phyctogram.R.string.pwmodActivity_facebookPW);
+            tv_join_route.setText(R.string.pwmodActivity_facebookPW);
         } else {
             ll_phyctogram.setVisibility(View.VISIBLE);
             ll_no_phyctogram.setVisibility(View.GONE);
@@ -156,8 +156,8 @@ public class PwmodActivity extends BaseActivity {
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
         usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-        int height = getListViewHeight(lv_usersList);
-        lv_usersList.getLayoutParams().height = height;
+
+        lv_usersList.getLayoutParams().height  = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
         //슬라이드메뉴 셋팅(내 아이목록, 계정이미지)
@@ -174,11 +174,11 @@ public class PwmodActivity extends BaseActivity {
     private boolean checkpw(String nowpw, String newpw, String pw1) {
         //Log.d("-진우-", nowpw + ", " + newpw + ", " + pw1);
         if(nowpw.length() <= 0 || newpw.length() <= 0 || pw1.length() <= 0){
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.joinActivity_checkPW, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.joinActivity_checkPW, Toast.LENGTH_SHORT).show();
             return false;
         }
         if(!newpw.equals(pw1)) {
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.pwmodActivity_checkChangePW, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.pwmodActivity_checkChangePW, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -196,7 +196,7 @@ public class PwmodActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }

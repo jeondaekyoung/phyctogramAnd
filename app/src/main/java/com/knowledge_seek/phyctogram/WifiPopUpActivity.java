@@ -37,7 +37,7 @@ public class WifiPopUpActivity extends Activity{
 
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(com.knowledge_seek.phyctogram.R.layout.popup_wifi_list);
+		setContentView(R.layout.popup_wifi_list);
 		searchStartWifi();
 	}
 	@Override
@@ -89,8 +89,8 @@ public class WifiPopUpActivity extends Activity{
 			}
 		}
 
-		lv_wifilist = (ListView)findViewById(com.knowledge_seek.phyctogram.R.id.list_wifi);
-		wifiListAdapter = new WifiListAdapter(this, wifiList, com.knowledge_seek.phyctogram.R.layout.list_wifi);
+		lv_wifilist = (ListView)findViewById(R.id.list_wifi);
+		wifiListAdapter = new WifiListAdapter(this, wifiList, R.layout.list_wifi);
 		lv_wifilist.setAdapter(wifiListAdapter);
 
 		//wifi 목록 클릭
@@ -137,7 +137,7 @@ public class WifiPopUpActivity extends Activity{
 			dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
-			dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+			dialog.setMessage(getString(R.string.commonActivity_wait));
 			dialog.show();
 		}
 

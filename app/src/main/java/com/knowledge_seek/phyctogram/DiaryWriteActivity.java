@@ -22,6 +22,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.knowledge_seek.phyctogram.domain.Diary;
+import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
+import com.knowledge_seek.phyctogram.retrofitapi.DiaryAPI;
+import com.knowledge_seek.phyctogram.retrofitapi.FileUploadService;
+import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
+import com.knowledge_seek.phyctogram.util.Utility;
 import com.pkmmte.view.CircularImageView;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
@@ -31,12 +37,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import com.knowledge_seek.phyctogram.domain.Diary;
-import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
-import com.knowledge_seek.phyctogram.retrofitapi.DiaryAPI;
-import com.knowledge_seek.phyctogram.retrofitapi.FileUploadService;
-import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
-import com.knowledge_seek.phyctogram.util.Utility;
 import retrofit.Call;
 import retrofit.Response;
 
@@ -72,23 +72,23 @@ public class DiaryWriteActivity extends BaseActivity {
         Log.d("-진우-", "DiaryWriteActivity.onCreate() 실행");
 
         //화면 페이지
-        ic_screen = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_diary_write, ic_screen, true);
+        ic_screen = (LinearLayout)findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_diary_write, ic_screen, true);
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView)findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView)findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView)findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
 
         //메인페이지 내 아이 이름 출력
-        tv_users_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_users_name);
+        tv_users_name = (TextView) findViewById(R.id.tv_users_name);
         if (nowUsers != null) {
             tv_users_name.setText(nowUsers.getName());
         }
@@ -108,7 +108,7 @@ public class DiaryWriteActivity extends BaseActivity {
         });
 
         //레이아웃 정의
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +116,7 @@ public class DiaryWriteActivity extends BaseActivity {
             }
         });
 
-        tv_diary_date = (TextView)findViewById(com.knowledge_seek.phyctogram.R.id.tv_diary_date);
+        tv_diary_date = (TextView)findViewById(R.id.tv_diary_date);
 
         //초기디폴트 날짜 셋팅
         datepickSetting();
@@ -128,21 +128,21 @@ public class DiaryWriteActivity extends BaseActivity {
                 String diaryDate = tv_diary_date.getText().toString();
                 new DatePickerDialog(DiaryWriteActivity.this, dateSetListener, Integer.valueOf(diaryDate.substring(0,4)),
                         Integer.valueOf(diaryDate.substring(5,7))-1, Integer.valueOf(diaryDate.substring(8))).show();
-                setTheme(com.knowledge_seek.phyctogram.R.style.AppTheme);
+                setTheme(R.style.AppTheme);
             }
         });
 
-        et_title = (EditText)findViewById(com.knowledge_seek.phyctogram.R.id.et_title);
-        et_contents = (EditText)findViewById(com.knowledge_seek.phyctogram.R.id.et_contents);
+        et_title = (EditText)findViewById(R.id.et_title);
+        et_contents = (EditText)findViewById(R.id.et_contents);
         //일기 글 저장
-        btn_diary_save = (Button)findViewById(com.knowledge_seek.phyctogram.R.id.btn_diary_save);
+        btn_diary_save = (Button)findViewById(R.id.btn_diary_save);
         btn_diary_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Log.d("-진우-", "저장하기");
 
                 if(nowUsers.getUser_seq() == 0){
-                    Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.diaryWriteActivity_registerChild, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.diaryWriteActivity_registerChild, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -154,7 +154,7 @@ public class DiaryWriteActivity extends BaseActivity {
 
                 //Log.d("-진우-", "날짜 : " + et_diary_date.getText().toString().length());
                 if(tv_diary_date.getText().toString().length() <= 0){
-                    Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.diaryWriteActivity_registerDay, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.diaryWriteActivity_registerDay, Toast.LENGTH_LONG).show();
                     return;
                 } else {
                     //Log.d("-진우-", "날짜 : " + et_diary_date.getText().toString());
@@ -176,7 +176,7 @@ public class DiaryWriteActivity extends BaseActivity {
             }
         });
 
-        btn_pic = (Button)findViewById(com.knowledge_seek.phyctogram.R.id.btn_pic);
+        btn_pic = (Button)findViewById(R.id.btn_pic);
         btn_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,8 +234,7 @@ public class DiaryWriteActivity extends BaseActivity {
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
         usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-        int height = getListViewHeight(lv_usersList);
-        lv_usersList.getLayoutParams().height = height;
+        lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
         //슬라이드메뉴 셋팅(내 아이 목록, 계정이름, 계정이미지)
@@ -307,7 +306,7 @@ public class DiaryWriteActivity extends BaseActivity {
     //Diary의 내용체크
     private boolean checkDiary(Diary diary){
         if(diary.getTitle().length() <= 0 || diary.getContents().length() <= 0){
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.communityWriteActivity_writeTitleContents, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.communityWriteActivity_writeTitleContents, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -329,7 +328,7 @@ public class DiaryWriteActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -371,9 +370,9 @@ public class DiaryWriteActivity extends BaseActivity {
         protected void onPostExecute(String result) {
             if(result != null){
                 if(result.equals("exist")){
-                    Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.diaryWriteActivity_alreadyDiary, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.diaryWriteActivity_alreadyDiary, Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.commonActivity_save, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.commonActivity_save, Toast.LENGTH_LONG).show();
                     //Log.d("-진우-", "일기 시퀀스 : " + result);
                     onBackPressed();
                 }

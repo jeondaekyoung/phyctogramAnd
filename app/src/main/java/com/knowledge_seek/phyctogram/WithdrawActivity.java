@@ -59,18 +59,18 @@ public class WithdrawActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //화면 페이지
-        ic_screen = (LinearLayout) findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_withdraw, ic_screen, true);
+        ic_screen = (LinearLayout) findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_withdraw, ic_screen, true);
 
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
@@ -85,7 +85,7 @@ public class WithdrawActivity extends BaseActivity {
             }
         });
         //레이아웃 정의
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,11 +93,11 @@ public class WithdrawActivity extends BaseActivity {
             }
         });
 
-        tv_join_route = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_join_route);
-        tv_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_name);
-        et_pw = (EditText) findViewById(com.knowledge_seek.phyctogram.R.id.et_pw);
-        et_pw1 = (EditText) findViewById(com.knowledge_seek.phyctogram.R.id.et_pw1);
-        btn_withdraw = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_withdraw);
+        tv_join_route = (TextView) findViewById(R.id.tv_join_route);
+        tv_name = (TextView) findViewById(R.id.tv_name);
+        et_pw = (EditText) findViewById(R.id.et_pw);
+        et_pw1 = (EditText) findViewById(R.id.et_pw1);
+        btn_withdraw = (Button) findViewById(R.id.btn_withdraw);
         btn_withdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,10 +112,10 @@ public class WithdrawActivity extends BaseActivity {
                 }
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(WithdrawActivity.this);
-                dialog.setTitle(com.knowledge_seek.phyctogram.R.string.withdrawActivity_leaveTitle)
-                        .setMessage(com.knowledge_seek.phyctogram.R.string.withdrawActivity_leaveAsk)
+                dialog.setTitle(R.string.withdrawActivity_leaveTitle)
+                        .setMessage(R.string.withdrawActivity_leaveAsk)
                         .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능
-                        .setPositiveButton(com.knowledge_seek.phyctogram.R.string.withdrawActivity_leave, new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.withdrawActivity_leave, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 Log.d("-진우-", "탈퇴하기 : " + member.getMember_seq() + ", " + pw + ", " + member.getJoin_route());
 
@@ -125,7 +125,7 @@ public class WithdrawActivity extends BaseActivity {
 
                             }
                         })
-                        .setNegativeButton(com.knowledge_seek.phyctogram.R.string.commonActivity_cancel, new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.commonActivity_cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.dismiss();
                             }
@@ -136,21 +136,21 @@ public class WithdrawActivity extends BaseActivity {
         });
 
         if (member.getJoin_route().equals("kakao")) {
-            tv_join_route.setText(com.knowledge_seek.phyctogram.R.string.withdrawActivity_kakaoName);
+            tv_join_route.setText(R.string.withdrawActivity_kakaoName);
             tv_name.setText(member.getKakao_nickname());
 
             et_pw.setVisibility(View.GONE);
 
             et_pw1.setVisibility(View.GONE);
         } else if (member.getJoin_route().equals("facebook")) {
-            tv_join_route.setText(com.knowledge_seek.phyctogram.R.string.withdrawActivity_facebookName);
+            tv_join_route.setText(R.string.withdrawActivity_facebookName);
             tv_name.setText(member.getFacebook_name());
 
             et_pw.setVisibility(View.GONE);
 
             et_pw1.setVisibility(View.GONE);
         } else {
-            tv_join_route.setText(com.knowledge_seek.phyctogram.R.string.withdrawActivity_pyhtogramName);
+            tv_join_route.setText(R.string.withdrawActivity_pyhtogramName);
             tv_name.setText(member.getName());
         }
     }
@@ -185,11 +185,11 @@ public class WithdrawActivity extends BaseActivity {
     private boolean checkPW(String pw, String pw1) {
         //Log.d("-진우-", "pw :" + pw + ", pw1 : " + pw1);
         if (pw.length() <= 0 || pw1.length() <= 0) {
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.joinActivity_checkPW, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.joinActivity_checkPW, Toast.LENGTH_SHORT).show();
             return false;
         }
         if (!pw.equals(pw1)) {
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.joinActivity_checkPW, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.joinActivity_checkPW, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -206,7 +206,7 @@ public class WithdrawActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -311,7 +311,7 @@ public class WithdrawActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -335,7 +335,7 @@ public class WithdrawActivity extends BaseActivity {
         @Override
         protected void onPostExecute(String s) {
             if("wrongPw".equals(s)){
-                Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.joinActivity_checkPW, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.joinActivity_checkPW, Toast.LENGTH_SHORT).show();
             } else if("fail".equals(s)) {
                 Log.d("-진우-", "멤버 삭제 실패");
             } else if("success".equals(s)) {

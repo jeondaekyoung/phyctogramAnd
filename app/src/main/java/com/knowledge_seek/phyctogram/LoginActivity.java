@@ -87,13 +87,13 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.knowledge_seek.phyctogram.R.layout.activity_login);
+        setContentView(R.layout.activity_login);
 
         sessionCheck();
 
         //페이스북 로그인 버튼 관련
-        btn_login_fb = (com.facebook.login.widget.LoginButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_login_fb);
-        btn_login_fb.setBackgroundResource(com.knowledge_seek.phyctogram.R.drawable.log_fb);
+        btn_login_fb = (com.facebook.login.widget.LoginButton) findViewById(R.id.btn_login_fb);
+        btn_login_fb.setBackgroundResource(R.drawable.log_fb);
         btn_login_fb.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         btn_login_fb.setReadPermissions(Arrays.asList("user_photos", "email", "user_birthday", "user_friends"));
         //LoginResult : This class shows the results of a login operation.
@@ -165,7 +165,7 @@ public class LoginActivity extends BaseActivity {
         });
 
         //카카오 로그인 버튼
-        btn_login_kko = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_login_kko);
+        btn_login_kko = (Button) findViewById(R.id.btn_login_kko);
         btn_login_kko.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,7 +175,7 @@ public class LoginActivity extends BaseActivity {
         });
 
         //비밀번호 찾기 버튼
-        tv_find_pw = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_find_pw);
+        tv_find_pw = (TextView) findViewById(R.id.tv_find_pw);
         tv_find_pw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,11 +185,11 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-        et_email = (EditText) findViewById(com.knowledge_seek.phyctogram.R.id.et_email);
-        et_pw = (EditText) findViewById(com.knowledge_seek.phyctogram.R.id.et_pw);
+        et_email = (EditText) findViewById(R.id.et_email);
+        et_pw = (EditText) findViewById(R.id.et_pw);
 
         //픽토그램 로그인
-        btn_member_login = (Button) findViewById(com.knowledge_seek.phyctogram.R.id.btn_member_login);
+        btn_member_login = (Button) findViewById(R.id.btn_member_login);
         btn_member_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,7 +213,7 @@ public class LoginActivity extends BaseActivity {
         });
 
         //회원가입 버튼
-        tv_join_member = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_join_member);
+        tv_join_member = (TextView) findViewById(R.id.tv_join_member);
         tv_join_member.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,7 +245,7 @@ public class LoginActivity extends BaseActivity {
                 Log.d("-진우-", "픽토그램 로그인 성공 결과 : " + response.body());
                 memberActivity = (Member) response.body();
                 if (memberActivity == null) {
-                    Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.loginActivity_checkPWEmail, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.loginActivity_checkPWEmail, Toast.LENGTH_SHORT).show();
                 } else {
                     //가입완료후 로그인유지를 위해 preference를 사용한다.
                     SaveSharedPreference.setMemberSeq(getApplicationContext(), String.valueOf(memberActivity.getMember_seq()));
@@ -264,7 +264,7 @@ public class LoginActivity extends BaseActivity {
     //멤버 내용 체크
     private boolean checkMember(Member member) {
         if (member.getEmail().length() <= 0 || member.getPassword().length() <= 0) {
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.loginActivity_checkPWEmail, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.loginActivity_checkPWEmail, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -376,7 +376,7 @@ public class LoginActivity extends BaseActivity {
                     /*startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();*/
                 } else {
-                    setContentView(com.knowledge_seek.phyctogram.R.layout.activity_login);
+                    setContentView(R.layout.activity_login);
                 }
             }
 
@@ -420,15 +420,15 @@ public class LoginActivity extends BaseActivity {
     private void onClickLoginButton(final List<AuthType> authTypes) {
         final List<Item> itemList = new ArrayList<Item>();
         if (authTypes.contains(AuthType.KAKAO_TALK)) {
-            itemList.add(new Item(com.knowledge_seek.phyctogram.R.string.com_kakao_kakaotalk_account, com.knowledge_seek.phyctogram.R.drawable.kakaotalk_icon, AuthType.KAKAO_TALK));
+            itemList.add(new Item(R.string.com_kakao_kakaotalk_account, R.drawable.kakaotalk_icon, AuthType.KAKAO_TALK));
         }
         if (authTypes.contains(AuthType.KAKAO_STORY)) {
-            itemList.add(new Item(com.knowledge_seek.phyctogram.R.string.com_kakao_kakaostory_account, com.knowledge_seek.phyctogram.R.drawable.kakaostory_icon, AuthType.KAKAO_STORY));
+            itemList.add(new Item(R.string.com_kakao_kakaostory_account, R.drawable.kakaostory_icon, AuthType.KAKAO_STORY));
         }
         if (authTypes.contains(AuthType.KAKAO_ACCOUNT)) {
-            itemList.add(new Item(com.knowledge_seek.phyctogram.R.string.com_kakao_other_kakaoaccount, com.knowledge_seek.phyctogram.R.drawable.kakaoaccount_icon, AuthType.KAKAO_ACCOUNT));
+            itemList.add(new Item(R.string.com_kakao_other_kakaoaccount, R.drawable.kakaoaccount_icon, AuthType.KAKAO_ACCOUNT));
         }
-        itemList.add(new Item(com.knowledge_seek.phyctogram.R.string.com_kakao_account_cancel, 0, null)); //no icon for this one
+        itemList.add(new Item(R.string.com_kakao_account_cancel, 0, null)); //no icon for this one
 
         final Item[] items = itemList.toArray(new Item[itemList.size()]);
 
@@ -445,9 +445,9 @@ public class LoginActivity extends BaseActivity {
                 tv.setTextSize(15);
                 tv.setGravity(Gravity.CENTER);
                 if (position == itemList.size() - 1) {
-                    tv.setBackgroundResource(com.knowledge_seek.phyctogram.R.drawable.kakao_cancel_button_background);
+                    tv.setBackgroundResource(R.drawable.kakao_cancel_button_background);
                 } else {
-                    tv.setBackgroundResource(com.knowledge_seek.phyctogram.R.drawable.kakao_account_button_background);
+                    tv.setBackgroundResource(R.drawable.kakao_account_button_background);
                 }
                 tv.setCompoundDrawablesWithIntrinsicBounds(items[position].icon, 0, 0, 0);
 
@@ -498,7 +498,7 @@ public class LoginActivity extends BaseActivity {
             if (exception != null) {
                 Log.d("-진우 ", "에러 : " + exception.getMessage());
             }
-            setContentView(com.knowledge_seek.phyctogram.R.layout.activity_login);
+            setContentView(R.layout.activity_login);
         }
     }
 
@@ -514,7 +514,7 @@ public class LoginActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -560,7 +560,7 @@ public class LoginActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -601,7 +601,7 @@ public class LoginActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }

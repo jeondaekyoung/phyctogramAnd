@@ -14,15 +14,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pkmmte.view.CircularImageView;
-
-import java.io.IOException;
-
 import com.knowledge_seek.phyctogram.domain.Commnty;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.knowledge_seek.phyctogram.retrofitapi.CommntyAPI;
 import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
 import com.knowledge_seek.phyctogram.util.Utility;
+import com.pkmmte.view.CircularImageView;
+
+import java.io.IOException;
+
 import retrofit.Call;
 
 /**
@@ -49,17 +49,17 @@ public class CommunityWriteActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //화면 페이지
-        ic_screen = (LinearLayout)findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_commuinity_write, ic_screen, true);
+        ic_screen = (LinearLayout)findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_commuinity_write, ic_screen, true);
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
@@ -75,7 +75,7 @@ public class CommunityWriteActivity extends BaseActivity {
         });
 
         //레이아웃 정의
-        btn_left = (ImageButton)findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton)findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,10 +83,10 @@ public class CommunityWriteActivity extends BaseActivity {
             }
         });
 
-        et_title = (EditText)findViewById(com.knowledge_seek.phyctogram.R.id.et_title);
-        et_contents = (EditText)findViewById(com.knowledge_seek.phyctogram.R.id.et_contents);
+        et_title = (EditText)findViewById(R.id.et_title);
+        et_contents = (EditText)findViewById(R.id.et_contents);
         //수다방(커뮤니티) 글 저장
-        btn_community_save = (Button)findViewById(com.knowledge_seek.phyctogram.R.id.btn_community_save);
+        btn_community_save = (Button)findViewById(R.id.btn_community_save);
         btn_community_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,8 +119,8 @@ public class CommunityWriteActivity extends BaseActivity {
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
         usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-        int height = getListViewHeight(lv_usersList);
-        lv_usersList.getLayoutParams().height = height;
+
+        lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
         Log.d("-진우-", "CommunityWriteActivity 에 onResume() : " + member.toString());
@@ -131,7 +131,7 @@ public class CommunityWriteActivity extends BaseActivity {
     //Commnty의 내용체크
     private boolean checkCommnty(Commnty commnty){
         if(commnty.getTitle().length() <= 0 || commnty.getContents().length() <= 0){
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.communityWriteActivity_writeTitleContents, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.communityWriteActivity_writeTitleContents, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -151,7 +151,7 @@ public class CommunityWriteActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -175,7 +175,7 @@ public class CommunityWriteActivity extends BaseActivity {
         @Override
         protected void onPostExecute(String result) {
             if(result != null && result.equals("success")){
-                Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.commonActivity_save, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.commonActivity_save, Toast.LENGTH_SHORT).show();
             } else {
                 Log.d("-진우-", "저장하는데 실패하였습니다");
             }

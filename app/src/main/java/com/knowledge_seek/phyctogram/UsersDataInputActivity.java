@@ -53,26 +53,26 @@ public class UsersDataInputActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //화면 페이지
-        ic_screen = (LinearLayout) findViewById(com.knowledge_seek.phyctogram.R.id.ic_screen);
-        LayoutInflater.from(this).inflate(com.knowledge_seek.phyctogram.R.layout.include_users_data_input, ic_screen, true);
+        ic_screen = (LinearLayout) findViewById(R.id.ic_screen);
+        LayoutInflater.from(this).inflate(R.layout.include_users_data_input, ic_screen, true);
 
         //데이터셋팅
         usersHeight = new Height();
 
         //슬라이드 내 이미지, 셋팅
-        img_profile = (CircularImageView) findViewById(com.knowledge_seek.phyctogram.R.id.img_profile);
+        img_profile = (CircularImageView) findViewById(R.id.img_profile);
         if (memberImg != null) {
             img_profile.setImageBitmap(memberImg);
         }
 
         //슬라이드 내 이름, 셋팅
-        tv_member_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_member_name);
+        tv_member_name = (TextView) findViewById(R.id.tv_member_name);
         if (memberName != null) {
             tv_member_name.setText(memberName);
         }
 
         //메인페이지 내 아이 이름 출력
-        tv_users_name = (TextView) findViewById(com.knowledge_seek.phyctogram.R.id.tv_users_name);
+        tv_users_name = (TextView) findViewById(R.id.tv_users_name);
         if (nowUsers != null) {
             tv_users_name.setText(nowUsers.getName());
         }
@@ -83,7 +83,7 @@ public class UsersDataInputActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 nowUsers = (Users) usersListSlideAdapter.getItem(position);
                 Log.d("-진우-", "선택한 아이 : " + nowUsers.toString());
-                Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' "+getString(com.knowledge_seek.phyctogram.R.string.characterActivity_choiceChild), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' "+getString(R.string.characterActivity_choiceChild), Toast.LENGTH_LONG).show();
 
                 tv_users_name.setText(nowUsers.getName());
 
@@ -97,7 +97,7 @@ public class UsersDataInputActivity extends BaseActivity {
         });
 
         //레이아웃 정의
-        btn_left = (ImageButton) findViewById(com.knowledge_seek.phyctogram.R.id.btn_left);
+        btn_left = (ImageButton) findViewById(R.id.btn_left);
         btn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,12 +106,12 @@ public class UsersDataInputActivity extends BaseActivity {
         });
 
 
-        et_input_height = (EditText)findViewById(com.knowledge_seek.phyctogram.R.id.et_input_height);
-        dp_mesure_date = (DatePicker)findViewById(com.knowledge_seek.phyctogram.R.id.dp_mesure_date);
+        et_input_height = (EditText)findViewById(R.id.et_input_height);
+        dp_mesure_date = (DatePicker)findViewById(R.id.dp_mesure_date);
 
 
         //키 저장
-        btn_users_height = (Button)findViewById(com.knowledge_seek.phyctogram.R.id.btn_users_height);
+        btn_users_height = (Button)findViewById(R.id.btn_users_height);
         btn_users_height.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +119,7 @@ public class UsersDataInputActivity extends BaseActivity {
                 String height_str = et_input_height.getText().toString();
                 Log.d("-진우-", "입력된 키 : " + height_str);
                 if(nowUsers.getUser_seq() == 0){
-                    Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.diaryWriteActivity_registerChild, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.diaryWriteActivity_registerChild, Toast.LENGTH_SHORT).show();
                     return ;
                 }
                 if(!checkHeight(height_str)){
@@ -155,8 +155,7 @@ public class UsersDataInputActivity extends BaseActivity {
         //슬라이드메뉴 내 아이 목록 셋팅
         usersListSlideAdapter.setUsersList(usersList);
         usersListSlideAdapter.setSelectUsers(nowUsers.getUser_seq());
-        int height = getListViewHeight(lv_usersList);
-        lv_usersList.getLayoutParams().height = height;
+        lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
         //슬라이드메뉴 셋팅(내 아이목록, 계정이미지)
@@ -174,7 +173,7 @@ public class UsersDataInputActivity extends BaseActivity {
     private boolean checkHeight(String height_str){
         //Log.d("-진우-", "자릿수 : " + height_str.length());
         if(height_str.length() <= 0 || height_str.length() > 7){
-            Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.usersDataInputActivity_checkHeight, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.usersDataInputActivity_checkHeight, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -194,7 +193,7 @@ public class UsersDataInputActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
@@ -218,7 +217,7 @@ public class UsersDataInputActivity extends BaseActivity {
         @Override
         protected void onPostExecute(String result) {
             if(result != null && result.equals("success")){
-                Toast.makeText(getApplicationContext(), com.knowledge_seek.phyctogram.R.string.commonActivity_save, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.commonActivity_save, Toast.LENGTH_SHORT).show();
                onBackPressed();
             } else {
                 Log.d("-진우-", "저장하는데 실패하였습니다");
@@ -241,7 +240,7 @@ public class UsersDataInputActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait));
+            dialog.setMessage(getString(R.string.commonActivity_wait));
             dialog.show();
             super.onPreExecute();
         }
