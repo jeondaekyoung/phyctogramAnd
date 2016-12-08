@@ -23,6 +23,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -67,6 +68,7 @@ public class GuideActivity extends FragmentActivity {
     private List<Wifi> wifiList = new ArrayList<>();
     private ListView guide_lv;
     private ArrayList<String> E_response;
+    private Button btn_searchWifi;
 
     public static final int REQUEST_ACT = 112;
     @Override
@@ -112,6 +114,8 @@ public class GuideActivity extends FragmentActivity {
             }
         );
 
+
+
     }
     private class adapter extends FragmentStatePagerAdapter {
         public adapter(FragmentManager fm) {
@@ -151,6 +155,7 @@ public class GuideActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         BaseActivity.setStatusBarColor(this,R.color.purpledk);
+
 
     }
     @Override
@@ -371,7 +376,6 @@ public class GuideActivity extends FragmentActivity {
         }
 
         //wifi 리스트를 adapter를 통하여 ListView에 셋팅함
-        guide_lv = (ListView)findViewById(R.id.guide_lv);
         wifiListAdapter = new WifiListAdapter(this, wifiList, R.layout.list_wifi);
         guide_lv.setAdapter(wifiListAdapter);
 
@@ -379,7 +383,7 @@ public class GuideActivity extends FragmentActivity {
         guide_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //선택된 wifi 정보를 봅음
+                //선택된 wifi 정보를 뽑음
                 Wifi wifi = (Wifi) wifiListAdapter.getItem(position);
                 String capabilities = wifi.getCapabilities(); //보안 방식을 가져옴
                 //보안이 걸려있다면 비밀번호 입력 팝업을 오픈
@@ -424,6 +428,14 @@ public class GuideActivity extends FragmentActivity {
             dialog.setMessage(getApplicationContext().getString(R.string.commonActivity_wait)+"\n"+
                     getApplicationContext().getString(R.string.equipmentActivity_searching));
             dialog.show();
+            //프레그먼트가 먼저 만들어지고 리스너를 부착 해야함.
+            btn_searchWifi = page_2.btn_searchWifi;
+            btn_searchWifi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new listview_AsyncTask().execute();
+                }
+            });
             super.onPreExecute();
         }
 
@@ -529,7 +541,7 @@ public class GuideActivity extends FragmentActivity {
                 }
                 try {
                     Thread.sleep(5000);
-                    Log.d( "thread.sleep ","wifi 연결을 위한 sleep 7초");
+                    Log.d( "thread.sleep ","wifi 연결을 위한 sleep 5초");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -616,75 +628,6 @@ public class GuideActivity extends FragmentActivity {
             System.out.println("데이터를 송신 하였습니다.");
         }
 
-    }
-
-    @NonNull
-    public static WifiConfiguration getWifiConfiguration(String ssid, String password, String capabilities) {
-        WifiConfiguration wfc = new WifiConfiguration();
-
-        //wifi 공통 규칙
-        wfc.SSID = "\"".concat( ssid ).concat("\"");
-        wfc.status = WifiConfiguration.Status.DISABLED;
-        wfc.priority = 40;
-
-        //wifi 보안 종류별 개별 규칙
-        if(capabilities.contains("WEP")){
-            Log.d("-진우-", "WEP 셋팅");
-            wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
-            wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
-            wfc.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
-            wfc.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
-            wfc.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.SHARED);
-            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
-            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
-            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
-            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
-            wfc.wepKeys[0] = "\"".concat(password).concat("\"");
-            wfc.wepTxKeyIndex = 0;
-
-        }else if(capabilities.contains("WPA")  ) {
-            Log.d("-진우-", "WPA 셋팅");
-            wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
-            wfc.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
-            wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
-            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
-            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
-            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
-            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
-            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
-            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
-
-            wfc.preSharedKey = "\"".concat(password).concat("\"");
-
-            Log.d("-진우-", "패스워드 확인 : " + wfc.preSharedKey);
-        }else if(capabilities.contains("WPA2")  ) {
-            Log.d("-진우-", "WPA2 셋팅");
-            wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
-            wfc.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
-            wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
-            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
-            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
-            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
-            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
-            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
-            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
-
-            wfc.preSharedKey = "\"".concat(password).concat("\"");
-        }else if(capabilities.contains("OPEN")  ) {
-            Log.d("-진우-", "OPEN 셋팅");
-
-            wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
-            wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
-            wfc.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
-            wfc.allowedAuthAlgorithms.clear();
-            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
-            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
-            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
-            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
-            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
-            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
-        }
-        return wfc;
     }
 
 }

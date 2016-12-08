@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -25,6 +26,7 @@ public class page_3 extends android.support.v4.app.Fragment {
     TextView page_num;
     RadioGroup rg_group;
     ListView guide_lv;
+    Button btn_searchWifi;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,9 @@ public class page_3 extends android.support.v4.app.Fragment {
                 }
             }
         });
+
+        btn_searchWifi = (Button)RelativeLayout.findViewById(R.id.btn_searchWifi);
+        btn_searchWifi.setVisibility(View.GONE);
 
         return RelativeLayout;
     }
