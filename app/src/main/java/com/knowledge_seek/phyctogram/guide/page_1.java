@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -20,9 +21,10 @@ public class page_1 extends android.support.v4.app.Fragment {
 
     RelativeLayout RelativeLayout;
     RadioButton radioButton;
-    ImageView guide_iV;
+    ImageView guide_img;
     TextView page_num;
     RadioGroup rg_group;
+    ListView guide_lv;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,13 +33,18 @@ public class page_1 extends android.support.v4.app.Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         RelativeLayout=(RelativeLayout)inflater.inflate(R.layout.include_guide,container,false);
         page_num=(TextView)RelativeLayout.findViewById(R.id.page_num);
-        guide_iV= (ImageView)RelativeLayout.findViewById(R.id.guide_iV);
-        radioButton = (RadioButton)RelativeLayout.findViewById(R.id.radioButton);
-
         page_num.setText("1.\n기기 설치 후\n전원을 켜주세요");
+
+        guide_img = (ImageView)RelativeLayout.findViewById(R.id.guide_img);
+
+        radioButton = (RadioButton)RelativeLayout.findViewById(R.id.radioButton);
         radioButton.setChecked(true);
+
+        guide_lv = (ListView)RelativeLayout.findViewById(R.id.guide_lv);
+        guide_lv.setVisibility(View.GONE);
 
         rg_group = (RadioGroup) RelativeLayout.findViewById(R.id.rg_group);
         rg_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

@@ -1,6 +1,7 @@
 package com.knowledge_seek.phyctogram.listAdapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,9 @@ public class WifiListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        Log.d("-대경-","getCount: " + wifis.size());
         return wifis.size();
+
     }
 
     @Override

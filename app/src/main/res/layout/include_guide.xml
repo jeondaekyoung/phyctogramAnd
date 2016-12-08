@@ -36,7 +36,7 @@
         android:padding="5dp" />-->
 
     <ImageView
-        android:id="@+id/guide_iV"
+        android:id="@+id/guide_img"
         android:layout_width="240dp"
         android:layout_height="336dp"
         android:layout_above="@+id/ll1"
@@ -95,8 +95,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/ll1"
-        android:layout_alignEnd="@+id/guide_iV"
-        android:layout_alignStart="@+id/guide_iV"
+        android:layout_alignEnd="@+id/guide_img"
+        android:layout_alignStart="@+id/guide_img"
         android:layout_marginBottom="161dp"
         android:divider="#f1f1f1"
         android:dividerHeight="1dp" />

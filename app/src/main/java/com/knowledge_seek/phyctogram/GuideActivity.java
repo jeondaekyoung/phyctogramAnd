@@ -63,9 +63,9 @@ public class GuideActivity extends FragmentActivity {
     private ScanResult scanResult;
     private WifiManager wm;
     private List apList;
-    public static WifiListAdapter wifiListAdapter;
+    private WifiListAdapter wifiListAdapter;
     private List<Wifi> wifiList = new ArrayList<>();
-    private ListView guide_LV;
+    private ListView guide_lv;
     private ArrayList<String> E_response;
 
     public static final int REQUEST_ACT = 112;
@@ -95,7 +95,9 @@ public class GuideActivity extends FragmentActivity {
                   @Override
                   public void onPageSelected(int position) {
                         if(position==1){
-                            searchStartWifi();
+
+                            new listview_AsyncTask().execute();
+
                         }
                   }
                   @Override
@@ -103,16 +105,12 @@ public class GuideActivity extends FragmentActivity {
 
                       if (state == ViewPager.SCROLL_STATE_DRAGGING) {
                             if(targetPage==0){
-                                    dialog.show();
+                                    //dialog.show();
                             }
                       }
-
-
-
                   }
             }
         );
-
 
     }
     private class adapter extends FragmentStatePagerAdapter {
@@ -249,24 +247,26 @@ public class GuideActivity extends FragmentActivity {
                     for (int i = 0; i < size; i++) {
                         scanResult = (ScanResult) apList.get(i); //wifi 정보를 하나씩 선택
                         //if(scanResult.SSID.contains("Know")){//wifi 정보를 걸러내어 list에 입력
-                            wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities,String.valueOf(scanResult.level)));
+                            if(scanResult.SSID.length()!=0){
+                                wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities,String.valueOf(scanResult.level)));
+                            }
                             //isWifiConnect = true;// 연결유무
-
                         //}
 
                     }
                     unregisterReceiver(wifiReceiver);    //리시버 해제
                 }
-
-
+                guide_lv = page_2.guide_lv;
                 if(wifiList.size()>=2){//기기 복수일시 리스트로 선택
+                    Collections.sort(wifiList, new Signal_AscCompare());
+                    //
+                    // guide_lv = (ListView)findViewById(R.id.guide_lv);
 
-                    guide_LV = (ListView)findViewById(R.id.guide_lv);
                     wifiListAdapter = new WifiListAdapter(getApplication(), wifiList, com.knowledge_seek.phyctogram.R.layout.list_wifi);
-                    guide_LV.setAdapter(wifiListAdapter);
-
+                    guide_lv.setAdapter(wifiListAdapter);
+                    Log.d(TAG, "onReceive: "+wifiList);
                     //ListView Item 클릭 시
-                    guide_LV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    guide_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             //선택된 wifi 정보를 뽑음
@@ -341,17 +341,7 @@ public class GuideActivity extends FragmentActivity {
 
     //wifi List view 셋팅
     public void search_Wifi() {
-        /*unregisterReceiver(wifiReceiver);    //리시버 해제
-        apList = wm.getScanResults(); //스캔된 wifi 정보를 받음
-        if (wm.getScanResults() != null) {
-            int size = apList.size();
-            for (int i = 0; i < size; i++) {
-                scanResult = (ScanResult) apList.get(i); //wifi 정보를 하나씩 선택
 
-                wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities,String.valueOf(scanResult.level)+"dBm")); //wifi 정보를 걸러내어 list에 입력
-            }
-        }
-*/
         //w 명령어
         if(E_response.get(0).equals("w")&& E_response!=null){
             wifiList.clear();
@@ -381,12 +371,12 @@ public class GuideActivity extends FragmentActivity {
         }
 
         //wifi 리스트를 adapter를 통하여 ListView에 셋팅함
-        guide_LV = (ListView)findViewById(com.knowledge_seek.phyctogram.R.id.guide_lv);
+        guide_lv = (ListView)findViewById(com.knowledge_seek.phyctogram.R.id.guide_lv);
         wifiListAdapter = new WifiListAdapter(this, wifiList, com.knowledge_seek.phyctogram.R.layout.list_wifi);
-        guide_LV.setAdapter(wifiListAdapter);
+        guide_lv.setAdapter(wifiListAdapter);
 
         //ListView Item 클릭 시
-        guide_LV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        guide_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //선택된 wifi 정보를 봅음
@@ -420,31 +410,45 @@ public class GuideActivity extends FragmentActivity {
         startActivityForResult(i,REQUEST_ACT);
     }
 
-/*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: 실행");
+    //리스트뷰
+    class listview_AsyncTask extends AsyncTask<Void, Void, Void> {
 
-        if (resultCode != RESULT_OK) {
-            Log.d(TAG, "onActivityResult: 결과가 성공이 아님.");
-            return;
+        private ProgressDialog dialog = new ProgressDialog(GuideActivity.this);
+
+
+        //Background 작업 시작전에 UI 작업을 진행 한다.
+        @Override
+        protected void onPreExecute() {
+
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog.setMessage(getApplicationContext().getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait)+"\n"+
+                    getApplicationContext().getString(com.knowledge_seek.phyctogram.R.string.equipmentActivity_searching));
+            dialog.show();
+            super.onPreExecute();
         }
 
-        if (requestCode == REQUEST_ACT) {
-            //popupActiviy에서 가져온 ap 정보
-            String p_ssid = data.getStringExtra("p_ssid");
-            String p_password = data.getStringExtra("p_password");
-            String p_capabilities = data.getStringExtra("p_capabilities");
-            Log.d(TAG, "onActivityResult: 결과:" +p_ssid+","+p_password+","+p_capabilities);
-            new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("s "+p_ssid+" "+p_password);
+        @Override
+        protected Void doInBackground(Void... params) {
 
-        } else {
-            Log.d(TAG, "onActivityResult: REQUEST_ACT가 아님.");
+
+            searchStartWifi();
+
+            try {
+                Thread.sleep(3000);
+                Log.d( "thread.sleep ","wifi 정보 검색을 위한 sleep 3초");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            dialog.dismiss();
+            super.onPostExecute(result);
+
         }
     }
-*/
-
 
     ///////////////AsyncTask
     private class Equipment_TCP_Client_Task extends AsyncTask<Object, Integer, ArrayList<String>> {
@@ -454,7 +458,7 @@ public class GuideActivity extends FragmentActivity {
 
         private BufferedReader networkReader;
         private BufferedWriter networkWriter;
-        ArrayList<String> response ;
+        private ArrayList<String> response ;
         private WifiManager mWm;
         private Context mContext;
 
@@ -546,7 +550,7 @@ public class GuideActivity extends FragmentActivity {
                 out.flush();
 
                 String  line;
-                response = new ArrayList<String>();
+                response = new ArrayList();
 
                 //디버깅을위한 list(0) command로
                 response.add(command);

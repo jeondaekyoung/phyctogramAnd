@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -20,9 +21,10 @@ public class page_3 extends android.support.v4.app.Fragment {
 
     RelativeLayout RelativeLayout;
     RadioButton radioButton3;
-    ImageView guide_iV;
+    ImageView guide_img;
     TextView page_num;
     RadioGroup rg_group;
+    ListView guide_lv;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,14 @@ public class page_3 extends android.support.v4.app.Fragment {
 
         RelativeLayout=(RelativeLayout)inflater.inflate(R.layout.include_guide,container,false);
         page_num=(TextView)RelativeLayout.findViewById(R.id.page_num);
-        guide_iV= (ImageView)RelativeLayout.findViewById(R.id.guide_iV);
-        radioButton3 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton3);
-
         page_num.setText("3.\n바닥까지의 높이를\n측정 합니다");
 
+        guide_img = (ImageView)RelativeLayout.findViewById(R.id.guide_img);
+
+        guide_lv = (ListView)RelativeLayout.findViewById(R.id.guide_lv);
+        guide_lv.setVisibility(View.GONE);
+
+        radioButton3 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton3);
         radioButton3.setChecked(true);
 
         rg_group = (RadioGroup) RelativeLayout.findViewById(R.id.rg_group);

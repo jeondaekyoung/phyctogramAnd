@@ -294,17 +294,7 @@ public class EquipmentActivity extends BaseActivity {
 
     //wifi List view 셋팅
     public void search_Wifi() {
-        /*unregisterReceiver(wifiReceiver);    //리시버 해제
-        apList = wm.getScanResults(); //스캔된 wifi 정보를 받음
-        if (wm.getScanResults() != null) {
-            int size = apList.size();
-            for (int i = 0; i < size; i++) {
-                scanResult = (ScanResult) apList.get(i); //wifi 정보를 하나씩 선택
 
-                wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities,String.valueOf(scanResult.level)+"dBm")); //wifi 정보를 걸러내어 list에 입력
-            }
-        }
-*/
         //w 명령어
         if(E_response.get(0).equals("w")&& E_response!=null){
             wifiList.clear();
@@ -416,6 +406,7 @@ public class EquipmentActivity extends BaseActivity {
 
     }
 
+
     private class Equipment_TCP_Client_Task extends AsyncTask <Object, Integer, ArrayList<String>> {
 
         protected 	String SERV_IP		=	"192.168.4.1"; //server ip
@@ -440,8 +431,8 @@ public class EquipmentActivity extends BaseActivity {
         protected void onPreExecute() {
 
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getApplicationContext().getString(com.knowledge_seek.phyctogram.R.string.commonActivity_wait)+"\n"+
-                    getApplicationContext().getString(com.knowledge_seek.phyctogram.R.string.equipmentActivity_searching));
+            dialog.setMessage(getString(R.string.commonActivity_wait)+"\n"+
+                    getString(R.string.equipmentActivity_searching));
             dialog.show();
             super.onPreExecute();
         }
@@ -494,7 +485,7 @@ public class EquipmentActivity extends BaseActivity {
                 }
                 try {
                     Thread.sleep(5000);
-                    Log.d( "thread.sleep ","wifi 연결을 위한 sleep 7초");
+                    Log.d( "thread.sleep ","wifi 연결을 위한 sleep 5초");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -552,6 +543,7 @@ public class EquipmentActivity extends BaseActivity {
                 networkReader.close();
 
 
+
             } catch(IOException e){
                 e.printStackTrace();
             }
@@ -560,16 +552,17 @@ public class EquipmentActivity extends BaseActivity {
         //Background 작업이 끝난 후 UI 작업을 진행 한다.
         @Override
         protected void onPostExecute(ArrayList<String>  response) {
-            super.onPostExecute(response);
             if(response==null){
                 dialog.dismiss();
                 Toast.makeText(mContext,"기기와 연결이 비정상적으로 종료 되었습니다.\n기기와 연결을 확인해주세요.", Toast.LENGTH_LONG).show();
                 return;
-             }
+            }
             // Toast.makeText(mContext,"명령어: "+response.get(0)+"response 1 Line:"+response.get(1) , Toast.LENGTH_LONG).show();
             //E_response=response;
             search_Wifi();
             dialog.dismiss();
+            super.onPostExecute(response);
+
 
         }
 
