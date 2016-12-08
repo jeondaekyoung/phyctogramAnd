@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -29,6 +30,8 @@ public class page_2 extends android.support.v4.app.Fragment {
     TextView page_num;
     RadioGroup rg_group;
 
+
+    ListView guide_lv;
     /*//wifi관련
     private ScanResult scanResult;
     private WifiManager wm;
@@ -59,6 +62,11 @@ public class page_2 extends android.support.v4.app.Fragment {
         page_num=(TextView)RelativeLayout.findViewById(R.id.page_num);
         guide_iV= (ImageView)RelativeLayout.findViewById(R.id.guide_iV);
         radioButton2 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton2);
+
+        guide_lv = (ListView)RelativeLayout.findViewById(R.id.guide_lv);
+
+        ///wifiListAdapter = new WifiListAdapter(getActivity(), guide_iV, com.knowledge_seek.phyctogram.R.layout.list_wifi);
+        guide_lv.setAdapter(GuideActivity.wifiListAdapter);
 
         page_num.setText("2.\nWi-Fi에 연결하세요");
         guide_iV.setVisibility(View.GONE);

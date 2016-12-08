@@ -11,6 +11,9 @@
         android:layout_height="336dp"
         android:layout_gravity="center"
         android:background="@drawable/border_radius_white"
-        android:padding="7dp" />
+        android:padding="7dp"
+
+        />
+
 
 </LinearLayout>

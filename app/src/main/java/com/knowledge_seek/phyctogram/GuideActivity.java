@@ -63,7 +63,7 @@ public class GuideActivity extends FragmentActivity {
     private ScanResult scanResult;
     private WifiManager wm;
     private List apList;
-    private WifiListAdapter wifiListAdapter;
+    public static WifiListAdapter wifiListAdapter;
     private List<Wifi> wifiList = new ArrayList<>();
     private ListView guide_LV;
     private ArrayList<String> E_response;
@@ -112,6 +112,7 @@ public class GuideActivity extends FragmentActivity {
                   }
             }
         );
+
 
     }
     private class adapter extends FragmentStatePagerAdapter {
@@ -247,11 +248,11 @@ public class GuideActivity extends FragmentActivity {
                     int size = apList.size();
                     for (int i = 0; i < size; i++) {
                         scanResult = (ScanResult) apList.get(i); //wifi 정보를 하나씩 선택
-                        if(scanResult.SSID.contains("Know")){//wifi 정보를 걸러내어 list에 입력
+                        //if(scanResult.SSID.contains("Know")){//wifi 정보를 걸러내어 list에 입력
                             wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities,String.valueOf(scanResult.level)));
                             //isWifiConnect = true;// 연결유무
 
-                        }
+                        //}
 
                     }
                     unregisterReceiver(wifiReceiver);    //리시버 해제
@@ -259,7 +260,8 @@ public class GuideActivity extends FragmentActivity {
 
 
                 if(wifiList.size()>=2){//기기 복수일시 리스트로 선택
-                    guide_LV = (ListView)findViewById(R.id.guide_LV);
+
+                    guide_LV = (ListView)findViewById(R.id.guide_lv);
                     wifiListAdapter = new WifiListAdapter(getApplication(), wifiList, com.knowledge_seek.phyctogram.R.layout.list_wifi);
                     guide_LV.setAdapter(wifiListAdapter);
 
@@ -379,7 +381,7 @@ public class GuideActivity extends FragmentActivity {
         }
 
         //wifi 리스트를 adapter를 통하여 ListView에 셋팅함
-        guide_LV = (ListView)findViewById(com.knowledge_seek.phyctogram.R.id.guide_LV);
+        guide_LV = (ListView)findViewById(com.knowledge_seek.phyctogram.R.id.guide_lv);
         wifiListAdapter = new WifiListAdapter(this, wifiList, com.knowledge_seek.phyctogram.R.layout.list_wifi);
         guide_LV.setAdapter(wifiListAdapter);
 
