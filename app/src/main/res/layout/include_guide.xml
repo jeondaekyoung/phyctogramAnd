@@ -24,16 +24,18 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/border_radius_white"
-        android:padding="5dp" />
+        android:padding="7dp" />
 
-    <!--<ImageButton
-        android:id="@+id/addEquip"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/float_button_03"
-        android:padding="5dp" />-->
+    <Button
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/guide_lv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border_radius_white_line"
+        android:padding="5dp"
+        android:text="@string/equipmentActivity_endSearch"
+        android:textColor="@color/color6" />
 
     <ImageView
         android:id="@+id/guide_img"
