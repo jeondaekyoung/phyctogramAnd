@@ -2,6 +2,7 @@ package com.knowledge_seek.phyctogram;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -520,6 +521,17 @@ public class MainActivity extends BaseActivity {
                 task.execute();
             } else {
                 Log.d("-진우-", "성공했으나 등록된 내아이가 없습니다.");
+                //가이드 유무
+                SharedPreferences preferences = getSharedPreferences("preferences",MODE_PRIVATE);
+                SharedPreferences.Editor editor =preferences.edit();
+                editor.putBoolean("guideNeed",true);
+                editor.commit();
+                boolean guideFlag=preferences.getBoolean("guideNeed",true);
+
+                if(guideFlag){
+                    Intent intent=new Intent(getApplicationContext(),GuideActivity.class);
+                    startActivity(intent);
+                }
             }
 
 

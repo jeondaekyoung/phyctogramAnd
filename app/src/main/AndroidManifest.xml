@@ -36,7 +36,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <activity
-            android:name="com.knowledge_seek.phyctogram.GuideActivity"
+            android:name="com.knowledge_seek.phyctogram.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -213,12 +213,11 @@
             android:theme="@android:style/Theme.Dialog"
             android:screenOrientation="portrait"/>
 
-    <!--    <activity
+        <activity
             android:name="com.knowledge_seek.phyctogram.GuideActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"/>
 
--->
         <!-- 파일업로드 테스트 -->
         <activity
             android:name="com.knowledge_seek.phyctogram.FileUploadActivity"

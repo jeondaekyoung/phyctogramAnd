@@ -1,5 +1,7 @@
 package com.knowledge_seek.phyctogram.guide;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import com.knowledge_seek.phyctogram.GuideActivity;
 import com.knowledge_seek.phyctogram.R;
+import com.knowledge_seek.phyctogram.UsersAddActivity;
 
 /**
  * Created by dkfka on 2016-11-16.
@@ -127,7 +130,14 @@ public class page_4 extends android.support.v4.app.Fragment {
         btn_searchWifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SharedPreferences preferences = getActivity().getSharedPreferences("preferences",getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor editor =preferences.edit();
+                editor.putBoolean("guideNeed",false);
+                editor.commit();
+                Intent intent=new Intent(getContext(),UsersAddActivity.class);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
         return relativeLayout;
