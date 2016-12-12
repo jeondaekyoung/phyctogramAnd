@@ -6,14 +6,20 @@
     android:background="@drawable/main_gradient">
 
     <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:padding="20dp"
+        android:src="@drawable/close" />
+
+    <ImageView
         android:id="@+id/page4_chk"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/page4_chk"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
-        android:visibility="gone"
-        />
+        android:src="@drawable/page4_chk"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/page_num"
@@ -99,8 +105,5 @@
                 android:layout_marginTop="5dp"
                 android:buttonTint="@color/color6" />
         </RadioGroup>
-
     </LinearLayout>
-
-
 </RelativeLayout>
