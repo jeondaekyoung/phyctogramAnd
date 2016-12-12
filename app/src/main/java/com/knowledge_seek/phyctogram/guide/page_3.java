@@ -1,6 +1,7 @@
 package com.knowledge_seek.phyctogram.guide;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,9 +42,11 @@ public class page_3 extends android.support.v4.app.Fragment {
         page_num.setText("3.\n바닥까지의 높이를\n측정 합니다");
 
         guide_img = (ImageView)RelativeLayout.findViewById(R.id.guide_img);
+        guide_img.setImageResource(R.drawable.guideimg2);
 
         guide_lv = (ListView)RelativeLayout.findViewById(R.id.guide_lv);
         guide_lv.setVisibility(View.GONE);
+
 
         radioButton3 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton3);
         radioButton3.setChecked(true);
@@ -72,6 +75,8 @@ public class page_3 extends android.support.v4.app.Fragment {
 
         btn_searchWifi = (Button)RelativeLayout.findViewById(R.id.btn_searchWifi);
         btn_searchWifi.setVisibility(View.GONE);
+
+        Log.d("-대경-", "onCreateView: "+RelativeLayout.getChildAt(0));
 
         return RelativeLayout;
     }

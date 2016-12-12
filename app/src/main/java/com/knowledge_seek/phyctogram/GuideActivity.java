@@ -83,7 +83,6 @@ public class GuideActivity extends FragmentActivity {
             }
         });
 
-
         setContentView(R.layout.activity_guide);
          viewPager=(ViewPager)findViewById(R.id.viewpager);
         viewPager.setAdapter(new adapter(getSupportFragmentManager()));
@@ -113,9 +112,6 @@ public class GuideActivity extends FragmentActivity {
                   }
             }
         );
-
-
-
     }
     private class adapter extends FragmentStatePagerAdapter {
         public adapter(FragmentManager fm) {
@@ -129,8 +125,7 @@ public class GuideActivity extends FragmentActivity {
             switch (position){
                 case 0:
                     cur_fragment=new page_1();
-
-                    break;
+                  break;
                 case 1:
                     cur_fragment=new page_2();
                     break;
@@ -147,16 +142,12 @@ public class GuideActivity extends FragmentActivity {
         public int getCount() {
             return MAX_PAGE;
         }
-
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         BaseActivity.setStatusBarColor(this,R.color.purpledk);
-
-
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -526,7 +517,7 @@ public class GuideActivity extends FragmentActivity {
                     Log.d("-진우-", "networkId : " + networkId);
 
                     //연결 여부 : false
-                    boolean connection = false;
+                    boolean connection;
 
                     if (networkId != -1) {
                         //Toast.makeText(getApplicationContext(), R.string.equipmentActivity_connectionAlert, Toast.LENGTH_LONG).show();
@@ -562,7 +553,7 @@ public class GuideActivity extends FragmentActivity {
                 out.flush();
 
                 String  line;
-                response = new ArrayList();
+                response = new ArrayList<String>();
 
                 //디버깅을위한 list(0) command로
                 response.add(command);
@@ -619,7 +610,6 @@ public class GuideActivity extends FragmentActivity {
             dialog.dismiss();
 
         }
-
 
         public void WriteSocket(BufferedWriter data,String s) throws IOException{
             //	data send

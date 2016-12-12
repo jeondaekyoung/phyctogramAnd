@@ -24,7 +24,7 @@ public class page_2 extends android.support.v4.app.Fragment {
 
     final String TAG = page_2.class.getName();
 
-    RelativeLayout RelativeLayout;
+    RelativeLayout relativeLayout;
     RadioButton radioButton2;
     ImageView guide_img;
     TextView page_num;
@@ -48,27 +48,27 @@ public class page_2 extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        RelativeLayout=(RelativeLayout)inflater.inflate(R.layout.include_guide,container,false);
-        page_num=(TextView)RelativeLayout.findViewById(R.id.page_num);
+        relativeLayout =(RelativeLayout)inflater.inflate(R.layout.include_guide,container,false);
+        page_num=(TextView) relativeLayout.findViewById(R.id.page_num);
         page_num.setText("2.\nWi-Fi에 연결하세요");
 
-        guide_img = (ImageView)RelativeLayout.findViewById(R.id.guide_img);
+        guide_img = (ImageView) relativeLayout.findViewById(R.id.guide_img);
         guide_img.setVisibility(View.GONE);
 
-        radioButton2 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton2);
+        radioButton2 = (RadioButton) relativeLayout.findViewById(R.id.radioButton2);
         radioButton2.setChecked(true);
 
-        guide_lv = (ListView)RelativeLayout.findViewById(R.id.guide_lv);
+        guide_lv = (ListView) relativeLayout.findViewById(R.id.guide_lv);
 
 
-        rg_group = (RadioGroup) RelativeLayout.findViewById(R.id.rg_group);
-        rg_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                        rg_group = (RadioGroup) relativeLayout.findViewById(R.id.rg_group);
+                        rg_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                                switch (checkedId){
 
-                    case R.id.radioButton:
-                        GuideActivity.viewPager.setCurrentItem(0);
+                                    case R.id.radioButton:
+                                        GuideActivity.viewPager.setCurrentItem(0);
                         radioButton2.setChecked(true);
                         break;
                     case R.id.radioButton3:
@@ -86,9 +86,9 @@ public class page_2 extends android.support.v4.app.Fragment {
        // lv_wifiList=new ListView(getActivity());
         //lv_wifiList.setAdapter(wifiListAdapter);
 
-        //lv_wifiList.setLayoutParams(RelativeLayout.getLayoutParams());
-        btn_searchWifi = (Button)RelativeLayout.findViewById(R.id.btn_searchWifi);
-        return RelativeLayout;
+        //lv_wifiList.setLayoutParams(relativeLayout.getLayoutParams());
+        btn_searchWifi = (Button) relativeLayout.findViewById(R.id.btn_searchWifi);
+        return relativeLayout;
     }
 
 }

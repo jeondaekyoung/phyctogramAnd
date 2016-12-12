@@ -1,6 +1,9 @@
 package com.knowledge_seek.phyctogram.guide;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +23,14 @@ import com.knowledge_seek.phyctogram.R;
  */
 public class page_4 extends android.support.v4.app.Fragment {
 
-    RelativeLayout RelativeLayout;
+    RelativeLayout relativeLayout;
     RadioButton radioButton4;
-    ImageView guide_img;
+    ImageView guide_img,page4_chk;
     TextView page_num;
     RadioGroup rg_group;
     ListView guide_lv;
     Button btn_searchWifi;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,19 +40,54 @@ public class page_4 extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        RelativeLayout=(RelativeLayout)inflater.inflate(R.layout.include_guide,container,false);
-        page_num=(TextView)RelativeLayout.findViewById(R.id.page_num);
-        page_num.setText("아이를 등록하면 모든\n준비과정이 완료됩니다!");
+        relativeLayout =(RelativeLayout)inflater.inflate(R.layout.include_guide,container,false);
 
-        guide_img = (ImageView)RelativeLayout.findViewById(R.id.guide_img);
+        page4_chk = (ImageView) relativeLayout.findViewById(R.id.page4_chk);
+        page4_chk.setVisibility(View.VISIBLE);
 
-        guide_lv = (ListView)RelativeLayout.findViewById(R.id.guide_lv);
+        page_num=(TextView) relativeLayout.findViewById(R.id.page_num);
+        relativeLayout.removeView(page_num);
+        //코드로 textView 생성
+
+        /*<TextView
+        android:id="@+id/page_num"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:text="text"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+*/
+        // 아래와 같이 해줘야 기기에 맞는 DP가 나온다.
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        int size = Math.round(240 * dm.density);
+        RelativeLayout.LayoutParams lay = new RelativeLayout.LayoutParams(
+                size, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        //dp값 변경
+        size = Math.round(50 * dm.density);
+        lay.topMargin = size;
+
+        lay.addRule(RelativeLayout.CENTER_VERTICAL);
+        lay.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+        TextView new_tv=new TextView(getActivity());
+        new_tv.setTextColor(Color.WHITE);
+        new_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+        new_tv.setText(" 아이를 등록하면 모든\n준비과정이 완료됩니다!");
+        new_tv.setId(R.id.page_num);
+        relativeLayout.addView(new_tv,lay);
+
+        guide_img = (ImageView) relativeLayout.findViewById(R.id.guide_img);
+        guide_img.setVisibility(View.GONE);
+
+        guide_lv = (ListView) relativeLayout.findViewById(R.id.guide_lv);
         guide_lv.setVisibility(View.GONE);
 
-        radioButton4 = (RadioButton)RelativeLayout.findViewById(R.id.radioButton4);
+        radioButton4 = (RadioButton) relativeLayout.findViewById(R.id.radioButton4);
         radioButton4.setChecked(true);
 
-        rg_group = (RadioGroup) RelativeLayout.findViewById(R.id.rg_group);
+        rg_group = (RadioGroup) relativeLayout.findViewById(R.id.rg_group);
         rg_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -69,11 +108,29 @@ public class page_4 extends android.support.v4.app.Fragment {
                 }
             }
         });
+        //동적으로 버튼 변경 android:layout_below="@+id/guide_lv"
+        size = Math.round(240 * dm.density);
+        int h_size=Math.round(60 * dm.density);
+        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(size,h_size);
+        param.addRule(RelativeLayout.BELOW, R.id.page_num);
 
-        btn_searchWifi = (Button)RelativeLayout.findViewById(R.id.btn_searchWifi);
-        btn_searchWifi.setVisibility(View.GONE);
+        size = Math.round(110 * dm.density);
+        param.topMargin = size;
+        param.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
-        return RelativeLayout;
+        btn_searchWifi = (Button) relativeLayout.findViewById(R.id.btn_searchWifi);
+        btn_searchWifi.setBackground(getResources().getDrawable(R.drawable.border_radius_white));
+        btn_searchWifi.setText("시작하기");
+        btn_searchWifi.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        btn_searchWifi.setTextColor(Color.GRAY);
+        btn_searchWifi.setLayoutParams(param);
+        btn_searchWifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        return relativeLayout;
     }
 
 }
