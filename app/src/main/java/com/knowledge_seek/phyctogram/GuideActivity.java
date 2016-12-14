@@ -87,7 +87,8 @@ public class GuideActivity extends FragmentActivity {
             }
         });
         final View dialogView= getLayoutInflater().inflate(R.layout.guide3_dialogview, null);
-        guide_ref=(TextView)findViewById(R.id.guide_ref);
+        guide_ref=(TextView)dialogView.findViewById(R.id.guide_ref);
+        Log.d(TAG, "guide_ref: "+guide_ref);
 
         dialog_page3 = new AlertDialog.Builder(this).setView(dialogView).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
             @Override
@@ -131,7 +132,23 @@ public class GuideActivity extends FragmentActivity {
 
                         }
                       if(position==2){
-                          dialog_page3.show();
+                          page_3.btn_measure.setOnClickListener(new View.OnClickListener() {
+                              @Override
+                              public void onClick(View v) {
+                                  Log.d("-대경" ,"onClick: "+"page3_btn_measure");
+                                  try {
+                                      E_response= new Equipment_TCP_Client_Task(GuideActivity.this,wm).execute("r").get();
+                                      guide_ref.setText(E_response.get(1));
+                                      dialog_page3.show();
+                                  } catch (InterruptedException e) {
+                                      e.printStackTrace();
+                                  } catch (ExecutionException e) {
+                                      e.printStackTrace();
+                                  }
+                              }
+
+                          });
+
                       }
                   }
                   @Override
@@ -145,6 +162,7 @@ public class GuideActivity extends FragmentActivity {
                   }
             }
         );
+
     }
     private class adapter extends FragmentStatePagerAdapter {
         public adapter(FragmentManager fm) {
@@ -164,6 +182,7 @@ public class GuideActivity extends FragmentActivity {
                     break;
                 case 2:
                     cur_fragment=new page_3();
+
                     break;
                 case 3:
                     cur_fragment=new page_4();
@@ -638,7 +657,14 @@ public class GuideActivity extends FragmentActivity {
             }
             // Toast.makeText(mContext,"명령어: "+response.get(0)+"response 1 Line:"+response.get(1) , Toast.LENGTH_LONG).show();
             //E_response=response;
-            search_Wifi();
+            if(response.get(0).contains("w")){
+                search_Wifi();
+            }
+            else if(response.get(0).contains("r")){
+                Log.d(TAG, "onPostExecute: "+"명령어 r");
+
+            }
+
             dialog.dismiss();
 
         }

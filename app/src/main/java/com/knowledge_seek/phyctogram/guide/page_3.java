@@ -26,6 +26,7 @@ public class page_3 extends android.support.v4.app.Fragment {
     TextView guide_Title_tv,guide_subTitle_tv;
     ListView guide_lv;
     Button btn_searchWifi;
+    public static Button btn_measure;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,13 @@ public class page_3 extends android.support.v4.app.Fragment {
 
         btn_searchWifi = (Button) relativeLayout.findViewById(R.id.btn_searchWifi);
         btn_searchWifi.setVisibility(View.GONE);
+
+        btn_measure = (Button) relativeLayout.findViewById(R.id.btn_measure);
+        btn_measure.setVisibility(View.VISIBLE);
+
+
+
+
 
         return relativeLayout;
     }

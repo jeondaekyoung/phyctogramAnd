@@ -64,6 +64,7 @@
         android:background="@drawable/border_radius_white_line"
         android:padding="5dp"
         android:text="측정하기"
+        android:visibility="gone"
         android:textColor="@color/color6" />
 
     <Button
