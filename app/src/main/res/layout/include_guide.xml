@@ -6,9 +6,10 @@
     android:background="@drawable/main_gradient">
 
     <ImageView
+        android:id="@+id/guide_close"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:padding="20dp"
         android:src="@drawable/close" />
 
@@ -73,13 +74,16 @@
         android:paddingTop="10dp">
 
         <Button
+            android:id="@+id/guide_btn1"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
-            android:background="@drawable/border_radius_white" />
+            android:background="@drawable/border_radius_white_line"
+            />
 
         <Button
+            android:id="@+id/guide_btn2"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_marginLeft="3dp"
@@ -87,6 +91,7 @@
             android:background="@drawable/border_radius_white_line" />
 
         <Button
+            android:id="@+id/guide_btn3"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_marginLeft="3dp"
@@ -94,6 +99,7 @@
             android:background="@drawable/border_radius_white_line" />
 
         <Button
+            android:id="@+id/guide_btn4"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_marginLeft="3dp"

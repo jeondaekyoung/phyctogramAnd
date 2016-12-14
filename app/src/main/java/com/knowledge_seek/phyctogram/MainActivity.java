@@ -2,7 +2,6 @@ package com.knowledge_seek.phyctogram;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -30,6 +29,7 @@ import com.knowledge_seek.phyctogram.domain.SqlCommntyListView;
 import com.knowledge_seek.phyctogram.domain.Users;
 import com.knowledge_seek.phyctogram.gcm.QuickstartPreferences;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
+import com.knowledge_seek.phyctogram.phyctogram.SaveSharedPreference;
 import com.knowledge_seek.phyctogram.retrofitapi.MemberAPI;
 import com.knowledge_seek.phyctogram.retrofitapi.ServiceGenerator;
 import com.knowledge_seek.phyctogram.retrofitapi.UsersAPI;
@@ -123,12 +123,17 @@ public class MainActivity extends BaseActivity {
         if (bundle != null) {
             member = (Member) bundle.getSerializable("member");
             Log.d("-진우-", "MainActivity 에서 onCreate() : " + member.toString());
-            if (member.getJoin_route().equals("kakao")) {
-                memberName = member.getKakao_nickname();
-            } else if (member.getJoin_route().equals("facebook")) {
-                memberName = member.getFacebook_name();
-            } else {
-                memberName = member.getName();
+
+            switch (member.getJoin_route()){
+                case "kakao":
+                    memberName = member.getKakao_nickname();
+                    break;
+                case "facebook":
+                    memberName = member.getFacebook_name();
+                    break;
+                default:
+                    memberName = member.getName();
+                    break;
             }
 
             if (QuickstartPreferences.token != null){
@@ -433,11 +438,11 @@ public class MainActivity extends BaseActivity {
             }
 
 
-            String image_url = null;
+            String image_url;
             if (member.getJoin_route().equals("kakao")) {
                 image_url = member.getKakao_thumbnailimagepath();
                 //이미지 불러오기
-                InputStream in = null;
+                InputStream in;
                 try {
                     Log.d("-진우-", "이미지 주소 : " + image_url);
                     if(!image_url.equals("")) {
@@ -451,7 +456,7 @@ public class MainActivity extends BaseActivity {
             } else if (member.getJoin_route().equals("facebook")) {
                 image_url = "http://graph.facebook.com/" + member.getFacebook_id() + "/picture?type=large";
                 //이미지 불러오기
-                InputStream in = null;
+                InputStream in;
                 try {
                     //페이스북은 jpg파일이 링크 걸린 것이 아니다.
                     //http://graph.facebook.com/userid/picture?type=large
@@ -521,14 +526,8 @@ public class MainActivity extends BaseActivity {
                 task.execute();
             } else {
                 Log.d("-진우-", "성공했으나 등록된 내아이가 없습니다.");
-                //가이드 유무
-                SharedPreferences preferences = getSharedPreferences("preferences",MODE_PRIVATE);
-                SharedPreferences.Editor editor =preferences.edit();
-                editor.putBoolean("guideNeed",true);
-                editor.commit();
-                boolean guideFlag=preferences.getBoolean("guideNeed",true);
 
-                if(guideFlag){
+                if(SaveSharedPreference.getGuideFlag(getApplicationContext())){
                     Intent intent=new Intent(getApplicationContext(),GuideActivity.class);
                     startActivity(intent);
                 }
@@ -582,7 +581,7 @@ public class MainActivity extends BaseActivity {
     private class FindUsersMainInfoTask extends AsyncTask<Void, Void, Void> {
 
         private ProgressDialog dialog = new ProgressDialog(MainActivity.this);
-        private List<Height> heightTask = new ArrayList<Height>();
+        private List<Height> heightTask = new ArrayList<>();
 
         //Background 작업 시작전에 UI 작업을 진행 한다.
         @Override

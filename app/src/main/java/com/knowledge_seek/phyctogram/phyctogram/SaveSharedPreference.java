@@ -37,4 +37,16 @@ public class SaveSharedPreference {
         Log.d("-진우-", "preference를 삭제함");
     }
 
+    //가이드 필요 유무 저장
+    public  static void setGuideFlag(Context ctx,boolean bFlag){
+
+        SharedPreferences.Editor editor =getSharedPreferences(ctx).edit();
+        editor.putBoolean("guideNeed",bFlag);
+        editor.commit();
+        Log.d("-대경-", "가이드 필요 유무를 preference에 저장함"+getSharedPreferences(ctx).getBoolean("guideNeed",bFlag));
+    }
+    public  static boolean getGuideFlag(Context ctx){
+        return getSharedPreferences(ctx).getBoolean("guideNeed",true);
+    }
+
 }

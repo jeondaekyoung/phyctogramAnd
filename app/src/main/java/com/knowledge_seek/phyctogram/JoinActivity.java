@@ -343,10 +343,11 @@ public class JoinActivity extends BaseActivity {
             if(member != null) {
                 Log.d("-진우-", "픽토그램 가입 성공 결과1 : " + member.toString());
                 Toast.makeText(getApplicationContext(), R.string.joinActivity_successJoinAlert, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), R.string.joinActivity_userRegister, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), R.string.joinActivity_userRegister, Toast.LENGTH_SHORT).show();
                 memberActivity = member;
                 //가입완료후 로그인유지를 위해 preference를 사용한다.
                 SaveSharedPreference.setMemberSeq(getApplicationContext(), String.valueOf(memberActivity.getMember_seq()));
+                SaveSharedPreference.setGuideFlag(getApplicationContext(),true);
                 //redirectMainActivity(memberActivity);
 
 
