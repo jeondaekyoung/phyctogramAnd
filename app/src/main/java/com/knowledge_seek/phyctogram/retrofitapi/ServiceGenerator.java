@@ -40,26 +40,38 @@ public class ServiceGenerator {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
         //구분
-        if("Commnty".equals(gubun)){
-            gsonBuilder.registerTypeAdapter(Commnty.class, new CommntyDes());
-        } else if("Comment".equals(gubun)){
-            gsonBuilder.registerTypeAdapter(Comment.class, new CommentDes());
-        } else if("Height".equals(gubun)){
-            gsonBuilder.registerTypeAdapter(Height.class, new HeightDes());
-        } else if("SqlCommntyListView".equals(gubun)){
-            gsonBuilder.registerTypeAdapter(SqlCommntyListView.class, new SqlCommntyListViewDes());
-        } else if("Users".equals(gubun)){
-            gsonBuilder.registerTypeAdapter(Users.class, new UsersDes());
-        } else if("Diary".equals(gubun)){
-            gsonBuilder.registerTypeAdapter(Diary.class, new DiaryDes());
-        } else if("Member".equals(gubun)){
-            gsonBuilder.registerTypeAdapter(Member.class, new MemberDes());
-        } else if("Analysis".equals(gubun)){
-            gsonBuilder.registerTypeAdapter(Analysis.class, new AnalysisDes());
-        } else if("Notice".equals(gubun)){
-            gsonBuilder.registerTypeAdapter(Notice.class, new NoticeDes());
-        } else if("Qa".equals(gubun)){
-            gsonBuilder.registerTypeAdapter(Qa.class, new QaDes());
+        switch (gubun){
+            case "Commnty":
+                gsonBuilder.registerTypeAdapter(Commnty.class, new CommntyDes());
+                break;
+            case "Comment":
+                gsonBuilder.registerTypeAdapter(Comment.class, new CommentDes());
+                break;
+            case "Height":
+                gsonBuilder.registerTypeAdapter(Height.class, new HeightDes());
+                break;
+            case "SqlCommntyListView":
+                gsonBuilder.registerTypeAdapter(SqlCommntyListView.class, new SqlCommntyListViewDes());
+                break;
+            case "Users":
+                gsonBuilder.registerTypeAdapter(Users.class, new UsersDes());
+                break;
+            case "Diary":
+                gsonBuilder.registerTypeAdapter(Diary.class, new DiaryDes());
+                break;
+            case "Member":
+                gsonBuilder.registerTypeAdapter(Member.class, new MemberDes());
+                break;
+            case "Analysis":
+                gsonBuilder.registerTypeAdapter(Analysis.class, new AnalysisDes());
+                break;
+            case "Notice":
+                gsonBuilder.registerTypeAdapter(Notice.class, new NoticeDes());
+                break;
+            case "Qa":
+                gsonBuilder.registerTypeAdapter(Qa.class, new QaDes());
+                break;
+
         }
 
         Gson gson = gsonBuilder.create();

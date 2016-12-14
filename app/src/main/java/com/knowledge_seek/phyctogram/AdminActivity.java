@@ -76,7 +76,7 @@ public class AdminActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 nowUsers = (Users) usersListSlideAdapter.getItem(position);
                 Log.d("-진우-", "선택한 아이 : " + nowUsers.toString());
-                Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' 아이를 선택하였습니다", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "'" + nowUsers.getName() + "' "+ R.string.characterActivity_choiceChild, Toast.LENGTH_LONG).show();
             }
         });
         //레이아웃 정의
@@ -202,7 +202,7 @@ public class AdminActivity extends BaseActivity {
                 out.flush();
 
                 String line;
-                response = new ArrayList<String>();
+                response = new ArrayList<>();
 
                 //디버깅을위한 list(0) command로
                 response.add(command);

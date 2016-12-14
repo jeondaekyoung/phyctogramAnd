@@ -220,27 +220,18 @@ public class EquipmentActivity extends BaseActivity {
                     }
                     unregisterReceiver(wifiReceiver);    //리시버 해제
                 }
+                switch (wifiList.size()){
+                    case 2://기기 복수 일시 리스트로 선택
+                        lv_wifilist = (ListView)findViewById(R.id.lv_wifiList);
+                        wifiListAdapter = new WifiListAdapter(getApplication(), wifiList, R.layout.list_wifi);
+                        lv_wifilist.setAdapter(wifiListAdapter);
 
-                if(wifiList.size()>=2){//기기 복수일시 리스트로 선택
-                    lv_wifilist = (ListView)findViewById(R.id.lv_wifiList);
-                    wifiListAdapter = new WifiListAdapter(getApplication(), wifiList, R.layout.list_wifi);
-                    lv_wifilist.setAdapter(wifiListAdapter);
-
-                    //ListView Item 클릭 시
-                    lv_wifilist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            //선택된 wifi 정보를 뽑음
-                            Wifi wifi = (Wifi) wifiListAdapter.getItem(position);
-                            try {
-                                E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } catch (ExecutionException e) {
-                                e.printStackTrace();
-                            }
-                            if(E_response==null){
-                                Log.d("-대경-", "재연결");
+                        //ListView Item 클릭 시
+                        lv_wifilist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                //선택된 wifi 정보를 뽑음
+                                Wifi wifi = (Wifi) wifiListAdapter.getItem(position);
                                 try {
                                     E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
                                 } catch (InterruptedException e) {
@@ -248,24 +239,24 @@ public class EquipmentActivity extends BaseActivity {
                                 } catch (ExecutionException e) {
                                     e.printStackTrace();
                                 }
+                                if(E_response==null){
+                                    Log.d("-대경-", "재연결");
+                                    try {
+                                        E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    } catch (ExecutionException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
                             }
-                        }
-                    });
+                        });
 
-                    btn_connWifi.setText(R.string.equipmentActivity_endSearch);
-                }
-                else if(wifiList.size()==1) {// 기기가 한대일땐 자동 연결
-                    Wifi wifi=new Wifi(wifiList.get(0).getSsid(),wifiList.get(0).getCapabilities(),wifiList.get(0).getSignal());
+                        btn_connWifi.setText(R.string.equipmentActivity_endSearch);
+                        break;
+                    case 1:// 기기가 한대일땐 자동 연결
+                        Wifi wifi=new Wifi(wifiList.get(0).getSsid(),wifiList.get(0).getCapabilities(),wifiList.get(0).getSignal());
                         Log.d("-대경-", "바로연결");
-                    try {
-                        E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
-                    if(E_response==null){
-                        Log.d("-대경-", "재연결");
                         try {
                             E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
                         } catch (InterruptedException e) {
@@ -273,11 +264,21 @@ public class EquipmentActivity extends BaseActivity {
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         }
-                    }
-                }
-                else{
-            Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
-                    wifiList.clear();
+                        if(E_response==null){
+                            Log.d("-대경-", "재연결");
+                            try {
+                                E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        break;
+                    default:
+                        Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
+                        wifiList.clear();
+                        break;
                 }
 
                 btn_connWifi.setText(R.string.equipmentActivity_endSearch);

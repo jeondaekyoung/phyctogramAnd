@@ -58,7 +58,7 @@ public class page_2 extends android.support.v4.app.Fragment {
 
 
         guide_Title_tv =(TextView) relativeLayout.findViewById(R.id.guide_Title_tv);
-        guide_Title_tv.setText("2.\nWi-Fi에 연결하세요");
+        guide_Title_tv.setText(R.string.includeGuide_page2tvTitle);
 
         guide_img = (ImageView) relativeLayout.findViewById(R.id.guide_img);
         guide_img.setVisibility(View.GONE);

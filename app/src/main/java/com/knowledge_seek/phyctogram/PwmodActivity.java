@@ -112,14 +112,20 @@ public class PwmodActivity extends BaseActivity {
                     @Override
                     public void onResponse(Response<String> response, Retrofit retrofit) {
                         String result = response.body();
-                        if("wrongPw".equals(result)){
-                            Toast.makeText(getApplicationContext(), R.string.pwmodActivity_failPW, Toast.LENGTH_SHORT).show();
-                        } else if("fail".equals(result)){
-                            Toast.makeText(getApplicationContext(), R.string.pwmodActivity_failChangePW, Toast.LENGTH_SHORT).show();
-                        } else if("success".equals(result)){
-                            Toast.makeText(getApplicationContext(), R.string.pwmodActivity_successChangePW, Toast.LENGTH_SHORT).show();
-                            finish();
+                        switch (result){
+                            case "wrongPw" :
+                                Toast.makeText(getApplicationContext(), R.string.pwmodActivity_failPW, Toast.LENGTH_SHORT).show();
+                            break;
+                            case "fail" :
+                                Toast.makeText(getApplicationContext(), R.string.pwmodActivity_failChangePW, Toast.LENGTH_SHORT).show();
+                            break;
+                            case "success" :
+                                Toast.makeText(getApplicationContext(), R.string.pwmodActivity_successChangePW, Toast.LENGTH_SHORT).show();
+                                finish();
+                            break;
+
                         }
+
                     }
 
                     @Override
@@ -129,20 +135,25 @@ public class PwmodActivity extends BaseActivity {
             }
         });
 
-        if (member.getJoin_route().equals("kakao")) {
-            ll_phyctogram.setVisibility(View.GONE);
-            ll_no_phyctogram.setVisibility(View.VISIBLE);
-            btn_pw_mod.setVisibility(View.GONE);
-            tv_join_route.setText(R.string.pwmodActivity_kakaoPW);
-        } else if (member.getJoin_route().equals("facebook")) {
-            ll_phyctogram.setVisibility(View.GONE);
-            ll_no_phyctogram.setVisibility(View.VISIBLE);
-            btn_pw_mod.setVisibility(View.GONE);
-            tv_join_route.setText(R.string.pwmodActivity_facebookPW);
-        } else {
-            ll_phyctogram.setVisibility(View.VISIBLE);
-            ll_no_phyctogram.setVisibility(View.GONE);
+        switch (member.getJoin_route()){
+            case "kakao":
+                ll_phyctogram.setVisibility(View.GONE);
+                ll_no_phyctogram.setVisibility(View.VISIBLE);
+                btn_pw_mod.setVisibility(View.GONE);
+                tv_join_route.setText(R.string.pwmodActivity_kakaoPW);
+                break;
+            case "facebook":
+                ll_phyctogram.setVisibility(View.GONE);
+                ll_no_phyctogram.setVisibility(View.VISIBLE);
+                btn_pw_mod.setVisibility(View.GONE);
+                tv_join_route.setText(R.string.pwmodActivity_facebookPW);
+                break;
+            default:
+                ll_phyctogram.setVisibility(View.VISIBLE);
+                ll_no_phyctogram.setVisibility(View.GONE);
+                break;
         }
+
     }
 
     @Override

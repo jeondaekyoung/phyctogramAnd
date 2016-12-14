@@ -46,7 +46,7 @@ public class page_1 extends android.support.v4.app.Fragment {
         });
 
         guide_Title_tv =(TextView) relativeLayout.findViewById(R.id.guide_Title_tv);
-        guide_Title_tv.setText("1.\n기기 설치 후\n전원을 켜주세요");
+        guide_Title_tv.setText(R.string.includeGuide_page1tvTitle);
 
         guide_img = (ImageView) relativeLayout.findViewById(R.id.guide_img);
 
@@ -54,8 +54,6 @@ public class page_1 extends android.support.v4.app.Fragment {
         guide_lv.setVisibility(View.GONE);
 
         guide_btn1 = (Button) relativeLayout.findViewById(R.id.guide_btn1);
-        //guide_btn1.setBackground(getResources().getDrawable(R.drawable.border_radius_white));
-
         guide_btn1.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_radius_white));
         btn_searchWifi = (Button) relativeLayout.findViewById(R.id.btn_searchWifi);
         btn_searchWifi.setVisibility(View.GONE);

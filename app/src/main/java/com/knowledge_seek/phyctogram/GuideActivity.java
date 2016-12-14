@@ -286,29 +286,22 @@ public class GuideActivity extends FragmentActivity {
                     unregisterReceiver(wifiReceiver);    //리시버 해제
                 }
                 guide_lv = page_2.guide_lv;
-                if(wifiList.size()>=2){//기기 복수일시 리스트로 선택
-                    Collections.sort(wifiList, new Signal_AscCompare());
-                    //
-                    // guide_lv = (ListView)findViewById(R.id.guide_lv);
 
-                    wifiListAdapter = new WifiListAdapter(getApplication(), wifiList, R.layout.list_wifi);
-                    guide_lv.setAdapter(wifiListAdapter);
-                    Log.d(TAG, "onReceive: "+wifiList);
-                    //ListView Item 클릭 시
-                    guide_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            //선택된 wifi 정보를 뽑음
-                            Wifi wifi = (Wifi) wifiListAdapter.getItem(position);
-                            try {
-                                E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } catch (ExecutionException e) {
-                                e.printStackTrace();
-                            }
-                            if(E_response==null){
-                                Log.d("-대경-", "재연결");
+                switch (wifiList.size()){
+                    case 2://기기 복수일시 리스트로 선택
+                        Collections.sort(wifiList, new Signal_AscCompare());
+                        //
+                        // guide_lv = (ListView)findViewById(R.id.guide_lv);
+
+                        wifiListAdapter = new WifiListAdapter(getApplication(), wifiList, R.layout.list_wifi);
+                        guide_lv.setAdapter(wifiListAdapter);
+                        Log.d(TAG, "onReceive: "+wifiList);
+                        //ListView Item 클릭 시
+                        guide_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                //선택된 wifi 정보를 뽑음
+                                Wifi wifi = (Wifi) wifiListAdapter.getItem(position);
                                 try {
                                     E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
                                 } catch (InterruptedException e) {
@@ -316,24 +309,22 @@ public class GuideActivity extends FragmentActivity {
                                 } catch (ExecutionException e) {
                                     e.printStackTrace();
                                 }
+                                if(E_response==null){
+                                    Log.d("-대경-", "재연결");
+                                    try {
+                                        E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    } catch (ExecutionException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
                             }
-                        }
-                    });
-
-
-                }
-                else if(wifiList.size()==1) {// 기기가 한대일땐 자동 연결
-                    Wifi wifi=new Wifi(wifiList.get(0).getSsid(),wifiList.get(0).getCapabilities(),wifiList.get(0).getSignal());
-                    Log.d("-대경-", "바로연결");
-                    try {
-                        E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
-                    if(E_response==null){
-                        Log.d("-대경-", "재연결");
+                        });
+                        break;
+                    case 1:// 기기가 한대일땐 자동 연결
+                        Wifi wifi=new Wifi(wifiList.get(0).getSsid(),wifiList.get(0).getCapabilities(),wifiList.get(0).getSignal());
+                        Log.d("-대경-", "바로연결");
                         try {
                             E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
                         } catch (InterruptedException e) {
@@ -341,14 +332,22 @@ public class GuideActivity extends FragmentActivity {
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         }
-                    }
+                        if(E_response==null){
+                            Log.d("-대경-", "재연결");
+                            try {
+                                E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        break;
+                    default:
+                        Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
+                         wifiList.clear();
+                         break;
                 }
-                else{
-                    Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
-                    wifiList.clear();
-                }
-
-
                 // searchWifi();
             }
         }
@@ -634,7 +633,7 @@ public class GuideActivity extends FragmentActivity {
             super.onPostExecute(response);
             if(response==null){
                 dialog.dismiss();
-                Toast.makeText(mContext,"기기와 연결이 비정상적으로 종료 되었습니다.\n기기와 연결을 확인해주세요.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext,R.string.includeGuide_tcpConectFail, Toast.LENGTH_LONG).show();
                 return;
             }
             // Toast.makeText(mContext,"명령어: "+response.get(0)+"response 1 Line:"+response.get(1) , Toast.LENGTH_LONG).show();
