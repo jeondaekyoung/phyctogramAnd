@@ -35,6 +35,7 @@ import com.knowledge_seek.phyctogram.guide.page_3;
 import com.knowledge_seek.phyctogram.guide.page_4;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.knowledge_seek.phyctogram.listAdapter.WifiListAdapter;
+import com.knowledge_seek.phyctogram.phyctogram.SaveSharedPreference;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -50,7 +51,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Created by dkfka on 2016-11-16.
+ * Created by dkfka on 2016-11-16..
  */
 public class GuideActivity extends FragmentActivity {
 
@@ -58,7 +59,8 @@ public class GuideActivity extends FragmentActivity {
     int MAX_PAGE=4;
     Fragment cur_fragment=new Fragment();
     AlertDialog.Builder dialog;
-    boolean enabled=false;
+    public  static AlertDialog.Builder dialog_close;
+    boolean Dia1nabled=true;
     public static ViewPager viewPager;
 
     //wifi관련
@@ -80,10 +82,23 @@ public class GuideActivity extends FragmentActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                enabled=true;
+                Dia1nabled=false;
             }
         });
+        dialog_close=new AlertDialog.Builder(this).setMessage("가이드를 종료하시겠어요? 가이드는 설정페이지에서 다시 보실수 있습니다.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                SaveSharedPreference.setGuideFlag(getApplicationContext(),false);
+                finish();
 
+            }
+        }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         setContentView(R.layout.activity_guide);
          viewPager=(ViewPager)findViewById(R.id.viewpager);
         viewPager.setAdapter(new adapter(getSupportFragmentManager()));
@@ -106,7 +121,7 @@ public class GuideActivity extends FragmentActivity {
                   public void onPageScrollStateChanged(int state) {
 
                       if (state == ViewPager.SCROLL_STATE_DRAGGING) {
-                            if(targetPage==0){
+                            if(targetPage==0&&Dia1nabled){
                                     dialog.show();
                             }
                       }
@@ -554,7 +569,7 @@ public class GuideActivity extends FragmentActivity {
                 out.flush();
 
                 String  line;
-                response = new ArrayList<String>();
+                response = new ArrayList<>();
 
                 //디버깅을위한 list(0) command로
                 response.add(command);

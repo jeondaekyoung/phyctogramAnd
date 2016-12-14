@@ -11,10 +11,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.knowledge_seek.phyctogram.GuideActivity;
 import com.knowledge_seek.phyctogram.R;
 
 /**
- * Created by dkfka on 2016-11-16.
+ * Created by jdk on 2016-11-16..
  */
 public class page_1 extends android.support.v4.app.Fragment {
 
@@ -40,7 +41,7 @@ public class page_1 extends android.support.v4.app.Fragment {
         guide_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                GuideActivity.dialog_close.show();
             }
         });
 

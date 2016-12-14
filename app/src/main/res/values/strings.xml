@@ -128,6 +128,7 @@
     <string name="kakaoStoryShare_successUpload">카카오스토리에 사진을 올렸습니다.</string>
 
     <!-- xml 문자열 -->
+    <string name="contentDescription">이미지가 없습니다.</string>
     <string name="activityJoin_join">회원가입</string>
     <string name="activityJoin_welcome">픽토그램 가입을 환영합니다.</string>
     <string name="activityJoin_name">이름</string>
@@ -193,6 +194,7 @@
     <string name="includeEquipment_myHW">내 기기</string>
     <string name="includeEquipment_serialNumber">일련번호</string>
     <string name="includeEquipment_swVersion">소프트웨어 버전</string>
+    <string name="includeEquipment_showGuide">가이드 보기</string>
 
     <string name="includeFileUpload_myCharacter">MY 캐릭터</string>
     <string name="includeFileUpload_fileUpload">파일업로드</string>

@@ -16,7 +16,9 @@
             android:layout_width="42dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/btn_menu" />
+            android:background="@drawable/btn_menu"
+            android:contentDescription="@string/contentDescription"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -91,6 +93,17 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:background="@drawable/btn_border_radius"
         android:text="@string/equipmentActivity_searchHW"
+        android:textColor="#ffffff" />
+    <Button
+        android:id="@+id/guide_show"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/btn_border_radius"
+        android:text="@string/includeEquipment_showGuide"
+        android:layout_marginTop="7dp"
         android:textColor="#ffffff" />
 
     <RelativeLayout

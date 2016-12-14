@@ -12,10 +12,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.knowledge_seek.phyctogram.GuideActivity;
 import com.knowledge_seek.phyctogram.R;
 
 /**
- * Created by dkfka on 2016-11-16.
+ * Created by dkfka on 2016-11-16..
  */
 public class page_3 extends android.support.v4.app.Fragment {
 
@@ -38,6 +39,13 @@ public class page_3 extends android.support.v4.app.Fragment {
         relativeLayout =(RelativeLayout)inflater.inflate(R.layout.include_guide,container,false);
 
         guide_close =(ImageView) relativeLayout.findViewById(R.id.guide_close);
+
+        guide_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GuideActivity.dialog_close.show();
+            }
+        });
 
         page_num=(TextView) relativeLayout.findViewById(R.id.page_num);
         page_num.setText("3.\n바닥까지의 높이를\n측정 합니다");

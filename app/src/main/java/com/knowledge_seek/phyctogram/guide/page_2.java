@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.knowledge_seek.phyctogram.GuideActivity;
 import com.knowledge_seek.phyctogram.R;
 
 import java.util.ArrayList;
@@ -49,6 +50,14 @@ public class page_2 extends android.support.v4.app.Fragment {
         relativeLayout =(RelativeLayout)inflater.inflate(R.layout.include_guide,container,false);
 
         guide_close =(ImageView) relativeLayout.findViewById(R.id.guide_close);
+
+        guide_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GuideActivity.dialog_close.show();
+            }
+        });
+
 
         page_num=(TextView) relativeLayout.findViewById(R.id.page_num);
         page_num.setText("2.\nWi-Fi에 연결하세요");

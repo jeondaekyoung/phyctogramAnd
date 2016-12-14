@@ -6,7 +6,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
- * Created by sjw on 2015-12-03.
+ * modify by jdk on 2015-12-03!
  */
 public class SaveSharedPreference {
     static final String PREF_MEMBER_SEQ= "member_seq";
@@ -43,7 +43,7 @@ public class SaveSharedPreference {
         SharedPreferences.Editor editor =getSharedPreferences(ctx).edit();
         editor.putBoolean("guideNeed",bFlag);
         editor.commit();
-        Log.d("-대경-", "가이드 필요 유무를 preference에 저장함"+getSharedPreferences(ctx).getBoolean("guideNeed",bFlag));
+        Log.d("-대경-", "가이드 필요 유무를 preference에 저장함 :"+getSharedPreferences(ctx).getBoolean("guideNeed",bFlag));
     }
     public  static boolean getGuideFlag(Context ctx){
         return getSharedPreferences(ctx).getBoolean("guideNeed",true);
