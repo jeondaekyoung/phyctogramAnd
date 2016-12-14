@@ -26,6 +26,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.knowledge_seek.phyctogram.domain.Wifi;
@@ -72,13 +73,13 @@ public class GuideActivity extends FragmentActivity {
     private ListView guide_lv;
     private ArrayList<String> E_response;
     private Button btn_searchWifi;
-
+    private TextView guide_ref;
     public static final int REQUEST_ACT = 112;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog_page1=new AlertDialog.Builder(this).setMessage("기기가 삐뚤어 지진 않았나요?").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+        dialog_page1=new AlertDialog.Builder(this).setMessage(R.string.includeGuide_page1Message).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -86,7 +87,9 @@ public class GuideActivity extends FragmentActivity {
             }
         });
         final View dialogView= getLayoutInflater().inflate(R.layout.guide3_dialogview, null);
-        dialog_page3 = new AlertDialog.Builder(this).setView(dialogView).setPositiveButton("확인", new DialogInterface.OnClickListener() {
+        guide_ref=(TextView)findViewById(R.id.guide_ref);
+
+        dialog_page3 = new AlertDialog.Builder(this).setView(dialogView).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -94,7 +97,7 @@ public class GuideActivity extends FragmentActivity {
             }
         });
 
-        dialog_close=new AlertDialog.Builder(this).setMessage("가이드를 종료하시겠어요? 가이드는 설정페이지에서 다시 보실수 있습니다.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+        dialog_close=new AlertDialog.Builder(this).setMessage(R.string.includeGuide_btnclose).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -102,7 +105,7 @@ public class GuideActivity extends FragmentActivity {
                 finish();
 
             }
-        }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(R.string.commonActivity_cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

@@ -23,7 +23,7 @@
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/page_num"
+        android:id="@+id/guide_Title_tv"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -32,11 +32,23 @@
         android:textColor="#FFFFFF"
         android:textSize="24sp" />
 
+    <TextView
+        android:id="@+id/guide_subTitle_tv"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="subtext"
+        android:visibility="gone"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:layout_below="@+id/guide_Title_tv"
+        android:layout_alignStart="@+id/guide_Title_tv" />
+
     <ListView
         android:id="@+id/guide_lv"
         android:layout_width="240dp"
         android:layout_height="336dp"
-        android:layout_below="@+id/page_num"
+        android:layout_below="@+id/guide_Title_tv"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/border_radius_white"

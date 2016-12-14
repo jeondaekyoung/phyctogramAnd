@@ -2,7 +2,6 @@ package com.knowledge_seek.phyctogram.guide;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ public class page_3 extends android.support.v4.app.Fragment {
     ImageView guide_close;
     Button guide_btn3;
     ImageView guide_img;
-    TextView page_num;
+    TextView guide_Title_tv,guide_subTitle_tv;
     ListView guide_lv;
     Button btn_searchWifi;
 
@@ -47,8 +46,12 @@ public class page_3 extends android.support.v4.app.Fragment {
             }
         });
 
-        page_num=(TextView) relativeLayout.findViewById(R.id.page_num);
-        page_num.setText("3.\n바닥까지의 높이를\n측정 합니다");
+        guide_Title_tv =(TextView) relativeLayout.findViewById(R.id.guide_Title_tv);
+        guide_Title_tv.setText("3.\n바닥까지의 높이를\n측정 합니다");
+
+        guide_subTitle_tv = (TextView) relativeLayout.findViewById(R.id.guide_subTitle_tv);
+        guide_subTitle_tv.setText("바닥에 카펫이나 이불이 깔려있을 경우,측정값에\n오차가 발생할 수 있습니다.");
+        guide_subTitle_tv.setVisibility(View.VISIBLE);
 
         guide_img = (ImageView) relativeLayout.findViewById(R.id.guide_img);
         guide_img.setImageResource(R.drawable.guideimg2);
@@ -61,8 +64,6 @@ public class page_3 extends android.support.v4.app.Fragment {
 
         btn_searchWifi = (Button) relativeLayout.findViewById(R.id.btn_searchWifi);
         btn_searchWifi.setVisibility(View.GONE);
-
-        Log.d("-대경-", "onCreateView: "+ relativeLayout.getChildAt(0));
 
         return relativeLayout;
     }

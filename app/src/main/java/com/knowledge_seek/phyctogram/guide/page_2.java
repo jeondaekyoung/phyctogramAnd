@@ -25,7 +25,7 @@ public class page_2 extends android.support.v4.app.Fragment {
     ImageView guide_close;
     Button guide_btn2;
     ImageView guide_img;
-    TextView page_num;
+    TextView guide_Title_tv;
     public static  ListView guide_lv;
     public static Button btn_searchWifi;
 
@@ -57,8 +57,8 @@ public class page_2 extends android.support.v4.app.Fragment {
         });
 
 
-        page_num=(TextView) relativeLayout.findViewById(R.id.page_num);
-        page_num.setText("2.\nWi-Fi에 연결하세요");
+        guide_Title_tv =(TextView) relativeLayout.findViewById(R.id.guide_Title_tv);
+        guide_Title_tv.setText("2.\nWi-Fi에 연결하세요");
 
         guide_img = (ImageView) relativeLayout.findViewById(R.id.guide_img);
         guide_img.setVisibility(View.GONE);

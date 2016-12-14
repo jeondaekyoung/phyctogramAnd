@@ -23,7 +23,7 @@ public class page_1 extends android.support.v4.app.Fragment {
     ImageView guide_close;
     Button guide_btn1;
     ImageView guide_img;
-    TextView page_num;
+    TextView guide_Title_tv;
     ListView guide_lv;
     Button btn_searchWifi;
     @Override
@@ -45,8 +45,8 @@ public class page_1 extends android.support.v4.app.Fragment {
             }
         });
 
-        page_num=(TextView) relativeLayout.findViewById(R.id.page_num);
-        page_num.setText("1.\n기기 설치 후\n전원을 켜주세요");
+        guide_Title_tv =(TextView) relativeLayout.findViewById(R.id.guide_Title_tv);
+        guide_Title_tv.setText("1.\n기기 설치 후\n전원을 켜주세요");
 
         guide_img = (ImageView) relativeLayout.findViewById(R.id.guide_img);
 

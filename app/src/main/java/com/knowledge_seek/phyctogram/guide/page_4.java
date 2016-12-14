@@ -29,7 +29,7 @@ public class page_4 extends android.support.v4.app.Fragment {
     ImageView guide_close;
     Button guide_btn4;
     ImageView guide_img,page4_chk;
-    TextView page_num;
+    TextView guide_Title_tv;
     ListView guide_lv;
     Button btn_searchWifi;
 
@@ -57,8 +57,8 @@ public class page_4 extends android.support.v4.app.Fragment {
         page4_chk = (ImageView) relativeLayout.findViewById(R.id.page4_chk);
         page4_chk.setVisibility(View.VISIBLE);
 
-        page_num=(TextView) relativeLayout.findViewById(R.id.page_num);
-        relativeLayout.removeView(page_num);
+        guide_Title_tv =(TextView) relativeLayout.findViewById(R.id.guide_Title_tv);
+        relativeLayout.removeView(guide_Title_tv);
 
         // 아래와 같이 해줘야 기기에 맞는 DP가 나온다.
         DisplayMetrics dm = getResources().getDisplayMetrics();
@@ -76,7 +76,7 @@ public class page_4 extends android.support.v4.app.Fragment {
         new_tv.setTextColor(Color.WHITE);
         new_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         new_tv.setText(" 아이를 등록하면 모든\n준비과정이 완료됩니다!");
-        new_tv.setId(R.id.page_num);
+        new_tv.setId(R.id.guide_Title_tv);
         relativeLayout.addView(new_tv,lay);
 
         guide_img = (ImageView) relativeLayout.findViewById(R.id.guide_img);
@@ -94,7 +94,7 @@ public class page_4 extends android.support.v4.app.Fragment {
         size = Math.round(240 * dm.density);
         int h_size=Math.round(60 * dm.density);
         RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(size,h_size);
-        param.addRule(RelativeLayout.BELOW, R.id.page_num);
+        param.addRule(RelativeLayout.BELOW, R.id.guide_Title_tv);
 
         size = Math.round(110 * dm.density);
         param.topMargin = size;
