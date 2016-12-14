@@ -58,7 +58,7 @@ public class GuideActivity extends FragmentActivity {
     final String TAG = GuideActivity.class.getName();
     int MAX_PAGE=4;
     Fragment cur_fragment=new Fragment();
-    AlertDialog.Builder dialog;
+    AlertDialog.Builder dialog_page1,dialog_page3;
     public  static AlertDialog.Builder dialog_close;
     boolean Dia1nabled=true;
     public static ViewPager viewPager;
@@ -78,13 +78,22 @@ public class GuideActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog=new AlertDialog.Builder(this).setMessage("기기가 삐뚤어 지진 않았나요?").setPositiveButton("확인", new DialogInterface.OnClickListener() {
+        dialog_page1=new AlertDialog.Builder(this).setMessage("기기가 삐뚤어 지진 않았나요?").setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 Dia1nabled=false;
             }
         });
+        final View dialogView= getLayoutInflater().inflate(R.layout.guide3_dialogview, null);
+        dialog_page3 = new AlertDialog.Builder(this).setView(dialogView).setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+
         dialog_close=new AlertDialog.Builder(this).setMessage("가이드를 종료하시겠어요? 가이드는 설정페이지에서 다시 보실수 있습니다.").setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -99,6 +108,8 @@ public class GuideActivity extends FragmentActivity {
                 dialog.dismiss();
             }
         });
+
+
         setContentView(R.layout.activity_guide);
          viewPager=(ViewPager)findViewById(R.id.viewpager);
         viewPager.setAdapter(new adapter(getSupportFragmentManager()));
@@ -116,13 +127,16 @@ public class GuideActivity extends FragmentActivity {
                             new listview_AsyncTask().execute();
 
                         }
+                      if(position==2){
+                          dialog_page3.show();
+                      }
                   }
                   @Override
                   public void onPageScrollStateChanged(int state) {
 
                       if (state == ViewPager.SCROLL_STATE_DRAGGING) {
                             if(targetPage==0&&Dia1nabled){
-                                    dialog.show();
+                                dialog_page1.show();
                             }
                       }
                   }
@@ -181,7 +195,7 @@ public class GuideActivity extends FragmentActivity {
             String p_password = data.getStringExtra("p_password");
             String p_capabilities = data.getStringExtra("p_capabilities");
             Log.d(TAG, "onActivityResult: 결과:" +p_ssid+","+p_password+","+p_capabilities);
-            //new Equipment_TCP_Client_Task(this,wm).execute("s "+p_ssid+" "+p_password);
+            new Equipment_TCP_Client_Task(this,wm).execute("s "+p_ssid+" "+p_password);
 
         } else {
             Log.d(TAG, "onActivityResult: REQUEST_ACT가 아님.");
@@ -258,12 +272,12 @@ public class GuideActivity extends FragmentActivity {
                     int size = apList.size();
                     for (int i = 0; i < size; i++) {
                         scanResult = (ScanResult) apList.get(i); //wifi 정보를 하나씩 선택
-                        //if(scanResult.SSID.contains("Know")){//wifi 정보를 걸러내어 list에 입력
+                        if(scanResult.SSID.contains("phyctogram_")){//wifi 정보를 걸러내어 list에 입력
                             if(scanResult.SSID.length()!=0){
                                 wifiList.add(new Wifi(scanResult.SSID,scanResult.capabilities,String.valueOf(scanResult.level)));
                             }
                             //isWifiConnect = true;// 연결유무
-                        //}
+                        }
 
                     }
                     unregisterReceiver(wifiReceiver);    //리시버 해제

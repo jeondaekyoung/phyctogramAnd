@@ -36,7 +36,7 @@
     <string name="diaryWriteActivity_alreadyDiary">이미 일기를 작성하였습니다.</string>
 
     <string name="equipmentActivity_searchHW">기기 검색 및 연결</string>
-    <string name="equipmentActivity_searching">검색중 입니다...</string>
+    <string name="equipmentActivity_searching">검색중 입니다&#8230;</string>
     <string name="equipmentActivity_endSearch">재검색</string>
     <string name="equipmentActivity_connectionAlert">연결 시도합니다.</string>
     <string name="equipmentActivity_failPW">비밀번호가 틀렸습니다. 다시 시도해주세요.</string>
@@ -47,8 +47,8 @@
     <string name="equipmentActivity_noDevice">주변에 \'Phyctogram\' 기기가 없거나 전원이 꺼져있습니다. 기기의 전원을 켜주세요.</string>
 
 
-    <string name="fileUploadActivity_upLoadingAlert">Uploading file...</string>
-    <string name="fileUploadActivity_startUpLoading">uploading started...</string>
+    <string name="fileUploadActivity_upLoadingAlert">Uploading file&#8230;</string>
+    <string name="fileUploadActivity_startUpLoading">uploading started&#8230;</string>
     <string name="fileUploadActivity_fileInfo">업로드 파일 정보 :</string>
 
     <string name="joinActivity_agreePW">비밀번호가 일치합니다.</string>
@@ -198,6 +198,9 @@
 
     <string name="includeFileUpload_myCharacter">MY 캐릭터</string>
     <string name="includeFileUpload_fileUpload">파일업로드</string>
+
+    <string name="includeGuide_page3Title">설치된 높이</string>
+    <string name="includeGuide_page3Message">측정값이 정확한지 줄자로 체크해보세요.</string>
 
     <string name="includeMain_height">키</string>
     <string name="includeMain_highRank">상위</string>

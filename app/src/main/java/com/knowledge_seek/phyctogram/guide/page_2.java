@@ -14,8 +14,6 @@ import android.widget.TextView;
 import com.knowledge_seek.phyctogram.GuideActivity;
 import com.knowledge_seek.phyctogram.R;
 
-import java.util.ArrayList;
-
 /**
  * Created by dkfka on 2016-11-16.
  */
@@ -32,7 +30,7 @@ public class page_2 extends android.support.v4.app.Fragment {
     public static Button btn_searchWifi;
 
 
-    private ArrayList<String> E_response;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
