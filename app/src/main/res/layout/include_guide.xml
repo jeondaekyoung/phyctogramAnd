@@ -36,13 +36,13 @@
         android:id="@+id/guide_subTitle_tv"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/guide_Title_tv"
+        android:layout_below="@+id/guide_Title_tv"
         android:layout_marginTop="10dp"
         android:text="subtext"
-        android:visibility="gone"
         android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        android:layout_below="@+id/guide_Title_tv"
-        android:layout_alignStart="@+id/guide_Title_tv" />
+        android:textSize="14sp"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/guide_lv"
@@ -53,6 +53,18 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/border_radius_white"
         android:padding="7dp" />
+
+    <Button
+        android:id="@+id/btn_measure"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/guide_subTitle_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border_radius_white_line"
+        android:padding="5dp"
+        android:text="측정하기"
+        android:textColor="@color/color6" />
 
     <Button
         android:id="@+id/btn_searchWifi"
@@ -91,8 +103,7 @@
             android:layout_height="10dp"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
-            android:background="@drawable/border_radius_white_line"
-            />
+            android:background="@drawable/border_radius_white_line" />
 
         <Button
             android:id="@+id/guide_btn2"

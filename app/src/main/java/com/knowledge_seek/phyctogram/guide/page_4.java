@@ -74,7 +74,7 @@ public class page_4 extends android.support.v4.app.Fragment {
 
         TextView new_tv=new TextView(getActivity());
         new_tv.setTextColor(Color.WHITE);
-        new_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+        new_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
         new_tv.setText(" 아이를 등록하면 모든\n준비과정이 완료됩니다!");
         new_tv.setId(R.id.guide_Title_tv);
         relativeLayout.addView(new_tv,lay);

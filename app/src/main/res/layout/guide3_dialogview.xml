@@ -2,34 +2,34 @@
     android:id="@+id/popup_element"
     android:layout_width="270dip"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="@drawable/borderbottom"
-    >
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_margin="15dp"
+        android:gravity="center"
         android:text="@string/includeGuide_page3Title"
-        android:textSize="15sp"
-        android:padding="10dp"
-  />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/guide_ref"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="50sp"
-        android:text="185.4cm" />
+        android:background="@drawable/borderbottom_blue"
+        android:text="185.4cm"
+        android:textSize="42sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="@string/includeGuide_page3Message"
-        android:textSize="15sp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        />
+        android:paddingBottom="20dp"
+        android:text="@string/includeGuide_page3Message"
+        android:textSize="15sp" />
 
 
 </LinearLayout>
