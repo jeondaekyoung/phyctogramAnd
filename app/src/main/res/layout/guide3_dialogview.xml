@@ -31,5 +31,14 @@
         android:text="@string/includeGuide_page3Message"
         android:textSize="15sp" />
 
+    <EditText
+        android:id="@+id/guide_adj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/includeGuide_page3etHint"
+
+        android:textSize="12sp"
+        />
+
 
 </LinearLayout>

@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,7 +62,7 @@ public class GuideActivity extends FragmentActivity {
     Fragment cur_fragment=new Fragment();
     AlertDialog.Builder dialog_page1,dialog_page3;
     public  static AlertDialog.Builder dialog_close;
-    boolean Dia1nabled=true;
+    boolean Dial1nabled =true;
     public static ViewPager viewPager;
 
     //wifi관련
@@ -74,6 +75,7 @@ public class GuideActivity extends FragmentActivity {
     private ArrayList<String> E_response;
     private Button btn_searchWifi;
     private TextView guide_ref;
+    private EditText guide_adj;
     public static final int REQUEST_ACT = 112;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,20 +85,10 @@ public class GuideActivity extends FragmentActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                Dia1nabled=false;
+                Dial1nabled =false;
             }
         });
-        final View dialogView= getLayoutInflater().inflate(R.layout.guide3_dialogview, null);
-        guide_ref=(TextView)dialogView.findViewById(R.id.guide_ref);
-        Log.d(TAG, "guide_ref: "+guide_ref);
 
-        dialog_page3 = new AlertDialog.Builder(this).setView(dialogView).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-
-            }
-        });
 
         dialog_close=new AlertDialog.Builder(this).setMessage(R.string.includeGuide_btnclose).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
             @Override
@@ -137,7 +129,29 @@ public class GuideActivity extends FragmentActivity {
                               public void onClick(View v) {
                                   Log.d("-대경" ,"onClick: "+"page3_btn_measure");
                                   try {
+                                      final View dialogView= getLayoutInflater().inflate(R.layout.guide3_dialogview, null);
+                                      guide_ref=(TextView)dialogView.findViewById(R.id.guide_ref);
+                                      guide_adj = (EditText)dialogView.findViewById(R.id.guide_adj);
+
+                                      dialog_page3 = new AlertDialog.Builder(GuideActivity.this).setView(dialogView).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
+                                          @Override
+                                          public void onClick(DialogInterface dialog, int which) {
+                                              dialog.dismiss();
+                                              //계산해서 넣어보기
+                                              double ref = Math.abs(Double.valueOf(guide_ref.getText().toString()));//절대값으로 ref값이 설정 되있지않을때 값..헷갈리니 내일 다시정리해보자
+                                              double adj=0;
+                                              if(guide_adj.getText().toString().length()!=0){
+                                                  adj = Double.valueOf(guide_adj.getText().toString());
+                                              }
+
+                                              double result=ref - adj;
+
+                                              new Equipment_TCP_Client_Task(GuideActivity.this,wm).execute("a " +ref+" "+Math.abs(result)+" 0.3");//손두께 값은 임시  고정값으로
+                                              new Equipment_TCP_Client_Task(GuideActivity.this,wm).execute("e");
+                                          }
+                                      });
                                       E_response= new Equipment_TCP_Client_Task(GuideActivity.this,wm).execute("r").get();
+
                                       guide_ref.setText(E_response.get(1));
                                       dialog_page3.show();
                                   } catch (InterruptedException e) {
@@ -155,7 +169,7 @@ public class GuideActivity extends FragmentActivity {
                   public void onPageScrollStateChanged(int state) {
 
                       if (state == ViewPager.SCROLL_STATE_DRAGGING) {
-                            if(targetPage==0&&Dia1nabled){
+                            if(targetPage==0&& Dial1nabled){
                                 dialog_page1.show();
                             }
                       }
