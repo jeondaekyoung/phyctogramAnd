@@ -220,6 +220,11 @@ public class EquipmentActivity extends BaseActivity {
                     }
                     unregisterReceiver(wifiReceiver);    //리시버 해제
                 }
+
+                int size = wifiList.size();
+                if(size>=2){
+                    size =2;
+                }
                 switch (wifiList.size()){
                     case 2://기기 복수 일시 리스트로 선택
                         lv_wifilist = (ListView)findViewById(R.id.lv_wifiList);

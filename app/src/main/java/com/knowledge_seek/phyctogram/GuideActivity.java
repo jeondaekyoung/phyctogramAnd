@@ -65,6 +65,8 @@ public class GuideActivity extends FragmentActivity {
     boolean Dial1nabled =true;
     public static ViewPager viewPager;
 
+    private TextView guide_lvEmpty;
+
     //wifi관련
     private ScanResult scanResult;
     private WifiManager wm;
@@ -157,6 +159,8 @@ public class GuideActivity extends FragmentActivity {
                                   } catch (InterruptedException e) {
                                       e.printStackTrace();
                                   } catch (ExecutionException e) {
+                                      e.printStackTrace();
+                                  } catch (NullPointerException e){
                                       e.printStackTrace();
                                   }
                               }
@@ -319,8 +323,17 @@ public class GuideActivity extends FragmentActivity {
                     unregisterReceiver(wifiReceiver);    //리시버 해제
                 }
                 guide_lv = page_2.guide_lv;
-
-                switch (wifiList.size()){
+                guide_lvEmpty = page_2.guide_lvEmpty;
+                Log.d("-대경-", "visibilty: "+guide_lv.getVisibility());
+                if(guide_lv.getVisibility()==View.GONE){//재검색일때 GONE을 ONVISIBLE로 변경
+                    guide_lv.setVisibility(View.VISIBLE);
+                    guide_lvEmpty.setVisibility(View.GONE);
+                }
+                int size = wifiList.size();
+                if(size>=2){
+                    size =2;
+                }
+                switch (size){
                     case 2://기기 복수일시 리스트로 선택
                         Collections.sort(wifiList, new Signal_AscCompare());
                         //
@@ -379,6 +392,9 @@ public class GuideActivity extends FragmentActivity {
                     default:
                         Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
                          wifiList.clear();
+
+                        guide_lv.setVisibility(View.GONE);
+                        guide_lvEmpty.setVisibility(View.VISIBLE);
                          break;
                 }
                 // searchWifi();

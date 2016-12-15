@@ -27,6 +27,7 @@ public class page_2 extends android.support.v4.app.Fragment {
     ImageView guide_img;
     TextView guide_Title_tv;
     public static  ListView guide_lv;
+    public static TextView guide_lvEmpty;
     public static Button btn_searchWifi;
 
 
@@ -67,6 +68,8 @@ public class page_2 extends android.support.v4.app.Fragment {
         guide_btn2.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_radius_white));
 
          guide_lv = (ListView) relativeLayout.findViewById(R.id.guide_lv);
+
+        guide_lvEmpty = (TextView)relativeLayout.findViewById(R.id.guide_lvEmpty);
 
         btn_searchWifi = (Button) relativeLayout.findViewById(R.id.btn_searchWifi);
         return relativeLayout;
