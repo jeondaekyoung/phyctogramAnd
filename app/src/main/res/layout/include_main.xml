@@ -129,7 +129,7 @@
                             android:layout_height="wrap_content"
                             android:text="cm"
                             android:textColor="@color/purple"
-                            android:textSize="40dp" />
+                            android:textSize="30dp" />
                     </com.knowledge_seek.phyctogram.util.MyLinearView>
 
                     <!-- 성장 값 -->

@@ -235,7 +235,22 @@ public class GuideActivity extends FragmentActivity {
             String p_password = data.getStringExtra("p_password");
             String p_capabilities = data.getStringExtra("p_capabilities");
             Log.d(TAG, "onActivityResult: 결과:" +p_ssid+","+p_password+","+p_capabilities);
-            new Equipment_TCP_Client_Task(this,wm).execute("s "+p_ssid+" "+p_password);
+
+            try {
+                E_response=new Equipment_TCP_Client_Task(this,wm).execute("s "+p_ssid+" "+p_password).get();
+
+                if(E_response.get(1).equals("OK")){
+                    //기기에 ap정보 보낸후 member값 보냄
+                    new Equipment_TCP_Client_Task(this,wm).execute("m "+MainActivity.nowUsers.getMember_seq()).get();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e){//memberseq null체크
+                e.printStackTrace();
+            }
+
 
         } else {
             Log.d(TAG, "onActivityResult: REQUEST_ACT가 아님.");
