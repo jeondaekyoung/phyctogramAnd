@@ -18,17 +18,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/borderbottom_blue"
+        android:gravity="center"
         android:text="185.4cm"
         android:textSize="42sp" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:layout_marginBottom="20dp"
         android:text="@string/includeGuide_page3Message"
         android:textSize="15sp" />
 
@@ -36,10 +38,11 @@
         android:id="@+id/guide_adj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/includeGuide_page3etHint"
         android:layout_gravity="center"
-        android:textSize="12sp"
-        />
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:hint="@string/includeGuide_page3etHint"
+        android:textSize="15sp" />
 
 
 </LinearLayout>
