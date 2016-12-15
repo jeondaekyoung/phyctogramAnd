@@ -62,7 +62,7 @@
                     android:background="@drawable/btn_border_record"
                     android:paddingBottom="3dp"
                     android:paddingTop="3dp"
-                    android:text="당일"
+                    android:text="@string/includeRecord_today"
                     android:textAlignment="center"
                     android:textColor="@color/purpledk" />
 
@@ -74,7 +74,7 @@
                     android:background="@drawable/btn_border_record"
                     android:paddingBottom="3dp"
                     android:paddingTop="3dp"
-                    android:text="1주일"
+                    android:text="@string/includeRecord_week"
                     android:textAlignment="center"
                     android:textColor="@color/purpledk" />
 
@@ -86,7 +86,7 @@
                     android:background="@drawable/btn_border_record"
                     android:paddingBottom="3dp"
                     android:paddingTop="3dp"
-                    android:text="1개월"
+                    android:text="@string/includeRecord_1month"
                     android:textAlignment="center"
                     android:textColor="@color/purpledk" />
 
@@ -98,7 +98,7 @@
                     android:background="@drawable/btn_border_record"
                     android:paddingBottom="3dp"
                     android:paddingTop="3dp"
-                    android:text="3개월"
+                    android:text="@string/includeRecord_3month"
                     android:textAlignment="center"
                     android:textColor="@color/purpledk" />
 

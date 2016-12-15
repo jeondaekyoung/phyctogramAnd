@@ -201,17 +201,16 @@
     <string name="includeFileUpload_fileUpload">파일업로드</string>
 
 
-    <string name="includeGuide_skip">기기가 없는 경우\n스킵해주세요!</string>
     <string name="includeGuide_page1Message">기기가 삐뚤어 지진 않았나요?</string>
     <string name="includeGuide_page1tvTitle">1.\n기기 설치 후\n전원을 켜주세요</string>
     <string name="includeGuide_page2tvTitle">2.\nWi-Fi에 연결하세요</string>
-    <string name="includeGuide_page3tvTitle">3.\n기기가 설치된 높이를\n측정 합니다</string>
+    <string name="includeGuide_page3tvTitle">3.\n바닥까지의 높이를\n측정 합니다</string>
     <string name="includeGuide_page3tvsubTitle">바닥에 카펫이나 이불이 깔려있을 경우,\n측정값에 오차가 발생할 수 있습니다.</string>
 
     <string name="includeGuide_page3dialTitle">설치된 높이</string>
     <string name="includeGuide_page3Message">측정값이 정확한지 줄자로 체크해보세요.\n생략시 측정된 값으로 적용됩니다.</string>
     <string name="includeGuide_page3etHint">줄자로 잰 측정값</string>
-    <string name="includeGuide_page4tvTitle">모든 준비가 완료되었습니다.\n 아이를 등록하세요!</string>
+    <string name="includeGuide_page4tvTitle"> 아이를 등록하면 모든\n준비과정이 완료됩니다!</string>
     <string name="includeGuide_tcpConectFail"> 기기와 연결이 비정상적으로 종료 되었습니다.\n기기와 연결을 확인해주세요.</string>
 
 

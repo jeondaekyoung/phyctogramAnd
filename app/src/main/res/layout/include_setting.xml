@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/activity_horizontal_margin"
-                android:text="회원정보"
+                android:text="@string/includeSetting_memberInfo"
                 android:textColor="@color/purple"
                 android:textSize="16dp" />
 
@@ -116,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/activity_horizontal_margin"
-                android:text="픽토그램 정보"
+                android:text="@string/includeSetting_phyctoInfo"
                 android:textColor="@color/purple"
                 android:textSize="16dp" />
 

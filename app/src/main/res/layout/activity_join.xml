@@ -161,7 +161,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@id/agreement1"
                         android:layout_alignParentRight="true"
-                        android:text="[전문보기]" />
+                        android:text="@string/activityJoin_FullArticle" />
 
                     <CheckBox
                         android:id="@+id/agreement2"
@@ -177,7 +177,7 @@
                         android:layout_alignBaseline="@id/agreement2"
                         android:layout_alignParentRight="true"
                         android:layout_below="@id/agreement1"
-                        android:text="[전문보기]" />
+                        android:text="@string/activityJoin_FullArticle" />
                 </RelativeLayout>
 
 
