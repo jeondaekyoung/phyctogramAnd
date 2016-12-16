@@ -1,6 +1,5 @@
 package com.knowledge_seek.phyctogram;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -12,13 +11,11 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -60,9 +57,10 @@ public class GuideActivity extends FragmentActivity {
     final String TAG = GuideActivity.class.getName();
     int MAX_PAGE=4;
     Fragment cur_fragment=new Fragment();
-    AlertDialog.Builder dialog_page1,dialog_page3;
-    public  static AlertDialog.Builder dialog_close;
-    boolean Dial1nabled =true;
+    AlertDialog.Builder dialog_page3;
+
+    public  static AlertDialog.Builder  dialog_close;
+
     public static ViewPager viewPager;
 
     private TextView guide_lvEmpty;
@@ -79,18 +77,13 @@ public class GuideActivity extends FragmentActivity {
     private TextView guide_ref;
     private EditText guide_adj;
     public static final int REQUEST_ACT = 112;
+
+    private static Wifi device;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog_page1=new AlertDialog.Builder(this).setMessage(R.string.includeGuide_page1Message).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                Dial1nabled =false;
-            }
-        });
-
 
         dialog_close=new AlertDialog.Builder(this).setMessage(R.string.includeGuide_btnclose).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
             @Override
@@ -107,7 +100,6 @@ public class GuideActivity extends FragmentActivity {
             }
         });
 
-
         setContentView(R.layout.activity_guide);
          viewPager=(ViewPager)findViewById(R.id.viewpager);
         viewPager.setAdapter(new adapter(getSupportFragmentManager()));
@@ -120,10 +112,9 @@ public class GuideActivity extends FragmentActivity {
                   }
                   @Override
                   public void onPageSelected(int position) {
-                        if(position==1){
 
+                      if(position==1){
                             new listview_AsyncTask().execute();
-
                         }
                       if(position==2){
                           page_3.btn_measure.setOnClickListener(new View.OnClickListener() {
@@ -148,11 +139,11 @@ public class GuideActivity extends FragmentActivity {
 
                                               double result=ref - adj;
 
-                                              new Equipment_TCP_Client_Task(GuideActivity.this,wm).execute("a " +ref+" "+Math.abs(result)+" 0.3");//손두께 값은 임시  고정값으로
-                                              new Equipment_TCP_Client_Task(GuideActivity.this,wm).execute("e");
+                                              new guide_TCP_Client_Task().execute("a " +ref+" "+Math.abs(result)+" 0.3");//손두께 값은 임시  고정값으로
+                                              new guide_TCP_Client_Task().execute("e");
                                           }
                                       });
-                                      E_response= new Equipment_TCP_Client_Task(GuideActivity.this,wm).execute("r").get();
+                                      E_response= new guide_TCP_Client_Task().execute("r").get();
 
                                       guide_ref.setText(E_response.get(1));
                                       dialog_page3.show();
@@ -170,19 +161,13 @@ public class GuideActivity extends FragmentActivity {
                       }
                   }
                   @Override
-                  public void onPageScrollStateChanged(int state) {
-
-                      if (state == ViewPager.SCROLL_STATE_DRAGGING) {
-                            if(targetPage==0&& Dial1nabled){
-                                dialog_page1.show();
-                            }
-                      }
-                  }
+                  public void onPageScrollStateChanged(int state) {}
             }
         );
 
     }
-    private class adapter extends FragmentStatePagerAdapter {
+
+    private class adapter extends FragmentPagerAdapter {
         public adapter(FragmentManager fm) {
             super(fm);
 
@@ -200,7 +185,6 @@ public class GuideActivity extends FragmentActivity {
                     break;
                 case 2:
                     cur_fragment=new page_3();
-
                     break;
                 case 3:
                     cur_fragment=new page_4();
@@ -218,7 +202,10 @@ public class GuideActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         BaseActivity.setStatusBarColor(this,R.color.purpledk);
+
+
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -235,14 +222,21 @@ public class GuideActivity extends FragmentActivity {
             String p_password = data.getStringExtra("p_password");
             String p_capabilities = data.getStringExtra("p_capabilities");
             Log.d(TAG, "onActivityResult: 결과:" +p_ssid+","+p_password+","+p_capabilities);
-
             try {
-                E_response=new Equipment_TCP_Client_Task(this,wm).execute("s "+p_ssid+" "+p_password).get();
-
+                boolean isDevice_connected=false;
+                isDevice_connected=new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get();
+                if(isDevice_connected){
+                    E_response=new guide_TCP_Client_Task().execute("s "+p_ssid+" "+p_password).get();
+                }
+                else{
+                    Toast.makeText(GuideActivity.this,"잘못된 연결입니다.다시 시도 해주십시오.",Toast.LENGTH_LONG).show();
+                }
                 if(E_response.get(1).equals("OK")){
                     //기기에 ap정보 보낸후 member값 보냄
-                    new Equipment_TCP_Client_Task(this,wm).execute("m "+MainActivity.nowUsers.getMember_seq()).get();
+                    new guide_TCP_Client_Task().execute("m "+MainActivity.nowUsers.getMember_seq()).get();
+                    viewPager.setCurrentItem(2);
                 }
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -259,58 +253,20 @@ public class GuideActivity extends FragmentActivity {
 
     //wifi 초기화 및 검색 start
     public void searchStartWifi(){
-        //마시멜로 버전 이상이라면 권한 체크 요청함
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            try {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 11);
-            }catch (Exception e){
-                Log.d("-진우-","ParingActivity requestPermissions Exception : "+ e.getMessage());
-            }
-        }else{
-            //WifiManager 초기화
+      //WifiManager 초기화
             wm = (WifiManager) getSystemService(WIFI_SERVICE);
-
-            boolean checkWifi = wm.isWifiEnabled();
+           boolean checkWifi = wm.isWifiEnabled();
             Log.d("-진우-", "checkWifi : "+checkWifi);
-
             if(!checkWifi){
                 wm.setWifiEnabled(true);
             }
-
             //검색 하기
             wm.startScan();
             IntentFilter filter = new IntentFilter();
+            //검색 결과로 리시버를 등록하고 SCAN_RESULTS_AVAILABLE_ACTION 네임으로 설정한다.
             filter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
             registerReceiver(wifiReceiver, filter);
-        }
-    }
-    //권한 체크 결과 받음
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        if (requestCode == 11) {
-            //허용 0, 비허용 -1
-            if (grantResults[0] == 0){
-                //WifiManager 초기화
-                wm = (WifiManager) getSystemService(WIFI_SERVICE);
-
-                boolean checkWifi = wm.isWifiEnabled();
-
-                Log.d("-진우-", "6.0이상 checkWifi : "+checkWifi);
-                if(!checkWifi){
-                    wm.setWifiEnabled(true);
-                }
-
-                //검색 하기
-                wm.startScan();
-                IntentFilter filter = new IntentFilter();
-                //검색 결과로 리시버를 등록하고 SCAN_RESULTS_AVAILABLE_ACTION 네임으로 설정한다.
-                filter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-                registerReceiver(wifiReceiver, filter);
-            }else{
-                Log.d("-진우-", "fail");
-            }
-        }
-    }
+  }
 
     //wifi 검색 완료 receiver
     private BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
@@ -339,8 +295,7 @@ public class GuideActivity extends FragmentActivity {
                 }
                 guide_lv = page_2.guide_lv;
                 guide_lvEmpty = page_2.guide_lvEmpty;
-                Log.d("-대경-", "visibilty: "+guide_lv.getVisibility());
-                if(guide_lv.getVisibility()==View.GONE){//재검색일때 GONE을 ONVISIBLE로 변경
+                if(guide_lv.getVisibility()==View.GONE){//재검색일때 GONE을 INVISIBLE로 변경
                     guide_lv.setVisibility(View.VISIBLE);
                     guide_lvEmpty.setVisibility(View.GONE);
                 }
@@ -364,45 +319,50 @@ public class GuideActivity extends FragmentActivity {
                                 //선택된 wifi 정보를 뽑음
                                 Wifi wifi = (Wifi) wifiListAdapter.getItem(position);
                                 try {
-                                    E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
+                                    boolean isDevice_connected;
+                                    isDevice_connected=new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get();
+
+                                    if(!isDevice_connected){
+
+                                            Log.d("-대경-", "복수 일 때,재 연결중..."+isDevice_connected);
+                                            isDevice_connected=new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get();
+                                    }
+                                    if(isDevice_connected){
+
+                                        E_response=new guide_TCP_Client_Task().execute("w").get();
+                                    }
+
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 } catch (ExecutionException e) {
                                     e.printStackTrace();
-                                }
-                                if(E_response==null){
-                                    Log.d("-대경-", "재연결");
-                                    try {
-                                        E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    } catch (ExecutionException e) {
-                                        e.printStackTrace();
-                                    }
                                 }
                             }
                         });
                         break;
                     case 1:// 기기가 한대일땐 자동 연결
                         Wifi wifi=new Wifi(wifiList.get(0).getSsid(),wifiList.get(0).getCapabilities(),wifiList.get(0).getSignal());
+                        device= wifi;
                         Log.d("-대경-", "바로연결");
                         try {
-                            E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
+                            boolean isDevice_connected;
+                                isDevice_connected=new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get();
+                            if(!isDevice_connected){
+                                Log.d("-대경-", "단수일 때,재 연결중..."+isDevice_connected);
+                                new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get();
+                            }
+                            if(isDevice_connected){
+
+                                //mHandler.postDelayed(mMyTask, 3000); // 3초후에 실행
+                                E_response=new guide_TCP_Client_Task().execute("w").get();
+                            }
+
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         }
-                        if(E_response==null){
-                            Log.d("-대경-", "재연결");
-                            try {
-                                E_response=new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("w",wifi.getSsid(), "phyctogram", wifi.getCapabilities()).get();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } catch (ExecutionException e) {
-                                e.printStackTrace();
-                            }
-                        }
+
                         break;
                     default:
                         Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
@@ -412,7 +372,7 @@ public class GuideActivity extends FragmentActivity {
                         guide_lvEmpty.setVisibility(View.VISIBLE);
                          break;
                 }
-                // searchWifi();
+
             }
         }
     };
@@ -454,7 +414,7 @@ public class GuideActivity extends FragmentActivity {
                 else{
                     continue;
                 }
-                Log.d(TAG, "search_Wifi ssid="+ssid+",singal="+singal +",Encription="+encription);
+                //Log.d(TAG, "search_Wifi ssid="+ssid+",singal="+singal +",Encription="+encription);
                 temp="";
 
             }
@@ -479,7 +439,7 @@ public class GuideActivity extends FragmentActivity {
                 }else{
                     //보안이 없다면 바로 연결
                     Log.d(TAG, "onItemClick: wifi.getSsid() : "+ wifi.getSsid());
-                    new Equipment_TCP_Client_Task(getApplicationContext(),wm).execute("s "+wifi.getSsid());
+                    new guide_TCP_Client_Task().execute("s "+wifi.getSsid());
                 }
             }
         });
@@ -514,6 +474,7 @@ public class GuideActivity extends FragmentActivity {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             dialog.setMessage(getApplicationContext().getString(R.string.commonActivity_wait)+"\n"+
                     getApplicationContext().getString(R.string.equipmentActivity_searching));
+            dialog.setCancelable(false);
             dialog.show();
             //프레그먼트가 먼저 만들어지고 리스너를 부착 해야함.
             btn_searchWifi = page_2.btn_searchWifi;
@@ -531,26 +492,122 @@ public class GuideActivity extends FragmentActivity {
 
 
             searchStartWifi();
-
             try {
+                Log.d(TAG, "Thread sleep 기기검색 ");
                 Thread.sleep(3000);
-                Log.d( "thread.sleep ","wifi 정보 검색을 위한 sleep 3초");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
             return null;
         }
 
         protected void onPostExecute(Void result) {
+
+
+
             dialog.dismiss();
             super.onPostExecute(result);
 
         }
     }
 
+    private  class guide_device_connect_Task extends  AsyncTask <Object,Void,Boolean>{
+
+        private ProgressDialog dialog = new ProgressDialog(GuideActivity.this);
+
+        //Background 작업 시작전에 UI 작업을 진행 한다.
+        @Override
+        protected void onPreExecute() {
+
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog.setMessage(getApplicationContext().getString(R.string.commonActivity_wait)+"\n"+
+                    getApplicationContext().getString(R.string.equipmentActivity_searching));
+            dialog.setCancelable(false);
+            dialog.show();
+            super.onPreExecute();
+
+        }
+        @Override
+        protected Boolean doInBackground(Object... params) {
+            Log.d("-대경-", "phytogram 기기와 연결시작. ");
+            //접속여부
+            Boolean connection = false;
+
+
+
+            if(wm!=null){
+
+                try {
+                    String ssid = (String) params[0];
+                    String password = (String) params[1];
+                    String capabilities = (String) params[2];
+                    Log.d("-대경- 기기 Ap 정보:", "ssid: " + ssid + ",password: " + password + ",capablities: " + capabilities);
+                    WifiConfiguration wfc = EquipmentActivity.getWifiConfiguration(ssid, password, capabilities);
+                    //Log.d("-진우-", "wfc : " + wfc.toString());
+                    int networkId = -1; //-1 연결 정보 없음
+                    List<WifiConfiguration> networks = wm.getConfiguredNetworks();
+                    //   Log.d("-진우-", "networks : " + networks.toString());
+                    for (int i = 0; i < networks.size(); i++) {
+                        //Log.d("-진우-", "networks.get(i).SSID : " + networks.get(i).SSID);
+                        if (networks.get(i).SSID.equals("\"".concat(ssid).concat("\""))) {
+                            Log.d("-진우-", "networks.get(i).networkId : " + networks.get(i).networkId);
+                            networkId = networks.get(i).networkId; //-1을 연결 정보가 있다면 해당 id로 변경
+                        }
+                    }
+                    //연결 정보가 없다면 네트워크를 추가하고 id를 받음
+                    if (networkId == -1) {
+                        networkId = wm.addNetwork(wfc);
+                    }
+                    Log.d("-진우-", "networkId : " + networkId);
+                    //연결 여부 : false
+
+                    if (networkId != -1) {
+                        //Toast.makeText(getApplicationContext(), R.string.equipmentActivity_connectionAlert, Toast.LENGTH_LONG).show();
+                        //해당 networkId로 wifi를 연결함
+                        connection = wm.enableNetwork(networkId, true); //연결이 되면 true를 반환
+                        Log.d("-진우-", "connection : " + connection);
+
+                    }
+                }catch (ArrayIndexOutOfBoundsException e){
+                    e.printStackTrace();
+
+                    return connection;
+                }
+
+            }
+            else if(wm.getConnectionInfo().getSSID().contains("phyctogram_")){
+                return true;
+            }
+
+            try {
+                Log.d(TAG, "Thread sleep 기기연결 ");
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return connection;
+        }
+        @Override
+        protected void onPostExecute(Boolean  response) {
+            super.onPostExecute(response);
+            if(!response){
+                dialog.dismiss();
+                Toast.makeText(GuideActivity.this,R.string.includeGuide_tcpConectFail, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            else{
+                dialog.dismiss();
+                Toast.makeText(GuideActivity.this,R.string.includeGuide_tcpConectSuccess, Toast.LENGTH_SHORT).show();
+            }
+
+
+
+        }
+
+    } //wifi 연결은 Task 나누기 작업중..2016/12/15
+
     ///////////////AsyncTask
-    private class Equipment_TCP_Client_Task extends AsyncTask<Object, Integer, ArrayList<String>> {
+    private class guide_TCP_Client_Task extends AsyncTask<Object, Integer, ArrayList<String>> {
 
         protected 	String SERV_IP		=	"192.168.4.1"; //server ip
         protected 	int		  PORT		=	80;
@@ -558,14 +615,7 @@ public class GuideActivity extends FragmentActivity {
         private BufferedReader networkReader;
         private BufferedWriter networkWriter;
         private ArrayList<String> response ;
-        private WifiManager mWm;
-        private Context mContext;
 
-        public Equipment_TCP_Client_Task (Context context,WifiManager wm){
-            mContext = context;
-            mWm= wm;
-
-        }
         private ProgressDialog dialog = new ProgressDialog(GuideActivity.this);
 
 
@@ -583,136 +633,91 @@ public class GuideActivity extends FragmentActivity {
         @Override
         protected ArrayList<String> doInBackground(Object... params) {
 
-            if(mWm!=null&&!mWm.getConnectionInfo().getSSID().contains("phyctogram_")){
-                try {
-                    Log.d("-대경-", "phytogram으로연결되어있지않음. ");
-                    String ssid = (String) params[1];
-                    String password = (String) params[2];
-                    String capabilities = (String) params[3];
-                    Log.d("-진우-", "ssid: " + ssid + ",password: " + password + ",capablities: " + capabilities);
-                    WifiConfiguration wfc = EquipmentActivity.getWifiConfiguration(ssid, password, capabilities);
+            //기기와 연결 될때까지 반복.
 
-                    Log.d("-진우-", "wfc : " + wfc.toString());
+                if(wm!=null&&wm.getConnectionInfo().getSSID().contains("phyctogram_")) {
+                    try {
+                        Log.d("TCP", "server connecting");
+                        String command = (String) params[0];
+                        Log.d(TAG, "command :" + command);
+                        Socket socket = new Socket(SERV_IP, PORT);
+                        networkWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                        networkReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "ASCII"));
+                        WriteSocket(networkWriter, command);
 
-                    int networkId = -1; //-1 연결 정보 없음
-                    List<WifiConfiguration> networks = mWm.getConfiguredNetworks();
-                    //   Log.d("-진우-", "networks : " + networks.toString());
+                        PrintWriter out = new PrintWriter(networkWriter, true);
+                        out.flush();
 
-                    for (int i = 0; i < networks.size(); i++) {
-                        //Log.d("-진우-", "networks.get(i).SSID : " + networks.get(i).SSID);
-                        if (networks.get(i).SSID.equals("\"".concat(ssid).concat("\""))) {
-                            Log.d("-진우-", "networks.get(i).networkId : " + networks.get(i).networkId);
-                            networkId = networks.get(i).networkId; //-1을 연결 정보가 있다면 해당 id로 변경
-                        }
-                    }
+                        String line;
+                        response = new ArrayList<>();
 
-                    //연결 정보가 없다면 네트워크를 추가하고 id를 받음
-                    if (networkId == -1) {
-                        networkId = mWm.addNetwork(wfc);
-                    }
-                    Log.d("-진우-", "networkId : " + networkId);
+                        //디버깅을위한 list(0) command로
+                        response.add(command);
+                        if (command.equals("w")) {
+                            int i = 0;
+                            while (true) {
+                                line = networkReader.readLine();
+                                //Log.d("1 line", line);
+                                if (!line.contains("Signal:")) {//ssid 가 30비트 이상일 경우(길 경우) 개행이 되어 signal:이 포함되있지 않으면 read라인
+                                    if (!line.contains("number of available networks")) {//첫라인은 제외
+                                        line += networkReader.readLine();
+                                    }
 
-                    //연결 여부 : false
-                    boolean connection;
-
-                    if (networkId != -1) {
-                        //Toast.makeText(getApplicationContext(), R.string.equipmentActivity_connectionAlert, Toast.LENGTH_LONG).show();
-                        //해당 networkId로 wifi를 연결함
-                        connection = mWm.enableNetwork(networkId, true); //연결이 되면 true를 반환
-                        Log.d("-진우-", "connection : " + connection);
-                    }
-                }catch (ArrayIndexOutOfBoundsException e){
-                    e.printStackTrace();
-
-                    return null;
-                }
-                try {
-                    Thread.sleep(5000);
-                    Log.d( "thread.sleep ","wifi 연결을 위한 sleep 5초");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            try {
-                Log.d("TCP","server connecting");
-                String  command = (String) params[0];
-
-                Log.d(TAG, "command :"+command);
-
-                Socket socket = new Socket(SERV_IP,PORT);
-                networkWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                networkReader = new BufferedReader(new InputStreamReader(socket.getInputStream(),"ASCII"));
-                WriteSocket(networkWriter,command);
-
-                PrintWriter out = new PrintWriter(networkWriter, true);
-                out.flush();
-
-                String  line;
-                response = new ArrayList<>();
-
-                //디버깅을위한 list(0) command로
-                response.add(command);
-                if(command.equals("w")){
-                    int i =0;
-                    while (true){
-                        line = networkReader.readLine();
-                        Log.d("1 line",line);
-                        if(!line.contains("Signal:")){//ssid 가 30비트 이상일 경우(길 경우) 개행이 되어 signal:이 포함되있지 않으면 read라인
-                            if(!line.contains("number of available networks")){//첫라인은 제외
-                                line += networkReader.readLine();
+                                  //  Log.d("2 line", line);
+                                }
+                                //Log.d("3 line", line);
+                                response.add(line);
+                                i++;
+                                if (i == Integer.valueOf(response.get(1).substring(response.get(1).indexOf(":") + 1, response.get(1).length())) + 1) {//기기에서 보내준 wifi 갯수일때  break(첫라인은 info므로 +1)
+                                    break;
+                                }
                             }
+                            Log.w("-대경-", "while문 종료");
 
-                            Log.d("2 line",line);
+                        } else {
+                            line = networkReader.readLine();
+                            Log.d("line", line);
+                            response.add(line);
                         }
-                        Log.d("3 line",line);
-                        response.add(line);
-                        i++;
-                        if(i==Integer.valueOf(response.get(1).substring(response.get(1).indexOf(":")+1,response.get(1).length()))+1){//기기에서 보내준 wifi 갯수일때  break(첫라인은 info므로 +1)
-                            break;
-                        }
+                        Log.d("response: ", response.toString());
+                        socket.close();
+                        networkWriter.close();
+                        networkReader.close();
+
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        response = new ArrayList<>();
+
+                        response.add("IOException");
+                        return response;
                     }
-                    Log.w("-대경-", "while문 종료");
 
-                }
-                else{
-                    line = networkReader.readLine();
-                    Log.d("line",line);
-                    response.add(line);
-                }
-                Log.d("response: ",response.toString());
-                socket.close();
-                networkWriter.close();
-                networkReader.close();
-
-
-            } catch(IOException e){
-                e.printStackTrace();
             }
+            /*try {
+                Log.d(TAG, "Thread sleep 기기통신 ");
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
             return response;
         }
         //Background 작업이 끝난 후 UI 작업을 진행 한다.
         @Override
         protected void onPostExecute(ArrayList<String>  response) {
             super.onPostExecute(response);
-            if(response==null){
-                dialog.dismiss();
-                Toast.makeText(mContext,R.string.includeGuide_tcpConectFail, Toast.LENGTH_LONG).show();
-                return;
-            }
-            // Toast.makeText(mContext,"명령어: "+response.get(0)+"response 1 Line:"+response.get(1) , Toast.LENGTH_LONG).show();
-            //E_response=response;
-            if(response.get(0).contains("w")){
-                search_Wifi();
-            }
-            else if(response.get(0).contains("r")){
-                Log.d(TAG, "onPostExecute: "+"명령어 r");
+            if(response.get(0).equals("IOException")){
 
             }
-
+            if(response!=null) {
+                if (response.get(0).contains("w")) {
+                    search_Wifi();
+                } else if (response.get(0).contains("r")) {
+                     Log.d("-대경-","명령어: "+response.get(0)+"response 1 Line:"+response.get(1));
+                }
+            }
             dialog.dismiss();
-
-        }
+ }
 
         public void WriteSocket(BufferedWriter data,String s) throws IOException{
             //	data send

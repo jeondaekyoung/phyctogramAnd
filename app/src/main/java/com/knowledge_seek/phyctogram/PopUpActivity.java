@@ -1,8 +1,9 @@
 package com.knowledge_seek.phyctogram;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,15 +11,15 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.knowledge_seek.phyctogram.util.EqAsyncTask;
+import java.util.List;
 
 
 public class PopUpActivity extends Activity implements View.OnClickListener{
 
 	private String ssid;
 	private String capabilities;
-	//private String password;
 
 	private TextView tv_ssid;
 	private EditText edit_password;
@@ -29,12 +30,15 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 	public static EquipmentActivity activity;
 	public static WifiPopUpActivity wifiPopUpActivity;
 
+    private WifiManager wm;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.popup_wifi);
+        wm = (WifiManager) getSystemService(WIFI_SERVICE);
 	}
 	@Override
 	protected void onResume() {
@@ -62,71 +66,58 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 			i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(i);*/
 			Log.d("-대경-", "PopUpActivity ssid : " + ssid + ", capabilities : " + capabilities + ", edit_password : " + edit_password.getText());
-				Intent i = new Intent();
-				i.putExtra("p_ssid", ssid);
-				i.putExtra("p_capabilities", capabilities);
-				i.putExtra("p_password", edit_password.getText().toString());
-				setResult(RESULT_OK, i);
-				finish();
+
+            WifiConfiguration wfc = EquipmentActivity.getWifiConfiguration(ssid, edit_password.getText().toString(), capabilities);
+
+            Log.d("-진우-", "wfc : " + wfc.toString());
+
+            int networkId = -1; //-1 연결 정보 없음
+            List<WifiConfiguration> networks = wm.getConfiguredNetworks();
+            //   Log.d("-진우-", "networks : " + networks.toString());
+
+            /*for (int i = 0; i < networks.size(); i++) {
+                //Log.d("-진우-", "networks.get(i).SSID : " + networks.get(i).SSID);
+                if (networks.get(i).SSID.equals("\"".concat(ssid).concat("\""))) {
+                    Log.d("-진우-", "networks.get(i).networkId : " + networks.get(i).networkId);
+                    networkId = networks.get(i).networkId; //-1을 연결 정보가 있다면 해당 id로 변경
+                }
+            }*/
+
+            //연결 정보가 없다면 네트워크를 추가하고 id를 받음
+            if (networkId == -1) {
+                networkId = wm.addNetwork(wfc);
+            }
+            Log.d("-진우-", "networkId : " + networkId);
+
+            //연결 여부 : false
+            boolean connection=false;
+
+            if (networkId != -1) {
+                //Toast.makeText(getApplicationContext(), R.string.equipmentActivity_connectionAlert, Toast.LENGTH_LONG).show();
+                //해당 networkId로 wifi를 연결함
+
+                connection = wm.enableNetwork(networkId, true); //연결이 되면 true를 반환
+                Log.d("-진우-", "connection : " + connection);
+            }
+            if(connection){
+				wm.disconnect();
+                Intent i = new Intent();
+                i.putExtra("p_ssid", ssid);
+                i.putExtra("p_capabilities", capabilities);
+                i.putExtra("p_password", edit_password.getText().toString());
+                setResult(RESULT_OK, i);
+                finish();
+
+            }
+            else{
+                Toast.makeText(getApplicationContext(), R.string.equipmentActivity_failPW, Toast.LENGTH_LONG).show();
+                finish();
+            }
 
 		}else if(v.getId() == R.id.btn_close_popup){
 			finish();
 		}
 	}
 
-	//기기에 메세지를 보내고 보낸 후 입력한 wifi로 다시 연결
-	//기기에 데이터 전송 쓰레드 (기기에서 데이터를 수신하는대 시간이 걸려서 쓰레드 사용)
-	class SendMessageThread extends Thread {
-		private ProgressDialog dialog = new ProgressDialog(wifiPopUpActivity);
-		private boolean isPlay = false;
-		private int i;
-		private String ipAddress;
-		private String ssid;
-		private String pw;
 
-		public SendMessageThread(boolean isPlay, int i, String ipAddress, String ssid, String pw) {
-			this.i = i;
-			this.isPlay = isPlay;
-			this.ipAddress = ipAddress;
-			this.ssid = ssid;
-			this.pw = pw;
-			dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-			dialog.setCancelable(false);
-			dialog.setCanceledOnTouchOutside(false);
-			dialog.setMessage(getString(R.string.commonActivity_wait));
-			dialog.show();
-		}
-
-		public void stopThread() {
-			dialog.dismiss();
-			isPlay = !isPlay;
-		}
-
-		@Override
-		public void run() {
-			super.run();
-			while (isPlay) {
-				if(i==0){
-					Log.d("-진우-","1");
-					new EqAsyncTask().execute("192.168.4.1:80", "?SSID", ssid+"**"); //wifi ssid 전송
-				}else if(i==1){
-					Log.d("-진우-","2");
-					new EqAsyncTask().execute("192.168.4.1:80", "?PW", pw+"**"); //wifi pw 전송
-				}else{
-					Log.d("-진우-","3");
-					wifiPopUpActivity.connectWifi(ssid, pw, capabilities); //기기 연결을 끊고 선택한 wifi로 접속
-				}
-				if (i==2){
-					stopThread();
-				}else {
-					i++;
-				}
-				try {
-					Thread.sleep(1000*5); //기기에서 수신처리 속도때문에 5초 간격으로 설정
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
 }
