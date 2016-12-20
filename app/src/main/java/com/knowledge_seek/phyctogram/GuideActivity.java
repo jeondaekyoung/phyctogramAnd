@@ -48,6 +48,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by dkfka on 2016-11-16..
@@ -120,41 +122,47 @@ public class GuideActivity extends FragmentActivity {
                           page_3.btn_measure.setOnClickListener(new View.OnClickListener() {
                               @Override
                               public void onClick(View v) {
-                                  Log.d("-대경" ,"onClick: "+"page3_btn_measure");
-                                  try {
-                                      final View dialogView= getLayoutInflater().inflate(R.layout.guide3_dialogview, null);
-                                      guide_ref=(TextView)dialogView.findViewById(R.id.guide_ref);
-                                      guide_adj = (EditText)dialogView.findViewById(R.id.guide_adj);
+                                  Log.d("-대경" ,"onClick: "+"page3_btn_measure - 현재 연결된 ap:"+wm.getConnectionInfo().getSSID());
+                                if(wm.getConnectionInfo().getSSID().contains("phyctogram_")){
+                                    try {
+                                        final View dialogView= getLayoutInflater().inflate(R.layout.guide3_dialogview, null);
+                                        guide_ref=(TextView)dialogView.findViewById(R.id.guide_ref);
+                                        guide_adj = (EditText)dialogView.findViewById(R.id.guide_adj);
 
-                                      dialog_page3 = new AlertDialog.Builder(GuideActivity.this).setView(dialogView).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
-                                          @Override
-                                          public void onClick(DialogInterface dialog, int which) {
-                                              dialog.dismiss();
-                                              //계산해서 넣어보기
-                                              double ref = Math.abs(Double.valueOf(guide_ref.getText().toString()));//절대값으로 ref값이 설정 되있지않을때 값..헷갈리니 내일 다시정리해보자
-                                              double adj=0;
-                                              if(guide_adj.getText().toString().length()!=0){
-                                                  adj = Double.valueOf(guide_adj.getText().toString());
-                                              }
+                                        dialog_page3 = new AlertDialog.Builder(GuideActivity.this).setView(dialogView).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                //계산해서 넣어보기
+                                                double ref = Math.abs(Double.valueOf(guide_ref.getText().toString()));//절대값으로 ref값이 설정 되있지않을때 값..헷갈리니 내일 다시정리해보자
+                                                double adj=0;
+                                                if(guide_adj.getText().toString().length()!=0){
+                                                    adj = Double.valueOf(guide_adj.getText().toString());
+                                                }
 
-                                              double result=ref - adj;
+                                                double result=ref - adj;
 
-                                              new guide_TCP_Client_Task().execute("a " +ref+" "+Math.abs(result)+" 0.3");//손두께 값은 임시  고정값으로
-                                              new guide_TCP_Client_Task().execute("e");
-                                          }
-                                      });
-                                      E_response= new guide_TCP_Client_Task().execute("r").get();
+                                                new guide_TCP_Client_Task().execute("a " +ref+" "+Math.abs(result)+" 0.3");//손두께 값은 임시  고정값으로
+                                                new guide_TCP_Client_Task().execute("e");
+                                            }
+                                        });
+                                        E_response= new guide_TCP_Client_Task().execute("r").get();
 
-                                      guide_ref.setText(E_response.get(1));
-                                      dialog_page3.show();
-                                  } catch (InterruptedException e) {
-                                      e.printStackTrace();
-                                  } catch (ExecutionException e) {
-                                      e.printStackTrace();
-                                  } catch (NullPointerException e){
-                                      e.printStackTrace();
-                                  }
-                              }
+                                        guide_ref.setText(E_response.get(1));
+                                        dialog_page3.show();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    } catch (ExecutionException e) {
+                                        e.printStackTrace();
+                                    } catch (NullPointerException e){
+                                        e.printStackTrace();
+                                    }
+                                }
+                                  else{
+                                    Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
+                                }
+
+                              }//onclick
 
                           });
 
@@ -223,25 +231,30 @@ public class GuideActivity extends FragmentActivity {
             String p_capabilities = data.getStringExtra("p_capabilities");
             Log.d(TAG, "onActivityResult: 결과:" +p_ssid+","+p_password+","+p_capabilities);
             try {
-                boolean isDevice_connected=false;
-                isDevice_connected=new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get();
+                boolean isDevice_connected;
+                isDevice_connected=new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get(30000, TimeUnit.MILLISECONDS);
+
                 if(isDevice_connected){
                     E_response=new guide_TCP_Client_Task().execute("s "+p_ssid+" "+p_password).get();
+
+                    if(E_response.get(1).equals("OK")){
+                        //기기에 ap정보 보낸후 member값 보냄
+                        new guide_TCP_Client_Task().execute("m "+MainActivity.nowUsers.getMember_seq()).get();
+                        viewPager.setCurrentItem(2);
+                    }
                 }
                 else{
                     Toast.makeText(GuideActivity.this,"잘못된 연결입니다.다시 시도 해주십시오.",Toast.LENGTH_LONG).show();
                 }
-                if(E_response.get(1).equals("OK")){
-                    //기기에 ap정보 보낸후 member값 보냄
-                    new guide_TCP_Client_Task().execute("m "+MainActivity.nowUsers.getMember_seq()).get();
-                    viewPager.setCurrentItem(2);
-                }
+
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (NullPointerException e){//memberseq null체크
+                e.printStackTrace();
+            } catch (TimeoutException e) {
                 e.printStackTrace();
             }
 
@@ -346,20 +359,24 @@ public class GuideActivity extends FragmentActivity {
                         Log.d("-대경-", "바로연결");
                         try {
                             boolean isDevice_connected;
-                                isDevice_connected=new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get();
-                            if(!isDevice_connected){
+                            isDevice_connected=new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get(30, TimeUnit.SECONDS);
+                            Log.d(TAG, "~?");
+                            /*if(!isDevice_connected){
                                 Log.d("-대경-", "단수일 때,재 연결중..."+isDevice_connected);
-                                new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get();
-                            }
+                                isDevice_connected=new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get(3, TimeUnit.SECONDS);
+                                Log.d(TAG, "~?");
+                            }*/
                             if(isDevice_connected){
 
-                                //mHandler.postDelayed(mMyTask, 3000); // 3초후에 실행
+
                                 E_response=new guide_TCP_Client_Task().execute("w").get();
                             }
 
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (TimeoutException e) {
                             e.printStackTrace();
                         }
 
@@ -493,8 +510,9 @@ public class GuideActivity extends FragmentActivity {
 
             searchStartWifi();
             try {
-                Log.d(TAG, "Thread sleep 기기검색 ");
-                Thread.sleep(3000);
+                Log.d(TAG, "Thread sleep 기기검색 시작 ");
+                Thread.sleep(2000);
+                Log.d(TAG, "Thread sleep 기기검색 끝");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -511,6 +529,8 @@ public class GuideActivity extends FragmentActivity {
         }
     }
 
+
+    //기기 연결 Task
     private  class guide_device_connect_Task extends  AsyncTask <Object,Void,Boolean>{
 
         private ProgressDialog dialog = new ProgressDialog(GuideActivity.this);
@@ -532,10 +552,7 @@ public class GuideActivity extends FragmentActivity {
             Log.d("-대경-", "phytogram 기기와 연결시작. ");
             //접속여부
             Boolean connection = false;
-
-
-
-            if(wm!=null){
+          if(wm!=null){
 
                 try {
                     String ssid = (String) params[0];
@@ -580,8 +597,9 @@ public class GuideActivity extends FragmentActivity {
             }
 
             try {
-                Log.d(TAG, "Thread sleep 기기연결 ");
+                Log.d(TAG, "Thread sleep 기기연결 시작 ");
                 Thread.sleep(3000);
+                Log.d(TAG, "Thread sleep 기기연결 끝 ");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -604,9 +622,10 @@ public class GuideActivity extends FragmentActivity {
 
         }
 
-    } //wifi 연결은 Task 나누기 작업중..2016/12/15
+    }
 
-    ///////////////AsyncTask
+
+    //기기 통신 Task
     private class guide_TCP_Client_Task extends AsyncTask<Object, Integer, ArrayList<String>> {
 
         protected 	String SERV_IP		=	"192.168.4.1"; //server ip
@@ -626,6 +645,7 @@ public class GuideActivity extends FragmentActivity {
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             dialog.setMessage(getApplicationContext().getString(R.string.commonActivity_wait)+"\n"+
                     getApplicationContext().getString(R.string.equipmentActivity_searching));
+            dialog.setCancelable(false);
             dialog.show();
             super.onPreExecute();
         }
@@ -635,7 +655,7 @@ public class GuideActivity extends FragmentActivity {
 
             //기기와 연결 될때까지 반복.
 
-                if(wm!=null&&wm.getConnectionInfo().getSSID().contains("phyctogram_")) {
+            if(wm!=null&&wm.getConnectionInfo().getSSID().contains("phyctogram_")) {
                     try {
                         Log.d("TCP", "server connecting");
                         String command = (String) params[0];
@@ -690,16 +710,12 @@ public class GuideActivity extends FragmentActivity {
                         response = new ArrayList<>();
 
                         response.add("IOException");
+                        response.add("Fail");
                         return response;
                     }
 
             }
-            /*try {
-                Log.d(TAG, "Thread sleep 기기통신 ");
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }*/
+
             return response;
         }
         //Background 작업이 끝난 후 UI 작업을 진행 한다.

@@ -414,7 +414,7 @@ public class EquipmentActivity extends BaseActivity {
         lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
-        Log.d("-진우-", "EquipmentActivity 에서 onResume() : " + member.toString());
+//        Log.d("-진우-", "EquipmentActivity 에서 onResume() : " + member.toString());
 
         Log.d("-진우-", "EquipmentActivity.onResume() 끝");
 
