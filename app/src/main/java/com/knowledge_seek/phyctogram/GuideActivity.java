@@ -12,6 +12,7 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -47,6 +48,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -82,7 +84,7 @@ public class GuideActivity extends FragmentActivity {
 
 
     private ProgressDialog mDialog ;
-
+    CountDownLatch latch1 = new CountDownLatch(1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,11 +141,11 @@ public class GuideActivity extends FragmentActivity {
 
                                                 if(guide_adj.getText().toString().length()!=0){//사용자가 젠 값이 있을 경우
                                                     String adj=guide_adj.getText().toString();
-                                                    new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a " +adj+"0"+" 0.3");
+                                                    new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a " +adj+" 0"+" 0.3");
                                                 }
                                                 else{//생략시
                                                     String ref=guide_ref.getText().toString();
-                                                    new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a " +ref+"0"+" 0.3");
+                                                    new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a " +ref+" 0"+" 0.3");
                                                 }
 
                                                 new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"e");
@@ -217,13 +219,15 @@ public class GuideActivity extends FragmentActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
+            Log.d("-대경-", "phytogram 기기와 검색 시작.... " +Thread.currentThread().getName());
+            Log.d(TAG, "Pid: "+Process.myPid());
+            Log.d(TAG, "우선순위: "+Thread.currentThread().getPriority());
             searchStartWifi();
+            Log.d("-대경-", "phytogram 기기와 검색 끝.... " +Thread.currentThread().getName());
             return null;
         }
 
         protected void onPostExecute(Void result) {
-
-
 
             dialog.dismiss();
             super.onPostExecute(result);
@@ -249,13 +253,7 @@ public class GuideActivity extends FragmentActivity {
         filter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
         registerReceiver(wifiReceiver, filter);
     }
-    private BroadcastReceiver deviceConnect = new BroadcastReceiver() {
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-        }
-    };
     //wifi 검색 완료 receiver
     private BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
         @Override
@@ -325,10 +323,10 @@ public class GuideActivity extends FragmentActivity {
                                 try {
                                     boolean isDevice_connected;
                                     //page2 복수 일때 기기 연결
-                                    isDevice_connected=new guide_device_connect_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,wifi.getSsid(),"phyctogram",device.getCapabilities()).get();
+                                    isDevice_connected=new guide_device_connect_Task().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,wifi.getSsid(),"phyctogram",device.getCapabilities()).get();
 
                                     if(isDevice_connected){
-                                        E_response=new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"w").get();
+                                        E_response=new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"w").get();
                                     }
 
                                 } catch (InterruptedException e) {
@@ -372,12 +370,17 @@ public class GuideActivity extends FragmentActivity {
                     getApplicationContext().getString(R.string.equipmentActivity_searching));
             dialog.setCancelable(false);
             dialog.show();
+            latch1.countDown();
             super.onPreExecute();
 
         }
         @Override
         protected Boolean doInBackground(Object... params) {
-            Log.d("-대경-", "phytogram 기기와 연결시작. ");
+            Log.d("-대경-", "phytogram 기기와 연결 시작.... " +Thread.currentThread().getName());
+            Process.setThreadPriority(Process.THREAD_PRIORITY_DEFAULT);
+            Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+            Log.d(TAG, "id: "+Thread.currentThread().getId());
+            Log.d(TAG, "우선순위: "+Thread.currentThread().getPriority());
             //접속여부
             Boolean connection = false;
           if(wm!=null){
@@ -425,12 +428,12 @@ public class GuideActivity extends FragmentActivity {
             }
 
 
-
+            Log.d("-대경-", "phytogram 기기와 연결 끝.... " +Thread.currentThread().getName());
             return connection;
         }
         @Override
         protected void onPostExecute(Boolean  response) {
-            super.onPostExecute(response);
+
             if(!response){
                 dialog.dismiss();
                 Toast.makeText(GuideActivity.this,R.string.includeGuide_tcpConectFail, Toast.LENGTH_SHORT).show();
@@ -441,6 +444,7 @@ public class GuideActivity extends FragmentActivity {
                 Toast.makeText(GuideActivity.this,R.string.includeGuide_tcpConectSuccess, Toast.LENGTH_SHORT).show();
             }
 
+            super.onPostExecute(response);
 
 
         }
@@ -470,13 +474,20 @@ public class GuideActivity extends FragmentActivity {
                     getApplicationContext().getString(R.string.equipmentActivity_searching));
             dialog.setCancelable(false);
             dialog.show();
+
             super.onPreExecute();
         }
 
         @Override
         protected ArrayList<String> doInBackground(Object... params) {
-
-            //기기와 연결 될때까지 반복.
+            Log.d("-대경-", "phytogram 기기와 통신 시작.... " +Thread.currentThread().getName());
+            Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
+            Log.d(TAG, "우선순위: "+Thread.currentThread().getPriority());
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             if(wm!=null&&wm.getConnectionInfo().getSSID().contains("phyctogram_")) {
                     try {
@@ -535,16 +546,22 @@ public class GuideActivity extends FragmentActivity {
                         response.add("IOException");
                         response.add("Fail");
                         return response;
+                    } finally {
+                        try {
+                            latch1.await();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
 
             }
-
+            Log.d("-대경-", "phytogram 기기와 통신 끝.... " +Thread.currentThread().getName());
             return response;
         }
         //Background 작업이 끝난 후 UI 작업을 진행 한다.
         @Override
         protected void onPostExecute(ArrayList<String>  response) {
-            super.onPostExecute(response);
+
             if(response.get(0).equals("IOException")){
 
             }
@@ -556,6 +573,7 @@ public class GuideActivity extends FragmentActivity {
                 }
             }
             dialog.dismiss();
+            super.onPostExecute(response);
  }
 
         public void WriteSocket(BufferedWriter data,String s) throws IOException{
@@ -719,6 +737,7 @@ public class GuideActivity extends FragmentActivity {
                 e.printStackTrace();
             } catch (NullPointerException e){//memberseq null체크
                 e.printStackTrace();
+                Toast.makeText(GuideActivity.this,"잘못된 연결입니다.다시 시도 해주십시오.",Toast.LENGTH_LONG).show();
             }
 
 
