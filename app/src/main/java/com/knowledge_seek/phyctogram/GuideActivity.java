@@ -48,8 +48,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 /**
  * Created by dkfka on 2016-11-16..
@@ -57,15 +55,15 @@ import java.util.concurrent.TimeoutException;
 public class GuideActivity extends FragmentActivity {
 
     final String TAG = GuideActivity.class.getName();
+
+    //프레그먼트
     int MAX_PAGE=4;
     Fragment cur_fragment=new Fragment();
-    AlertDialog.Builder dialog_page3;
-
-    public  static AlertDialog.Builder  dialog_close;
-
     public static ViewPager viewPager;
 
-    private TextView guide_lvEmpty;
+    //다이얼로그
+    AlertDialog.Builder dialog_page3;
+    public  static AlertDialog.Builder  dialog_close;
 
     //wifi관련
     private ScanResult scanResult;
@@ -74,19 +72,23 @@ public class GuideActivity extends FragmentActivity {
     private WifiListAdapter wifiListAdapter;
     private List<Wifi> wifiList = new ArrayList<>();
     private ListView guide_lv;
-    private ArrayList<String> E_response;
+    private TextView guide_lvEmpty;
     private Button btn_searchWifi;
     private TextView guide_ref;
     private EditText guide_adj;
     public static final int REQUEST_ACT = 112;
-
+    private ArrayList<String> E_response;
     private static Wifi device;
+
+
+    private ProgressDialog mDialog ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+        mDialog = new ProgressDialog(GuideActivity.this);
         dialog_close=new AlertDialog.Builder(this).setMessage(R.string.includeGuide_btnclose).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -116,7 +118,8 @@ public class GuideActivity extends FragmentActivity {
                   public void onPageSelected(int position) {
 
                       if(position==1){
-                            new listview_AsyncTask().execute();
+                          //page2 기기 검색
+                            new listview_AsyncTask().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
                         }
                       if(position==2){
                           page_3.btn_measure.setOnClickListener(new View.OnClickListener() {
@@ -132,23 +135,29 @@ public class GuideActivity extends FragmentActivity {
                                         dialog_page3 = new AlertDialog.Builder(GuideActivity.this).setView(dialogView).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
-                                                //계산해서 넣어보기
-                                                double ref = Math.abs(Double.valueOf(guide_ref.getText().toString()));//절대값으로 ref값이 설정 되있지않을때 값..헷갈리니 내일 다시정리해보자
-                                                double adj=0;
-                                                if(guide_adj.getText().toString().length()!=0){
-                                                    adj = Double.valueOf(guide_adj.getText().toString());
+                                                //page3 레퍼런스값 보내기
+
+                                                if(guide_adj.getText().toString().length()!=0){//사용자가 젠 값이 있을 경우
+                                                    String adj=guide_adj.getText().toString();
+                                                    new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a " +adj+"0"+" 0.3");
+                                                }
+                                                else{//생략시
+                                                    String ref=guide_ref.getText().toString();
+                                                    new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a " +ref+"0"+" 0.3");
                                                 }
 
-                                                double result=ref - adj;
-
-                                                new guide_TCP_Client_Task().execute("a " +ref+" "+Math.abs(result)+" 0.3");//손두께 값은 임시  고정값으로
-                                                new guide_TCP_Client_Task().execute("e");
+                                                new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"e");
+                                                dialog.dismiss();
+                                                viewPager.setCurrentItem(3);
                                             }
                                         });
-                                        E_response= new guide_TCP_Client_Task().execute("r").get();
+                                        //page3 시작시 초기화 해주기
+                                        E_response= new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a 0 0 0.3").get();
 
-                                        guide_ref.setText(E_response.get(1));
+                                        E_response= new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"r").get();
+                                        double ref=Math.abs(Double.valueOf(E_response.get(1)));
+
+                                        guide_ref.setText(String.valueOf(ref));
                                         dialog_page3.show();
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
@@ -172,115 +181,81 @@ public class GuideActivity extends FragmentActivity {
                   public void onPageScrollStateChanged(int state) {}
             }
         );
-
-    }
-
-    private class adapter extends FragmentPagerAdapter {
-        public adapter(FragmentManager fm) {
-            super(fm);
-
-        }
-        @Override
-        public Fragment getItem(int position) {
-            if(position<0 || MAX_PAGE<=position)
-                return null;
-            switch (position){
-                case 0:
-                    cur_fragment=new page_1();
-                  break;
-                case 1:
-                    cur_fragment=new page_2();
-                    break;
-                case 2:
-                    cur_fragment=new page_3();
-                    break;
-                case 3:
-                    cur_fragment=new page_4();
-                    break;
-            }
-            return cur_fragment;
-        }
-        @Override
-        public int getCount() {
-            return MAX_PAGE;
-        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         BaseActivity.setStatusBarColor(this,R.color.purpledk);
-
-
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: 실행");
+    //리스트뷰
+    class listview_AsyncTask extends AsyncTask<Void, Void, Void> {
 
-        if (resultCode != BaseActivity.RESULT_OK) {
-            Log.d(TAG, "onActivityResult: 결과가 성공이 아님.");
-            return;
+        private ProgressDialog dialog =mDialog;
+
+        //Background 작업 시작전에 UI 작업을 진행 한다.
+        @Override
+        protected void onPreExecute() {
+
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog.setMessage(getApplicationContext().getString(R.string.commonActivity_wait)+"\n"+
+                    getApplicationContext().getString(R.string.equipmentActivity_searching));
+            dialog.setCancelable(false);
+            dialog.show();
+            //프레그먼트가 먼저 만들어지고 리스너를 부착 해야함.
+            btn_searchWifi = page_2.btn_searchWifi;
+            btn_searchWifi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new listview_AsyncTask().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+                }
+            });
+            super.onPreExecute();
+
         }
 
-        if (requestCode == GuideActivity.REQUEST_ACT) {
-            //popupActiviy에서 가져온 ap 정보
-            String p_ssid = data.getStringExtra("p_ssid");
-            String p_password = data.getStringExtra("p_password");
-            String p_capabilities = data.getStringExtra("p_capabilities");
-            Log.d(TAG, "onActivityResult: 결과:" +p_ssid+","+p_password+","+p_capabilities);
-            try {
-                boolean isDevice_connected;
-                isDevice_connected=new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get(30000, TimeUnit.MILLISECONDS);
+        @Override
+        protected Void doInBackground(Void... params) {
+            searchStartWifi();
+            return null;
+        }
 
-                if(isDevice_connected){
-                    E_response=new guide_TCP_Client_Task().execute("s "+p_ssid+" "+p_password).get();
-
-                    if(E_response.get(1).equals("OK")){
-                        //기기에 ap정보 보낸후 member값 보냄
-                        new guide_TCP_Client_Task().execute("m "+MainActivity.nowUsers.getMember_seq()).get();
-                        viewPager.setCurrentItem(2);
-                    }
-                }
-                else{
-                    Toast.makeText(GuideActivity.this,"잘못된 연결입니다.다시 시도 해주십시오.",Toast.LENGTH_LONG).show();
-                }
+        protected void onPostExecute(Void result) {
 
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e){//memberseq null체크
-                e.printStackTrace();
-            } catch (TimeoutException e) {
-                e.printStackTrace();
-            }
 
+            dialog.dismiss();
+            super.onPostExecute(result);
 
-        } else {
-            Log.d(TAG, "onActivityResult: REQUEST_ACT가 아님.");
         }
     }
+
+    //-------------------------------------------receiver & BroadcastReceiver
 
     //wifi 초기화 및 검색 start
     public void searchStartWifi(){
-      //WifiManager 초기화
-            wm = (WifiManager) getSystemService(WIFI_SERVICE);
-           boolean checkWifi = wm.isWifiEnabled();
-            Log.d("-진우-", "checkWifi : "+checkWifi);
-            if(!checkWifi){
-                wm.setWifiEnabled(true);
-            }
-            //검색 하기
-            wm.startScan();
-            IntentFilter filter = new IntentFilter();
-            //검색 결과로 리시버를 등록하고 SCAN_RESULTS_AVAILABLE_ACTION 네임으로 설정한다.
-            filter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-            registerReceiver(wifiReceiver, filter);
-  }
+        //WifiManager 초기화
+        wm = (WifiManager) getSystemService(WIFI_SERVICE);
+        boolean checkWifi = wm.isWifiEnabled();
+        Log.d("-진우-", "checkWifi : "+checkWifi);
+        if(!checkWifi){
+            wm.setWifiEnabled(true);
+        }
+        //검색 하기
+        wm.startScan();
+        IntentFilter filter = new IntentFilter();
+        //검색 결과로 리시버를 등록하고 SCAN_RESULTS_AVAILABLE_ACTION 네임으로 설정한다.
+        filter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+        registerReceiver(wifiReceiver, filter);
+    }
+    private BroadcastReceiver deviceConnect = new BroadcastReceiver() {
 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+        }
+    };
     //wifi 검색 완료 receiver
     private BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
         @Override
@@ -302,7 +277,6 @@ public class GuideActivity extends FragmentActivity {
                             }
                             //isWifiConnect = true;// 연결유무
                         }
-
                     }
                     unregisterReceiver(wifiReceiver);    //리시버 해제
                 }
@@ -317,11 +291,28 @@ public class GuideActivity extends FragmentActivity {
                     size =2;
                 }
                 switch (size){
+                    case 1:// 기기가 한대일땐 자동 연결
+                        Wifi wifi=new Wifi(wifiList.get(0).getSsid(),wifiList.get(0).getCapabilities(),wifiList.get(0).getSignal());
+                        device= wifi;
+                        Log.d("-대경-", "바로연결");
+                        try {
+                            boolean isDevice_connected;
+                            //page2 단수 일때 기기 연결
+                            isDevice_connected=new guide_device_connect_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,device.getSsid(),"phyctogram",device.getCapabilities()).get();
+
+                            if(isDevice_connected){
+                                E_response=new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"w").get();
+                            }
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
+
+                        break;
                     case 2://기기 복수일시 리스트로 선택
                         Collections.sort(wifiList, new Signal_AscCompare());
-                        //
-                        // guide_lv = (ListView)findViewById(R.id.guide_lv);
-
                         wifiListAdapter = new WifiListAdapter(getApplication(), wifiList, R.layout.list_wifi);
                         guide_lv.setAdapter(wifiListAdapter);
                         Log.d(TAG, "onReceive: "+wifiList);
@@ -333,16 +324,11 @@ public class GuideActivity extends FragmentActivity {
                                 Wifi wifi = (Wifi) wifiListAdapter.getItem(position);
                                 try {
                                     boolean isDevice_connected;
-                                    isDevice_connected=new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get();
+                                    //page2 복수 일때 기기 연결
+                                    isDevice_connected=new guide_device_connect_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,wifi.getSsid(),"phyctogram",device.getCapabilities()).get();
 
-                                    if(!isDevice_connected){
-
-                                            Log.d("-대경-", "복수 일 때,재 연결중..."+isDevice_connected);
-                                            isDevice_connected=new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get();
-                                    }
                                     if(isDevice_connected){
-
-                                        E_response=new guide_TCP_Client_Task().execute("w").get();
+                                        E_response=new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"w").get();
                                     }
 
                                 } catch (InterruptedException e) {
@@ -353,187 +339,29 @@ public class GuideActivity extends FragmentActivity {
                             }
                         });
                         break;
-                    case 1:// 기기가 한대일땐 자동 연결
-                        Wifi wifi=new Wifi(wifiList.get(0).getSsid(),wifiList.get(0).getCapabilities(),wifiList.get(0).getSignal());
-                        device= wifi;
-                        Log.d("-대경-", "바로연결");
-                        try {
-                            boolean isDevice_connected;
-                            isDevice_connected=new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get(30, TimeUnit.SECONDS);
-                            Log.d(TAG, "~?");
-                            /*if(!isDevice_connected){
-                                Log.d("-대경-", "단수일 때,재 연결중..."+isDevice_connected);
-                                isDevice_connected=new guide_device_connect_Task().execute(device.getSsid(),"phyctogram",device.getCapabilities()).get(3, TimeUnit.SECONDS);
-                                Log.d(TAG, "~?");
-                            }*/
-                            if(isDevice_connected){
-
-
-                                E_response=new guide_TCP_Client_Task().execute("w").get();
-                            }
-
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (TimeoutException e) {
-                            e.printStackTrace();
-                        }
-
-                        break;
                     default:
                         Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
-                         wifiList.clear();
+                        wifiList.clear();
 
                         guide_lv.setVisibility(View.GONE);
                         guide_lvEmpty.setVisibility(View.VISIBLE);
-                         break;
+                        break;
+
+
                 }
 
             }
         }
     };
 
-    /**
-     *  오름차순
-     * @author falbb
-     *
-     */
-    static class Signal_AscCompare implements Comparator<Wifi> {
-        @Override
-        public int compare(Wifi arg0,Wifi arg1) {
-            return Integer.valueOf(arg0.getSignal()) > Integer.valueOf(arg1.getSignal())? -1 : Integer.valueOf(arg0.getSignal()) <Integer.valueOf(arg1.getSignal())  ? 1:0;
 
-        }
-
-    }
-
-    //wifi List view 셋팅
-    public void search_Wifi() {
-
-        //w 명령어
-        if(E_response.get(0).equals("w")&& E_response!=null){
-            wifiList.clear();
-            String ssid;
-            String singal;
-            String encription;
-            String temp;
-            for (int i = 2; i < E_response.size(); i++) {// i=2이유는 0번방에는 command, 1번방에는 기기에서 보내준 wifi 리스트 갯수, 2번방부터 리스트정보들
-                // 0) INVENTURE	Signal: -66 dBm	Encription: WPA2
-                //ssid=E_response.get(i).substring(E_response.get(i).indexOf(") "),E_response.get(i).indexOf("\tSignal:"));
-                temp=E_response.get(i);
-                if(temp.contains(") ")&&temp.contains("Signal: ")&&temp.contains("Encription:")){//BufferedReader로 읽을때 인코딩
-                    ssid=temp.substring(temp.indexOf(") ")+2,temp.indexOf("\tSignal:")).replace("�","");
-                    singal = temp.substring(temp.indexOf("Signal: ")+8,temp.indexOf(" dBm"));
-                    encription = temp.substring(temp.indexOf("Encription: ")+12,temp.length());
-                    wifiList.add(new Wifi(ssid,encription,singal)); //wifi 정보를 걸러내어 list에 입력
-                }
-                else{
-                    continue;
-                }
-                //Log.d(TAG, "search_Wifi ssid="+ssid+",singal="+singal +",Encription="+encription);
-                temp="";
-
-            }
-            Collections.sort(wifiList, new Signal_AscCompare());
-            Log.d("-대경-", "wifiList: "+wifiList);
-        }
-
-        //wifi 리스트를 adapter를 통하여 ListView에 셋팅함
-        wifiListAdapter = new WifiListAdapter(this, wifiList, R.layout.list_wifi);
-        guide_lv.setAdapter(wifiListAdapter);
-
-        //ListView Item 클릭 시
-        guide_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //선택된 wifi 정보를 뽑음
-                Wifi wifi = (Wifi) wifiListAdapter.getItem(position);
-                String capabilities = wifi.getCapabilities(); //보안 방식을 가져옴
-                //보안이 걸려있다면 비밀번호 입력 팝업을 오픈
-                if(capabilities.contains("WEP")||capabilities.contains("WPA")||capabilities.contains("WPA2")){
-                    openPopup(wifi.getSsid(), wifi.getCapabilities());
-                }else{
-                    //보안이 없다면 바로 연결
-                    Log.d(TAG, "onItemClick: wifi.getSsid() : "+ wifi.getSsid());
-                    new guide_TCP_Client_Task().execute("s "+wifi.getSsid());
-                }
-            }
-        });
-
-
-
-    }
-
-    //보안 wifi 일 경우 팝업 오픈하여 비밀번호 입력하게 함
-    public void openPopup(String ssid, String capabilities){
-        //현재 activity를 팝업에 셋팅함
-        //PopUpActivity.activity = this;
-
-        //팝업 오픈
-        Intent i = new Intent(getApplicationContext(), PopUpActivity.class);
-        i.putExtra("ssid", ssid);
-        i.putExtra("capabilities", capabilities);
-        //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivityForResult(i,REQUEST_ACT);
-    }
-
-    //리스트뷰
-    class listview_AsyncTask extends AsyncTask<Void, Void, Void> {
-
-        private ProgressDialog dialog = new ProgressDialog(GuideActivity.this);
-
-
-        //Background 작업 시작전에 UI 작업을 진행 한다.
-        @Override
-        protected void onPreExecute() {
-
-            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getApplicationContext().getString(R.string.commonActivity_wait)+"\n"+
-                    getApplicationContext().getString(R.string.equipmentActivity_searching));
-            dialog.setCancelable(false);
-            dialog.show();
-            //프레그먼트가 먼저 만들어지고 리스너를 부착 해야함.
-            btn_searchWifi = page_2.btn_searchWifi;
-            btn_searchWifi.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new listview_AsyncTask().execute();
-                }
-            });
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-
-            searchStartWifi();
-            try {
-                Log.d(TAG, "Thread sleep 기기검색 시작 ");
-                Thread.sleep(2000);
-                Log.d(TAG, "Thread sleep 기기검색 끝");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        protected void onPostExecute(Void result) {
-
-
-
-            dialog.dismiss();
-            super.onPostExecute(result);
-
-        }
-    }
-
+    //----------------------------------------------Task----------------------------------------------------------------
 
     //기기 연결 Task
     private  class guide_device_connect_Task extends  AsyncTask <Object,Void,Boolean>{
 
-        private ProgressDialog dialog = new ProgressDialog(GuideActivity.this);
+        private ProgressDialog dialog = mDialog;
+
 
         //Background 작업 시작전에 UI 작업을 진행 한다.
         @Override
@@ -596,13 +424,8 @@ public class GuideActivity extends FragmentActivity {
                 return true;
             }
 
-            try {
-                Log.d(TAG, "Thread sleep 기기연결 시작 ");
-                Thread.sleep(3000);
-                Log.d(TAG, "Thread sleep 기기연결 끝 ");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+
             return connection;
         }
         @Override
@@ -635,7 +458,7 @@ public class GuideActivity extends FragmentActivity {
         private BufferedWriter networkWriter;
         private ArrayList<String> response ;
 
-        private ProgressDialog dialog = new ProgressDialog(GuideActivity.this);
+        private ProgressDialog dialog =mDialog;
 
 
         //Background 작업 시작전에 UI 작업을 진행 한다.
@@ -742,6 +565,166 @@ public class GuideActivity extends FragmentActivity {
             System.out.println("데이터를 송신 하였습니다.");
         }
 
+    }
+
+
+    //-------------------------------------------utill------------------------------------------------------------
+
+    //wifi List view 셋팅
+    public void search_Wifi() {
+
+        //w 명령어
+        if(E_response.get(0).equals("w")&& E_response!=null){
+            wifiList.clear();
+            String ssid;
+            String singal;
+            String encription;
+            String temp;
+            for (int i = 2; i < E_response.size(); i++) {// i=2이유는 0번방에는 command, 1번방에는 기기에서 보내준 wifi 리스트 갯수, 2번방부터 리스트정보들
+                // 0) INVENTURE	Signal: -66 dBm	Encription: WPA2
+                //ssid=E_response.get(i).substring(E_response.get(i).indexOf(") "),E_response.get(i).indexOf("\tSignal:"));
+                temp=E_response.get(i);
+                if(temp.contains(") ")&&temp.contains("Signal: ")&&temp.contains("Encription:")){//BufferedReader로 읽을때 인코딩
+                    ssid=temp.substring(temp.indexOf(") ")+2,temp.indexOf("\tSignal:")).replace("�","");
+                    singal = temp.substring(temp.indexOf("Signal: ")+8,temp.indexOf(" dBm"));
+                    encription = temp.substring(temp.indexOf("Encription: ")+12,temp.length());
+                    wifiList.add(new Wifi(ssid,encription,singal)); //wifi 정보를 걸러내어 list에 입력
+                }
+                else{
+                    continue;
+                }
+                //Log.d(TAG, "search_Wifi ssid="+ssid+",singal="+singal +",Encription="+encription);
+                temp="";
+
+            }
+            Collections.sort(wifiList, new Signal_AscCompare());
+            Log.d("-대경-", "wifiList: "+wifiList);
+        }
+
+        //wifi 리스트를 adapter를 통하여 ListView에 셋팅함
+        wifiListAdapter = new WifiListAdapter(this, wifiList, R.layout.list_wifi);
+        guide_lv.setAdapter(wifiListAdapter);
+
+        //ListView Item 클릭 시
+        guide_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //선택된 wifi 정보를 뽑음
+                Wifi wifi = (Wifi) wifiListAdapter.getItem(position);
+                String capabilities = wifi.getCapabilities(); //보안 방식을 가져옴
+                //보안이 걸려있다면 비밀번호 입력 팝업을 오픈
+                if(capabilities.contains("WEP")||capabilities.contains("WPA")||capabilities.contains("WPA2")){
+                    openPopup(wifi.getSsid(), wifi.getCapabilities());
+                }else{
+                    //보안이 없다면 바로 연결
+                    Log.d(TAG, "onItemClick: wifi.getSsid() : "+ wifi.getSsid());
+                    new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"s "+wifi.getSsid());
+                }
+            }
+        });
+    }
+
+    //신호세기 재정렬
+    static class Signal_AscCompare implements Comparator<Wifi> {
+        @Override
+        public int compare(Wifi arg0,Wifi arg1) {
+            return Integer.valueOf(arg0.getSignal()) > Integer.valueOf(arg1.getSignal())? -1 : Integer.valueOf(arg0.getSignal()) <Integer.valueOf(arg1.getSignal())  ? 1:0;
+        }
+    }
+
+    //보안 wifi 일 경우 팝업 오픈하여 비밀번호 입력하게 함
+    public void openPopup(String ssid, String capabilities){
+        //팝업 오픈
+        Intent i = new Intent(getApplicationContext(), PopUpActivity.class);
+        i.putExtra("ssid", ssid);
+        i.putExtra("capabilities", capabilities);
+        startActivityForResult(i,REQUEST_ACT);
+    }
+
+
+    //------------------------------------------- etc ----------------------------------------------------------
+    private class adapter extends FragmentPagerAdapter {
+        public adapter(FragmentManager fm) {
+            super(fm);
+
+        }
+        @Override
+        public Fragment getItem(int position) {
+            if(position<0 || MAX_PAGE<=position)
+                return null;
+            switch (position){
+                case 0:
+                    cur_fragment=new page_1();
+                    break;
+                case 1:
+                    cur_fragment=new page_2();
+                    break;
+                case 2:
+                    cur_fragment=new page_3();
+                    break;
+                case 3:
+                    cur_fragment=new page_4();
+                    break;
+            }
+            return cur_fragment;
+        }
+        @Override
+        public int getCount() {
+            return MAX_PAGE;
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: 실행");
+
+        if (resultCode != BaseActivity.RESULT_OK) {
+            Log.d(TAG, "onActivityResult: 결과가 성공이 아님.");
+            return;
+        }
+
+        if (requestCode == GuideActivity.REQUEST_ACT) {
+            //popupActiviy에서 가져온 ap 정보
+            String p_ssid = data.getStringExtra("p_ssid");
+            String p_password = data.getStringExtra("p_password");
+            String p_capabilities = data.getStringExtra("p_capabilities");
+            Log.d(TAG, "onActivityResult: 결과:" +p_ssid+","+p_password+","+p_capabilities);
+            try {
+                boolean isDevice_connected;
+                isDevice_connected=new guide_device_connect_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,device.getSsid(),"phyctogram",device.getCapabilities()).get();
+
+                if(isDevice_connected){
+                    Log.d(TAG, "MainActivity.nowUsers.getMember_seq() : " +MainActivity.member.getMember_seq());
+                    new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"m "+MainActivity.member.getMember_seq()).get();
+                    E_response=new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"s "+p_ssid+" "+p_password).get();
+
+                    if(E_response.get(1).equals("OK")){
+                        //기기에 ap정보 보낸후 member값 보냄
+
+                        viewPager.setCurrentItem(2);
+                    }  else{
+                        Toast.makeText(GuideActivity.this,"잘못된 연결입니다.다시 시도 해주십시오.",Toast.LENGTH_LONG).show();
+                    }
+                }
+                else{
+                    Toast.makeText(GuideActivity.this,"잘못된 연결입니다.다시 시도 해주십시오.",Toast.LENGTH_LONG).show();
+                }
+
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e){//memberseq null체크
+                e.printStackTrace();
+            }
+
+
+        } else {
+            Log.d(TAG, "onActivityResult: REQUEST_ACT가 아님.");
+        }
     }
 
 }
