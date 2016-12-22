@@ -105,6 +105,28 @@
         android:text="@string/includeEquipment_showGuide"
         android:layout_marginTop="7dp"
         android:textColor="#ffffff" />
+    <Button
+        android:id="@+id/wifi_setting"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/btn_border_radius"
+        android:text="@string/includeEquipment_wifi_setting"
+        android:layout_marginTop="7dp"
+        android:textColor="#ffffff" />
+    <Button
+        android:id="@+id/req_setting"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/btn_border_radius"
+        android:text="@string/includeEquipment_req_setting"
+        android:layout_marginTop="7dp"
+        android:textColor="#ffffff" />
 
     <RelativeLayout
         android:layout_width="wrap_content"

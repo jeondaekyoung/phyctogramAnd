@@ -63,7 +63,7 @@ public class EquipmentActivity extends BaseActivity {
     private ImageButton btn_left;
     private CircularImageView img_profile;      //슬라이드 내 이미지
     private TextView tv_member_name;            //슬라이드 내 이름
-    private Button btn_connWifi,guide_show;
+    private Button btn_connWifi,guide_show,wifi_setting,req_setting;
 
 
     private ImageView img_btn;
@@ -115,6 +115,23 @@ public class EquipmentActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        wifi_setting =(Button) findViewById(R.id.wifi_setting);
+        wifi_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),Guide_wifiActivity.class);
+                startActivity(intent);
+            }
+        });
+        req_setting =(Button) findViewById(R.id.req_setting);
+        req_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),Guide_reqActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         //슬라이드 내 이름, 셋팅
         tv_member_name = (TextView) findViewById(R.id.tv_member_name);

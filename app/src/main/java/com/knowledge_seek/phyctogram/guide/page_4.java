@@ -16,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.knowledge_seek.phyctogram.GuideActivity;
+import com.knowledge_seek.phyctogram.Guide_reqActivity;
+import com.knowledge_seek.phyctogram.Guide_wifiActivity;
 import com.knowledge_seek.phyctogram.R;
 import com.knowledge_seek.phyctogram.UsersAddActivity;
 import com.knowledge_seek.phyctogram.phyctogram.SaveSharedPreference;
@@ -49,7 +51,20 @@ public class page_4 extends android.support.v4.app.Fragment {
         guide_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GuideActivity.dialog_close.show();
+                String className =getActivity().getClass().getSimpleName();
+                switch (className){
+                    case "GuideActivity":
+                        GuideActivity.dialog_close.show();
+                        break;
+                    case "Guide_reqActivity":
+                        Guide_reqActivity.dialog_close.show();
+                        break;
+                    case "Guide_wifiActivity":
+                        Guide_wifiActivity.dialog_close.show();
+                        break;
+
+                }
+
             }
         });
 

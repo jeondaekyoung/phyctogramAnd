@@ -198,6 +198,9 @@
     <string name="includeEquipment_serialNumber">일련번호</string>
     <string name="includeEquipment_swVersion">소프트웨어 버전</string>
     <string name="includeEquipment_showGuide">가이드 보기</string>
+    <string name="includeEquipment_req_setting">높이값 설정</string>
+    <string name="includeEquipment_wifi_setting">공유기 설정</string>
+
 
 
     <string name="includeFileUpload_myCharacter">MY 캐릭터</string>
