@@ -69,10 +69,6 @@ public class page_3 extends android.support.v4.app.Fragment {
         btn_measure = (Button) relativeLayout.findViewById(R.id.btn_measure);
         btn_measure.setVisibility(View.VISIBLE);
 
-
-
-
-
         return relativeLayout;
     }
 }
