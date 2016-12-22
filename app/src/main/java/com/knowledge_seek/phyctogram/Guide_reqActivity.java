@@ -22,17 +22,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.knowledge_seek.phyctogram.domain.Wifi;
 import com.knowledge_seek.phyctogram.guide.page_1;
-import com.knowledge_seek.phyctogram.guide.page_2;
 import com.knowledge_seek.phyctogram.guide.page_3;
+import com.knowledge_seek.phyctogram.guide.page_4;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.knowledge_seek.phyctogram.listAdapter.WifiListAdapter;
 import com.knowledge_seek.phyctogram.phyctogram.SaveSharedPreference;
@@ -58,7 +55,7 @@ public class Guide_reqActivity extends FragmentActivity {
     final String TAG = Guide_reqActivity.class.getName();
 
     //프레그먼트
-    int MAX_PAGE=2;
+    int MAX_PAGE=3;
     Fragment cur_fragment=new Fragment();
     public static ViewPager viewPager;
 
@@ -73,9 +70,6 @@ public class Guide_reqActivity extends FragmentActivity {
     private List apList;
     private WifiListAdapter wifiListAdapter;
     private List<Wifi> wifiList = new ArrayList<>();
-    private ListView guide_lv;
-    private TextView guide_lvEmpty;
-    private Button btn_searchWifi;
     private TextView guide_ref;
     private EditText guide_adj;
     public static final int REQUEST_ACT = 112;
@@ -120,61 +114,60 @@ public class Guide_reqActivity extends FragmentActivity {
                   public void onPageSelected(int position) {
 
                       if(position==1){
-                          //page2 기기 검색
-                            new ListView_AsyncTask().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
-                        }
-                      if(position==2){
+
+                          new ListView_AsyncTask().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
                           page_3.btn_measure.setOnClickListener(new View.OnClickListener() {
                               @Override
                               public void onClick(View v) {
                                   Log.d("-대경" ,"onClick: "+"page3_btn_measure - 현재 연결된 ap:"+wm.getConnectionInfo().getSSID());
-                                if(wm.getConnectionInfo().getSSID().contains("phyctogram_")){
-                                    try {
-                                        final View dialogView= getLayoutInflater().inflate(R.layout.guide3_dialogview, null);
-                                        guide_ref=(TextView)dialogView.findViewById(R.id.guide_ref);
-                                        guide_adj = (EditText)dialogView.findViewById(R.id.guide_adj);
+                                  if(wm.getConnectionInfo().getSSID().contains("phyctogram_")){
+                                      try {
+                                          final View dialogView= getLayoutInflater().inflate(R.layout.guide3_dialogview, null);
+                                          guide_ref=(TextView)dialogView.findViewById(R.id.guide_ref);
+                                          guide_adj = (EditText)dialogView.findViewById(R.id.guide_adj);
 
-                                        dialog_page3 = new AlertDialog.Builder(Guide_reqActivity.this).setView(dialogView).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                //page3 레퍼런스값 보내기
+                                          dialog_page3 = new AlertDialog.Builder(Guide_reqActivity.this).setView(dialogView).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
+                                              @Override
+                                              public void onClick(DialogInterface dialog, int which) {
+                                                  //page3 레퍼런스값 보내기
 
-                                                if(guide_adj.getText().toString().length()!=0){//사용자가 젠 값이 있을 경우
-                                                    String adj=guide_adj.getText().toString();
-                                                    new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a " +adj+" 0"+" 0.3");
-                                                }
-                                                else{//생략시
-                                                    String ref=guide_ref.getText().toString();
-                                                    new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a " +ref+" 0"+" 0.3");
-                                                }
+                                                  if(guide_adj.getText().toString().length()!=0){//사용자가 젠 값이 있을 경우
+                                                      String adj=guide_adj.getText().toString();
+                                                      new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a " +adj+" 0"+" 0.3");
+                                                  }
+                                                  else{//생략시
+                                                      String ref=guide_ref.getText().toString();
+                                                      new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a " +ref+" 0"+" 0.3");
+                                                  }
 
-                                                new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"e");
-                                                //dialog.dismiss();
-                                                viewPager.setCurrentItem(3);
-                                            }
-                                        });
-                                        //page3 시작시 초기화 해주기
-                                        new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a 0 0 0.3").get();
-                                        E_response= new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"r").get();
-                                        double ref=Math.abs(Double.valueOf(E_response.get(1)));
+                                                  new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"e");
+                                                  //dialog.dismiss();
+                                                  viewPager.setCurrentItem(2);
+                                              }
+                                          });
+                                          //버튼 눌렀을시 초기화 해주기
+                                          new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a 0 0 0.3").get();
+                                          E_response= new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"r").get();
+                                          double ref=Math.abs(Double.valueOf(E_response.get(1)));
 
-                                        guide_ref.setText(String.valueOf(ref));
-                                        dialog_page3.show();
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    } catch (ExecutionException e) {
-                                        e.printStackTrace();
-                                    } catch (NullPointerException e){
-                                        e.printStackTrace();
-                                    }
-                                }
+                                          guide_ref.setText(String.valueOf(ref));
+                                          dialog_page3.show();
+                                      } catch (InterruptedException e) {
+                                          e.printStackTrace();
+                                      } catch (ExecutionException e) {
+                                          e.printStackTrace();
+                                      } catch (NullPointerException e){
+                                          e.printStackTrace();
+                                      }
+                                  }
                                   else{
-                                    Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
-                                }
+                                      Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
+                                  }
                               }//onclick
 
                           });
-                      }
+                        }
+
                   }
                   @Override
                   public void onPageScrollStateChanged(int state) {}
@@ -202,14 +195,7 @@ public class Guide_reqActivity extends FragmentActivity {
                         getApplicationContext().getString(R.string.equipmentActivity_searching));
                 dialog.setCancelable(false);
                 dialog.show();
-                //프레그먼트가 먼저 만들어지고 리스너를 부착 해야함.
-                btn_searchWifi = page_2.btn_searchWifi;
-                btn_searchWifi.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        new Guide_reqActivity.ListView_AsyncTask().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
-                    }
-                });
+
                 super.onPreExecute();
 
             }
@@ -275,12 +261,7 @@ public class Guide_reqActivity extends FragmentActivity {
                     }
                     unregisterReceiver(wifiReceiver);    //리시버 해제
                 }
-                guide_lv = page_2.guide_lv;
-                guide_lvEmpty = page_2.guide_lvEmpty;
-                if(guide_lv.getVisibility()==View.GONE){//재검색일때 GONE을 INVISIBLE로 변경
-                    guide_lv.setVisibility(View.VISIBLE);
-                    guide_lvEmpty.setVisibility(View.GONE);
-                }
+
                 int size = wifiList.size();
                 if(size>=2){
                     size =2;
@@ -298,26 +279,15 @@ public class Guide_reqActivity extends FragmentActivity {
                     case 2://기기 복수일시 리스트로 선택
                         Collections.sort(wifiList, new Signal_AscCompare());
                         wifiListAdapter = new WifiListAdapter(getApplication(), wifiList, R.layout.list_wifi);
-                        guide_lv.setAdapter(wifiListAdapter);
-                        Log.d(TAG, "onReceive: "+wifiList);
-                        //ListView Item 클릭 시
-                        guide_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                //선택된 wifi 정보를 뽑음
-                                Wifi wifi = (Wifi) wifiListAdapter.getItem(position);
-                                device = wifi;
-                                    new guide_device_connect_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,wifi.getSsid(),"phyctogram",wifi.getCapabilities());
-                            }
-                        });
+                        // 다이얼로그로 띄우기 구현 예정
+
                         break;
                     default:
                         Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
                         mDialog.dismiss();
                         wifiList.clear();
 
-                        guide_lv.setVisibility(View.GONE);
-                        guide_lvEmpty.setVisibility(View.VISIBLE);
+
                         break;
 
 
@@ -404,15 +374,12 @@ public class Guide_reqActivity extends FragmentActivity {
             if(!response){
                 dialog.dismiss();
                 Toast.makeText(Guide_reqActivity.this,R.string.includeGuide_tcpConectFail, Toast.LENGTH_SHORT).show();
-                return;
+
             }
             else{
-                ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo mWifi = connManager.getActiveNetworkInfo();
+                dialog.dismiss();
                 Toast.makeText(Guide_reqActivity.this,R.string.includeGuide_tcpConectSuccess, Toast.LENGTH_SHORT).show();
-                if(wm.getConnectionInfo().getSSID().contains("phyctogram_")&&mWifi.isConnected()){
-                    new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"w");
-                }
+
             }
 
             super.onPostExecute(response);
@@ -546,9 +513,7 @@ public class Guide_reqActivity extends FragmentActivity {
             }
             if(response!=null) {
                 E_response=response;
-                if (response.get(0).contains("w")) {
-                    search_Wifi();
-                } else if (response.get(0).contains("r")) {
+                 if (response.get(0).contains("r")) {
                      Log.d("-대경-","명령어: "+response.get(0)+"response 1 Line:"+response.get(1));
                 }
             }
@@ -568,59 +533,7 @@ public class Guide_reqActivity extends FragmentActivity {
 
     //-------------------------------------------utill------------------------------------------------------------
 
-    //wifi List view 셋팅
-    public void search_Wifi() {
 
-        //w 명령어
-        if(E_response.get(0).equals("w")&& E_response!=null){
-            wifiList.clear();
-            String ssid;
-            String singal;
-            String encription;
-            String temp;
-            for (int i = 2; i < E_response.size(); i++) {// i=2이유는 0번방에는 command, 1번방에는 기기에서 보내준 wifi 리스트 갯수, 2번방부터 리스트정보들
-                // 0) INVENTURE	Signal: -66 dBm	Encription: WPA2
-                //ssid=E_response.get(i).substring(E_response.get(i).indexOf(") "),E_response.get(i).indexOf("\tSignal:"));
-                temp=E_response.get(i);
-                if(temp.contains(") ")&&temp.contains("Signal: ")&&temp.contains("Encription:")){//BufferedReader로 읽을때 인코딩
-                    ssid=temp.substring(temp.indexOf(") ")+2,temp.indexOf("\tSignal:")).replace("�","");
-                    singal = temp.substring(temp.indexOf("Signal: ")+8,temp.indexOf(" dBm"));
-                    encription = temp.substring(temp.indexOf("Encription: ")+12,temp.length());
-                    wifiList.add(new Wifi(ssid,encription,singal)); //wifi 정보를 걸러내어 list에 입력
-                }
-                else{
-                    continue;
-                }
-                //Log.d(TAG, "search_Wifi ssid="+ssid+",singal="+singal +",Encription="+encription);
-                temp="";
-
-            }
-            Collections.sort(wifiList, new Signal_AscCompare());
-            Log.d("-대경-", "wifiList: "+wifiList);
-        }
-
-        //wifi 리스트를 adapter를 통하여 ListView에 셋팅함
-        wifiListAdapter = new WifiListAdapter(this, wifiList, R.layout.list_wifi);
-        guide_lv.setAdapter(wifiListAdapter);
-
-        //ListView Item 클릭 시
-        guide_lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //선택된 wifi 정보를 뽑음
-                Wifi wifi = (Wifi) wifiListAdapter.getItem(position);
-                String capabilities = wifi.getCapabilities(); //보안 방식을 가져옴
-                //보안이 걸려있다면 비밀번호 입력 팝업을 오픈
-                if(capabilities.contains("WEP")||capabilities.contains("WPA")||capabilities.contains("WPA2")){
-                    openPopup(wifi.getSsid(), wifi.getCapabilities());
-                }else{
-                    //보안이 없다면 바로 연결
-                    Log.d(TAG, "onItemClick: wifi.getSsid() : "+ wifi.getSsid());
-                    new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"s "+wifi.getSsid());
-                }
-            }
-        });
-    }
 
     //신호세기 재정렬
     static class Signal_AscCompare implements Comparator<Wifi> {
@@ -659,6 +572,9 @@ public class Guide_reqActivity extends FragmentActivity {
 
                 case 1:
                     cur_fragment=new page_3();
+                    break;
+                case 2:
+                    cur_fragment=new page_4();
                     break;
 
             }

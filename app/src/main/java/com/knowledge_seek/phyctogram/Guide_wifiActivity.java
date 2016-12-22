@@ -32,7 +32,7 @@ import android.widget.Toast;
 import com.knowledge_seek.phyctogram.domain.Wifi;
 import com.knowledge_seek.phyctogram.guide.page_1;
 import com.knowledge_seek.phyctogram.guide.page_2;
-import com.knowledge_seek.phyctogram.guide.page_3;
+import com.knowledge_seek.phyctogram.guide.page_4;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.knowledge_seek.phyctogram.listAdapter.WifiListAdapter;
 import com.knowledge_seek.phyctogram.phyctogram.SaveSharedPreference;
@@ -48,7 +48,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by dkfka on 2016-11-16..
@@ -123,58 +122,7 @@ public class Guide_wifiActivity extends FragmentActivity {
                           //page2 기기 검색
                             new ListView_AsyncTask().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
                         }
-                      if(position==2){
-                          page_3.btn_measure.setOnClickListener(new View.OnClickListener() {
-                              @Override
-                              public void onClick(View v) {
-                                  Log.d("-대경" ,"onClick: "+"page3_btn_measure - 현재 연결된 ap:"+wm.getConnectionInfo().getSSID());
-                                if(wm.getConnectionInfo().getSSID().contains("phyctogram_")){
-                                    try {
-                                        final View dialogView= getLayoutInflater().inflate(R.layout.guide3_dialogview, null);
-                                        guide_ref=(TextView)dialogView.findViewById(R.id.guide_ref);
-                                        guide_adj = (EditText)dialogView.findViewById(R.id.guide_adj);
 
-                                        dialog_page3 = new AlertDialog.Builder(Guide_wifiActivity.this).setView(dialogView).setPositiveButton(R.string.commonActivity_ok, new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                //page3 레퍼런스값 보내기
-
-                                                if(guide_adj.getText().toString().length()!=0){//사용자가 젠 값이 있을 경우
-                                                    String adj=guide_adj.getText().toString();
-                                                    new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a " +adj+" 0"+" 0.3");
-                                                }
-                                                else{//생략시
-                                                    String ref=guide_ref.getText().toString();
-                                                    new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a " +ref+" 0"+" 0.3");
-                                                }
-
-                                                new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"e");
-                                                //dialog.dismiss();
-                                                viewPager.setCurrentItem(3);
-                                            }
-                                        });
-                                        //page3 시작시 초기화 해주기
-                                        new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a 0 0 0.3").get();
-                                        E_response= new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"r").get();
-                                        double ref=Math.abs(Double.valueOf(E_response.get(1)));
-
-                                        guide_ref.setText(String.valueOf(ref));
-                                        dialog_page3.show();
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    } catch (ExecutionException e) {
-                                        e.printStackTrace();
-                                    } catch (NullPointerException e){
-                                        e.printStackTrace();
-                                    }
-                                }
-                                  else{
-                                    Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
-                                }
-                              }//onclick
-
-                          });
-                      }
                   }
                   @Override
                   public void onPageScrollStateChanged(int state) {}
@@ -634,6 +582,7 @@ public class Guide_wifiActivity extends FragmentActivity {
     public void openPopup(String ssid, String capabilities){
         //팝업 오픈
         Intent i = new Intent(getApplicationContext(), PopUpActivity.class);
+        i.putExtra("className",Guide_wifiActivity.class.getSimpleName());
         i.putExtra("ssid", ssid);
         i.putExtra("capabilities", capabilities);
         i.putExtra("device_ssid",device.getSsid());
@@ -660,7 +609,7 @@ public class Guide_wifiActivity extends FragmentActivity {
                     cur_fragment=new page_2();
                     break;
                 case 2:
-                    cur_fragment=new page_3();
+                    cur_fragment=new page_4();
                     break;
 
             }

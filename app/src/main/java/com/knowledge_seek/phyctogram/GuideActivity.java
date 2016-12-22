@@ -154,7 +154,7 @@ public class GuideActivity extends FragmentActivity {
                                                 viewPager.setCurrentItem(3);
                                             }
                                         });
-                                        //page3 시작시 초기화 해주기
+                                        //버튼 눌렀을시 초기화 해주기
                                         new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"a 0 0 0.3").get();
                                         E_response= new guide_TCP_Client_Task().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR,"r").get();
                                         double ref=Math.abs(Double.valueOf(E_response.get(1)));
@@ -635,6 +635,7 @@ public class GuideActivity extends FragmentActivity {
     public void openPopup(String ssid, String capabilities){
         //팝업 오픈
         Intent i = new Intent(getApplicationContext(), PopUpActivity.class);
+        i.putExtra("className",GuideActivity.class.getSimpleName());
         i.putExtra("ssid", ssid);
         i.putExtra("capabilities", capabilities);
         i.putExtra("device_ssid",device.getSsid());

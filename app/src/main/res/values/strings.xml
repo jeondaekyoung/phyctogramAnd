@@ -219,6 +219,7 @@
     <string name="includeGuide_page3Message">측정값이 정확한지 줄자로 체크해보세요.\n생략시 측정된 값으로 적용됩니다.</string>
     <string name="includeGuide_page3etHint">줄자로 잰 측정값</string>
     <string name="includeGuide_page4tvTitle">모든 준비과정이 완료되었습니다.\n아이를 등록하세요!</string>
+    <string name="includeGuide_page4btn">시작하기</string>
 
     <string name="includeGuide_tcpConectSuccess"> 기기와 연결 되었습니다. </string>
     <string name="includeGuide_tcpConectFail"> 기기와 연결이 비정상적으로 종료 되었습니다.\n다시 시도해주세요.</string>

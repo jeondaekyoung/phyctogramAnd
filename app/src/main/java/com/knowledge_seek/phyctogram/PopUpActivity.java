@@ -74,6 +74,7 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 		device_ssid	=getIntent().getStringExtra("device_ssid");
 		device_capabilities = getIntent().getStringExtra("device_capabilities");
 
+
 		tv_ssid = (TextView) findViewById(R.id.tv_ssid);
 		edit_password = (EditText) findViewById(R.id.edit_password);
 		tv_ssid.setText(ssid);
@@ -307,7 +308,15 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 					dialog.dismiss();
 					if(response.get(1).equals("OK")&&response.get(2).equals("OK")){
 						dialog.dismiss();
-						GuideActivity.viewPager.setCurrentItem(2);
+						String className= getIntent().getStringExtra("className");
+						Log.d(TAG, "-대경- className: "+className);
+						switch (className){
+							case "GuideActivity":
+								GuideActivity.viewPager.setCurrentItem(2);
+							case "Guide_wifiActivity":
+								Guide_wifiActivity.viewPager.setCurrentItem(2);
+						}
+
 						finish();
 					}
 					else{

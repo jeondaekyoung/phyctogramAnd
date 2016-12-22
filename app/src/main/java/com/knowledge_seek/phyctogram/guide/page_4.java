@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.knowledge_seek.phyctogram.GuideActivity;
 import com.knowledge_seek.phyctogram.Guide_reqActivity;
 import com.knowledge_seek.phyctogram.Guide_wifiActivity;
+import com.knowledge_seek.phyctogram.MainActivity;
 import com.knowledge_seek.phyctogram.R;
 import com.knowledge_seek.phyctogram.UsersAddActivity;
 import com.knowledge_seek.phyctogram.phyctogram.SaveSharedPreference;
@@ -34,7 +35,7 @@ public class page_4 extends android.support.v4.app.Fragment {
     TextView guide_Title_tv;
     ListView guide_lv;
     Button btn_searchWifi;
-
+    String className;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,11 +48,11 @@ public class page_4 extends android.support.v4.app.Fragment {
         relativeLayout =(RelativeLayout)inflater.inflate(R.layout.include_guide,container,false);
 
         guide_close =(ImageView) relativeLayout.findViewById(R.id.guide_close);
-
+        className=getActivity().getClass().getSimpleName();
         guide_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String className =getActivity().getClass().getSimpleName();
+
                 switch (className){
                     case "GuideActivity":
                         GuideActivity.dialog_close.show();
@@ -117,19 +118,28 @@ public class page_4 extends android.support.v4.app.Fragment {
 
         btn_searchWifi = (Button) relativeLayout.findViewById(R.id.btn_searchWifi);
         btn_searchWifi.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.border_radius_white));
-        btn_searchWifi.setText("시작하기");
+        btn_searchWifi.setText(R.string.includeGuide_page4btn);
         btn_searchWifi.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         btn_searchWifi.setTextColor(Color.GRAY);
         btn_searchWifi.setLayoutParams(param);
         btn_searchWifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity();
-                SaveSharedPreference.setGuideFlag(getContext(),false);
-                Intent intent=new Intent(getContext(),UsersAddActivity.class);
-                //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                getActivity().finish();
+                if(className.equals("GuideActivity")){
+                    SaveSharedPreference.setGuideFlag(getContext(),false);
+                    Intent intent=new Intent(getContext(),UsersAddActivity.class);
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    getActivity().finish();
+
+                }else{
+                    Intent intent=new Intent(getContext(),MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+
+
             }
         });
         return relativeLayout;
