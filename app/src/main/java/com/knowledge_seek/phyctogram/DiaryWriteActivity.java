@@ -241,7 +241,7 @@ public class DiaryWriteActivity extends BaseActivity {
         //DiaryWriteTask task = new DiaryWriteTask();
         //task.execute(img_profile);
 
-        Log.d("-진우-", "DiaryWriteActivity.onResume() : " + member.toString());
+        //Log.d("-진우-", "DiaryWriteActivity.onResume() : " + member.toString());
 
         Log.d("-진우-", "DiaryWriteActivity.onResume() 끝");
     }

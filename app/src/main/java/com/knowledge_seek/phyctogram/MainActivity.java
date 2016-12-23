@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity {
         Bundle bundle = this.getIntent().getExtras();
         if (bundle != null) {
             member = (Member) bundle.getSerializable("member");
-            Log.d("-진우-", "MainActivity 에서 onCreate() : " + member.toString());
+          //  Log.d("-진우-", "MainActivity 에서 onCreate() : " + member.toString());
 
             switch (member.getJoin_route()){
                 case "kakao":
@@ -365,7 +365,7 @@ public class MainActivity extends BaseActivity {
         /*sendInitMessageThread = new SendInitMessageThread(true);
         sendInitMessageThread.start();*/
 
-        Log.d("-진우-", "MainActivity 에 onResume() : " + member.toString());
+       // Log.d("-진우-", "MainActivity 에 onResume() : " + member.toString());
         Log.d("-진우-", "MainActivity.onResume() 끝");
     }
 

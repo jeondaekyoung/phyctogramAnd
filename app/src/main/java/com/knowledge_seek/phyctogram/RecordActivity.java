@@ -392,7 +392,7 @@ public class RecordActivity extends BaseActivity {
             task.execute();
         }
 
-        Log.d("-진우-", "RecordActivity 에 onResume() : " + member.toString());
+        //Log.d("-진우-", "RecordActivity 에 onResume() : " + member.toString());
 
 
         Log.d("-진우-", "MainActivity.onResume() 끝");

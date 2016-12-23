@@ -119,9 +119,10 @@ public class Guide_reqActivity extends FragmentActivity {
                           page_3.btn_measure.setOnClickListener(new View.OnClickListener() {
                               @Override
                               public void onClick(View v) {
-                                  Log.d("-대경" ,"onClick: "+"page3_btn_measure - 현재 연결된 ap:"+wm.getConnectionInfo().getSSID());
+
                                   if(wm.getConnectionInfo().getSSID().contains("phyctogram_")){
                                       try {
+                                          Log.d("-대경" ,"onClick: "+"page3_btn_measure - 현재 연결된 ap:"+wm.getConnectionInfo().getSSID());
                                           final View dialogView= getLayoutInflater().inflate(R.layout.guide3_dialogview, null);
                                           guide_ref=(TextView)dialogView.findViewById(R.id.guide_ref);
                                           guide_adj = (EditText)dialogView.findViewById(R.id.guide_adj);

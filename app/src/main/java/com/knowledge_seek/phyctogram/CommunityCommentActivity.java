@@ -139,7 +139,7 @@ public class CommunityCommentActivity extends BaseActivity {
         //CommunityCommentTask task = new CommunityCommentTask();
         //task.execute(img_profile);
 
-        Log.d("-진우-", "CommunityCommentActivity 에 onResume() : " + member.toString());
+        //Log.d("-진우-", "CommunityCommentActivity 에 onResume() : " + member.toString());
 
         Log.d("-진우-", "CommunityCommentActivity.onResume() 끝");
     }

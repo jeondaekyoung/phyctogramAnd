@@ -235,7 +235,7 @@ public class UsersDiaryActivity extends BaseActivity {
             ReUserDiaryTask task = new ReUserDiaryTask();
             task.execute();
         }
-        Log.d("-진우-", "UsersDiaryActivity.onResume() : " + member.toString());
+       // Log.d("-진우-", "UsersDiaryActivity.onResume() : " + member.toString());
 
         Log.d("-진우-", "UsersDiaryActivity.onResume() 끝");
     }

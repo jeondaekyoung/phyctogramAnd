@@ -120,7 +120,7 @@ public class NoticeViewActivity extends BaseActivity {
         lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
-        Log.d("-진우-", "NoticeViewActivity.onResume() : " + member.toString());
+     //   Log.d("-진우-", "NoticeViewActivity.onResume() : " + member.toString());
 
         Log.d("-진우-", "NoticeViewActivity.onResume() 끝");
     }

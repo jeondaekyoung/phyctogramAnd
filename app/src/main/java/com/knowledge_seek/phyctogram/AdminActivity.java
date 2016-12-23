@@ -152,7 +152,7 @@ public class AdminActivity extends BaseActivity {
         //PwmodTask task = new PwmodTask();
         //task.execute(img_profile);
 
-        Log.d("-진우-", "PwmodActivity 에서 onResume() : " + member.toString());
+        //Log.d("-진우-", "PwmodActivity 에서 onResume() : " + member.toString());
 
         Log.d("-진우-", "PwmodActivity.onResume() 끝");
     }

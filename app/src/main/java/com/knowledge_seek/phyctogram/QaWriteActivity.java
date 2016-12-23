@@ -126,7 +126,7 @@ public class QaWriteActivity extends BaseActivity {
         lv_usersList.getLayoutParams().height  = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
-        Log.d("-진우-", "QaWriteActivity 에 onResume() : " + member.toString());
+        //Log.d("-진우-", "QaWriteActivity 에 onResume() : " + member.toString());
 
         Log.d("-진우-", "QaWriteActivity.onResume() 끝");
     }

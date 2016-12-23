@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +79,7 @@ public class page_4 extends android.support.v4.app.Fragment {
 
         // 아래와 같이 해줘야 기기에 맞는 DP가 나온다.
         DisplayMetrics dm = getResources().getDisplayMetrics();
-        int size = Math.round(240 * dm.density);
+        int size = Math.round(300 * dm.density);
         RelativeLayout.LayoutParams lay = new RelativeLayout.LayoutParams(
                 size, RelativeLayout.LayoutParams.WRAP_CONTENT);
         //dp값 변경
@@ -93,6 +94,7 @@ public class page_4 extends android.support.v4.app.Fragment {
         new_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
         new_tv.setText(R.string.includeGuide_page4tvTitle);
         new_tv.setId(R.id.guide_Title_tv);
+        new_tv.setGravity(Gravity.CENTER);
         relativeLayout.addView(new_tv,lay);
 
         guide_img = (ImageView) relativeLayout.findViewById(R.id.guide_img);

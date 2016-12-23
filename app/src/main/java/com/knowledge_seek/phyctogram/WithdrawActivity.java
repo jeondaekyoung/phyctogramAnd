@@ -181,7 +181,7 @@ public class WithdrawActivity extends BaseActivity {
         //WithdrawTask task = new WithdrawTask();
         //task.execute(img_profile);
 
-        Log.d("-진우-", "WithdrawActivity 에서 onResume() : " + member.toString());
+       // Log.d("-진우-", "WithdrawActivity 에서 onResume() : " + member.toString());
 
         Log.d("-진우-", "WithdrawActivity.onResume() 끝");
     }
@@ -199,105 +199,6 @@ public class WithdrawActivity extends BaseActivity {
             return false;
         }
         return true;
-    }
-
-
-    //탈퇴페이지 초기 데이터조회(슬라이드 내 아이 목록, 계정이미지)
-    private class WithdrawTask extends AsyncTask<Object, Void, Bitmap> {
-
-        private ProgressDialog dialog = new ProgressDialog(WithdrawActivity.this);
-        private List<Users> usersTask;
-        private CircularImageView img_profileTask;
-
-        @Override
-        protected void onPreExecute() {
-            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage(getString(R.string.commonActivity_wait));
-            dialog.show();
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Bitmap doInBackground(Object... params) {
-            Bitmap mBitmap = null;
-            img_profileTask = (CircularImageView) params[0];
-
-            //슬라이드메뉴에 있는 내 아이 목록
-            /*UsersAPI service = ServiceGenerator.createService(UsersAPI.class, "Users");
-            Call<List<Users>> call = service.findUsersByMember(String.valueOf(member.getMember_seq()));
-            try {
-                usersTask = call.execute().body();
-            } catch (IOException e) {
-                Log.d("-진우-", "내 아이 목록 가져오기 실패");
-            }*/
-
-            /*String image_url = null;
-            if (member.getJoin_route().equals("kakao")) {
-                image_url = member.getKakao_thumbnailimagepath();
-                //이미지 불러오기
-                InputStream in = null;
-                try {
-                    Log.d("-진우-", "이미지 주소 : " + image_url);
-                    in = new URL(image_url).openStream();
-                    mBitmap = BitmapFactory.decodeStream(in);
-                    in.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else if (member.getJoin_route().equals("facebook")) {
-                image_url = "http://graph.facebook.com/" + member.getFacebook_id() + "/picture?type=large";
-                //이미지 불러오기
-                InputStream in = null;
-                try {
-                    //페이스북은 jpg파일이 링크 걸린 것이 아니다.
-                    //http://graph.facebook.com/userid/picture?type=large
-                    Log.d("-진우-", "이미지 주소 : " + image_url);
-
-                    OkHttpClient client = new OkHttpClient();
-                    Request request = new Request.Builder()
-                            .url(image_url)
-                            .build();
-                    com.squareup.okhttp.Response response = client.newCall(request).execute();
-                    in = response.body().byteStream();
-                    mBitmap = BitmapFactory.decodeStream(in);
-                    in.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }*/
-            return mBitmap;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            /*if (bitmap != null) {
-                Log.d("-진우-", "이미지읽어옴");
-                img_profileTask.setImageBitmap(bitmap);
-            }
-
-            if (usersTask != null && usersTask.size() > 0) {
-                Log.d("-진우-", "내 아이는 몇명? " + usersTask.size());
-                for (Users u : usersTask) {
-                    Log.d("-진우-", "내 아이 : " + u.toString());
-                }
-                usersList = usersTask;
-
-                usersListSlideAdapter.setUsersList(usersList);
-                if (nowUsers == null) {
-                    nowUsers = usersTask.get(0);
-                }
-                Log.d("-진우-", "메인 유저는 " + nowUsers.toString());
-            } else {
-                Log.d("-진우-", "성공했으나 등록된 내아이가 없습니다");
-            }
-
-            int height = getListViewHeight(lv_usersList);
-            lv_usersList.getLayoutParams().height = height;
-            usersListSlideAdapter.notifyDataSetChanged();*/
-
-            dialog.dismiss();
-            super.onPostExecute(bitmap);
-        }
     }
 
     //멤버삭제하기

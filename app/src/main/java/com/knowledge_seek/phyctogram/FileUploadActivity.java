@@ -121,7 +121,7 @@ public class FileUploadActivity extends BaseActivity implements View.OnClickList
         //FindMonthNumAnimalTask task = new FindMonthNumAnimalTask();
         //task.execute();
 
-        Log.d("-진우-", "CharacterActivity 에 onResume() : " + member.toString());
+       // Log.d("-진우-", "CharacterActivity 에 onResume() : " + member.toString());
 
         Log.d("-진우-", "CharacterActivity.onResume() 끝");
     }

@@ -168,7 +168,7 @@ public class CommunityListActivity extends BaseActivity {
         //data 갱신
         usersListSlideAdapter.notifyDataSetChanged();
 
-        Log.d("-진우-", "CommunityListActivity.onResume() : " + member.toString());
+       // Log.d("-진우-", "CommunityListActivity.onResume() : " + member.toString());
 
         //새로읽어오기
         pageCnt = 0;

@@ -52,9 +52,10 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-
-		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		super.onCreate(savedInstanceState);
+
+
 		setContentView(R.layout.popup_wifi);
         wm = (WifiManager) getSystemService(WIFI_SERVICE);
 		mDialog =new ProgressDialog(PopUpActivity.this);

@@ -123,7 +123,7 @@ public class CommunityWriteActivity extends BaseActivity {
         lv_usersList.getLayoutParams().height = getListViewHeight(lv_usersList);
         usersListSlideAdapter.notifyDataSetChanged();
 
-        Log.d("-진우-", "CommunityWriteActivity 에 onResume() : " + member.toString());
+     //   Log.d("-진우-", "CommunityWriteActivity 에 onResume() : " + member.toString());
 
         Log.d("-진우-", "CommunityWriteActivity.onResume() 끝");
     }

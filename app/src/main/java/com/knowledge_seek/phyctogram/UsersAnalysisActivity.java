@@ -363,7 +363,7 @@ public class UsersAnalysisActivity extends BaseActivity {
         FindUsersAnalysisInfoTask task = new FindUsersAnalysisInfoTask();
         task.execute();
 
-        Log.d("-진우-", "UsersAnalysisActivity 에 onResume() : " + member.toString());
+        //Log.d("-진우-", "UsersAnalysisActivity 에 onResume() : " + member.toString());
 
         Log.d("-진우-", "UsersAnalysisActivity.onResume() 끝");
     }

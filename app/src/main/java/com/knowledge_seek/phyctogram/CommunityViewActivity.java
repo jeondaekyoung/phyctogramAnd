@@ -177,7 +177,7 @@ public class CommunityViewActivity extends BaseActivity {
         //CommunityViewTask task = new CommunityViewTask();
         //task.execute(img_profile);
 
-        Log.d("-진우-", "CommunityViewActivity 에 onResume() : " + member.toString());
+      //  Log.d("-진우-", "CommunityViewActivity 에 onResume() : " + member.toString());
 
         //수다방 내용 읽어오기
         FindCommntyAndCommentTask task1 = new FindCommntyAndCommentTask(sqlCommntyListView.getCommnty_seq());
@@ -309,8 +309,8 @@ public class CommunityViewActivity extends BaseActivity {
                 commentListAdapter.setComments(commentListTask);
             }
 
-            int height = getListViewHeight(lv_comments);
-            lv_comments.getLayoutParams().height = height;
+
+            lv_comments.getLayoutParams().height = getListViewHeight(lv_comments);
 
             commentListAdapter.notifyDataSetChanged();
 
