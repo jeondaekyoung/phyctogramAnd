@@ -212,7 +212,6 @@ public class GuideActivity extends FragmentActivity {
                     }
                 });
                 super.onPreExecute();
-
             }
 
             @Override
@@ -320,17 +319,13 @@ public class GuideActivity extends FragmentActivity {
                         guide_lv.setVisibility(View.GONE);
                         guide_lvEmpty.setVisibility(View.VISIBLE);
                         break;
-
-
-                }
+                  }
 
             }
         }
     };
 
-
     //----------------------------------------------Task----------------------------------------------------------------
-
     //기기 연결 Task
     private  class guide_device_connect_Task extends  AsyncTask <Object,Void,Boolean>{
 

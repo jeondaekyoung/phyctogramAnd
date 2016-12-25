@@ -23,6 +23,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,9 +61,9 @@ public class Guide_reqActivity extends FragmentActivity {
     public static ViewPager viewPager;
 
     //다이얼로그
-    AlertDialog.Builder dialog_page3;
+    AlertDialog.Builder dialog_page3, B_failDialog;
     public  static AlertDialog.Builder  dialog_close;
-
+    AlertDialog failDialog;
 
     //wifi관련
     private ScanResult scanResult;
@@ -269,6 +270,7 @@ public class Guide_reqActivity extends FragmentActivity {
                 }
 
                 switch (size){
+
                     case 1:// 기기가 한대일땐 자동 연결
                         Wifi wifi=new Wifi(wifiList.get(0).getSsid(),wifiList.get(0).getCapabilities(),wifiList.get(0).getSignal());
                         device= wifi;
@@ -284,20 +286,32 @@ public class Guide_reqActivity extends FragmentActivity {
 
                         break;
                     default:
-                        Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), R.string.equipmentActivity_noDevice, Toast.LENGTH_SHORT).show();
                         mDialog.dismiss();
-                        wifiList.clear();
+                        final View dialogView= getLayoutInflater().inflate(R.layout.dialog_close, null);
+                        ImageView dialog_closeBtn = (ImageView) dialogView.findViewById(R.id.dialog_closeBtn);
 
+                        B_failDialog = new AlertDialog.Builder(Guide_reqActivity.this).setView(dialogView).setPositiveButton(R.string.equipmentActivity_endSearch, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
 
-                        break;
-
-
+                                new ListView_AsyncTask().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+                            }
+                        });
+                        failDialog=B_failDialog.show();
+                        dialog_closeBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                failDialog.dismiss();
+                            }
+                        });
+                      wifiList.clear();
+                    break;
                 }
-
             }
         }
     };
-
 
     //----------------------------------------------Task----------------------------------------------------------------
 
