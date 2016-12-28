@@ -96,7 +96,7 @@
     <ImageView
         android:id="@+id/guide_img"
         android:layout_width="240dp"
-        android:layout_height="336dp"
+        android:layout_height="300dp"
         android:layout_above="@+id/ll1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
