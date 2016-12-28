@@ -36,7 +36,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <activity
-            android:name="com.knowledge_seek.phyctogram.LoginActivity"
+            android:name="com.knowledge_seek.phyctogram.LoginActivity_webView"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -45,6 +45,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 웹뷰 구현 테스트 변경 2016.12.28 -->
+        <activity android:name=".LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            ></activity>
 
 
         <!-- 카카오 -->

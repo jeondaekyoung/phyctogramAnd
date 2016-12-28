@@ -391,7 +391,11 @@ public class  BaseActivity extends Activity {
         }
 
         Intent intent = null;
-        if (nowActivity != null && nowActivity.getClass().getSimpleName().equals("MainActivity")) {
+        if( nowActivity.getClass().getSimpleName().equals("LoginActivity_webView")){
+            Log.d("-대경-", "onBackPressed: "+"LoginActivity_webView 의 뒤로가기");
+           return;
+        }
+        if (nowActivity != null && nowActivity.getClass().getSimpleName().equals("MainActivity")) { //뒤로가기 테스트
             //두번 클릭시 종료
             if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
                 backKeyPressedTime = System.currentTimeMillis();
@@ -404,7 +408,8 @@ public class  BaseActivity extends Activity {
                 finish();
               //android.os.Process.killProcess(android.os.Process.myPid());
             }
-        } else {
+        }
+        else {
             super.onBackPressed();
         }
     }
