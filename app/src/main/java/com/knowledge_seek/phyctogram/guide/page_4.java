@@ -127,7 +127,7 @@ public class page_4 extends android.support.v4.app.Fragment {
         btn_searchWifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(className.equals("GuideActivity")){
+                if(className.equals("GuideActivity")||className.equals("Guide_reqActivity")){
                     SaveSharedPreference.setGuideFlag(getContext(),false);
                     Intent intent=new Intent(getContext(),UsersAddActivity.class);
                     //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
