@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.knowledge_seek.phyctogram.util.Utility;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -86,7 +88,7 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 
 		if(v.getId() == R.id.btn_pwdOk){
 			Log.d("-대경-", "PopUpActivity ssid : " + ssid + ", capabilities : " + capabilities + ", edit_password : " + edit_password.getText());
-        	WifiConfiguration wfc = EquipmentActivity.getWifiConfiguration(ssid, edit_password.getText().toString(), capabilities);
+        	WifiConfiguration wfc = Utility.getWifiConfiguration(ssid, edit_password.getText().toString(), capabilities);
             Log.d("-진우-", "wfc : " + wfc.toString());
           	int networkId = wm.addNetwork(wfc);
             Log.d("-진우-", "networkId : " + networkId);
@@ -148,7 +150,7 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 						String password = (String) params[1];
 						String capabilities = (String) params[2];
 						Log.d("-대경- 기기 Ap 정보:", "ssid: " + ssid + ",password: " + password + ",capablities: " + capabilities);
-						WifiConfiguration wfc = EquipmentActivity.getWifiConfiguration(ssid, password, capabilities);
+						WifiConfiguration wfc = Utility.getWifiConfiguration(ssid, password, capabilities);
 						//Log.d("-진우-", "wfc : " + wfc.toString());
 						int networkId = -1; //-1 연결 정보 없음
 						List<WifiConfiguration> networks = wm.getConfiguredNetworks();

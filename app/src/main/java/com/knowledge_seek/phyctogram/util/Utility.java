@@ -1,10 +1,19 @@
 package com.knowledge_seek.phyctogram.util;
 
 import android.graphics.Bitmap;
+import android.net.wifi.WifiConfiguration;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.knowledge_seek.phyctogram.domain.Comment;
+import com.knowledge_seek.phyctogram.domain.Commnty;
+import com.knowledge_seek.phyctogram.domain.Diary;
+import com.knowledge_seek.phyctogram.domain.Height;
+import com.knowledge_seek.phyctogram.domain.Member;
+import com.knowledge_seek.phyctogram.domain.Qa;
+import com.knowledge_seek.phyctogram.domain.Users;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,14 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.knowledge_seek.phyctogram.domain.Comment;
-import com.knowledge_seek.phyctogram.domain.Commnty;
-import com.knowledge_seek.phyctogram.domain.Diary;
-import com.knowledge_seek.phyctogram.domain.Height;
-import com.knowledge_seek.phyctogram.domain.Member;
-import com.knowledge_seek.phyctogram.domain.Qa;
-import com.knowledge_seek.phyctogram.domain.Users;
 
 /**
  * Created by sjw on 2015-11-30.
@@ -228,5 +229,73 @@ public class Utility {
         Log.d("-진우-", "저장위치 : " + ex_storage + file_name);
         return ex_storage+file_name;
 
+    }
+    @NonNull
+    public static WifiConfiguration getWifiConfiguration(String ssid, String password, String capabilities) {
+        WifiConfiguration wfc = new WifiConfiguration();
+
+        //wifi 공통 규칙
+        wfc.SSID = "\"".concat( ssid ).concat("\"");
+        wfc.status = WifiConfiguration.Status.DISABLED;
+        wfc.priority = 40;
+
+        //wifi 보안 종류별 개별 규칙
+        if(capabilities.contains("WEP")){
+            Log.d("-진우-", "WEP 셋팅");
+            wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
+            wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
+            wfc.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
+            wfc.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
+            wfc.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.SHARED);
+            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
+            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
+            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
+            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
+            wfc.wepKeys[0] = "\"".concat(password).concat("\"");
+            wfc.wepTxKeyIndex = 0;
+
+        }else if(capabilities.contains("WPA")  ) {
+            Log.d("-진우-", "WPA 셋팅");
+            wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
+            wfc.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
+            wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
+            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
+            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
+            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
+            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
+            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
+            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
+
+            wfc.preSharedKey = "\"".concat(password).concat("\"");
+
+            Log.d("-진우-", "패스워드 확인 : " + wfc.preSharedKey);
+        }else if(capabilities.contains("WPA2")  ) {
+            Log.d("-진우-", "WPA2 셋팅");
+            wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
+            wfc.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
+            wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
+            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
+            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
+            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
+            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
+            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
+            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
+
+            wfc.preSharedKey = "\"".concat(password).concat("\"");
+        }else if(capabilities.contains("OPEN")  ) {
+            Log.d("-진우-", "OPEN 셋팅");
+
+            wfc.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
+            wfc.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
+            wfc.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
+            wfc.allowedAuthAlgorithms.clear();
+            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
+            wfc.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
+            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
+            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
+            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
+            wfc.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
+        }
+        return wfc;
     }
 }

@@ -36,6 +36,7 @@ import com.knowledge_seek.phyctogram.guide.page_4;
 import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
 import com.knowledge_seek.phyctogram.listAdapter.WifiListAdapter;
 import com.knowledge_seek.phyctogram.phyctogram.SaveSharedPreference;
+import com.knowledge_seek.phyctogram.util.Utility;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -303,7 +304,7 @@ public class Guide_wifiActivity extends FragmentActivity {
                     String password = (String) params[1];
                     String capabilities = (String) params[2];
                     Log.d("-대경- 기기 Ap 정보:", "ssid: " + ssid + ",password: " + password + ",capablities: " + capabilities);
-                    WifiConfiguration wfc = EquipmentActivity.getWifiConfiguration(ssid, password, capabilities);
+                    WifiConfiguration wfc = Utility.getWifiConfiguration(ssid, password, capabilities);
                     //Log.d("-진우-", "wfc : " + wfc.toString());
                     int networkId = -1; //-1 연결 정보 없음
                     List<WifiConfiguration> networks = wm.getConfiguredNetworks();

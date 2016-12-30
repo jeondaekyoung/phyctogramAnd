@@ -84,7 +84,7 @@
         </com.knowledge_seek.phyctogram.util.MyLinearView>
     </com.knowledge_seek.phyctogram.util.MyLinearView>
 
-    <Button
+<!--    <Button
         android:id="@+id/connWifiBtn"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
@@ -93,7 +93,7 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:background="@drawable/btn_border_radius"
         android:text="@string/equipmentActivity_searchHW"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff" />-->
     <Button
         android:id="@+id/guide_show"
         style="?android:attr/borderlessButtonStyle"
@@ -127,25 +127,28 @@
         android:text="@string/includeEquipment_req_setting"
         android:layout_marginTop="7dp"
         android:textColor="#ffffff" />
+    <Button
+        android:id="@+id/btn_test_webView1"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/btn_border_radius"
+        android:text="로그인테스트"
+        android:layout_marginTop="7dp"
+        android:textColor="#ffffff" />
+    <Button
+        android:id="@+id/btn_test_webView2"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/btn_border_radius"
+        android:text="메인테스트"
+        android:layout_marginTop="7dp"
+        android:textColor="#ffffff" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <com.knowledge_seek.phyctogram.util.MyListView
-            android:id="@+id/lv_wifiList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="#f1f1f1"
-            android:dividerHeight="1dp" />
-
-        <!--<ImageButton
-            android:id="@+id/addEquip"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/float_button_03"
-            android:padding="5dp" />-->
-    </RelativeLayout>
 </LinearLayout>
