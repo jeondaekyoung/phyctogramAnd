@@ -2,15 +2,14 @@ package com.knowledge_seek.phyctogram;
 
 import android.os.Bundle;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.knowledge_seek.phyctogram.kakao.common.BaseActivity;
+import com.knowledge_seek.phyctogram.kakao.common.BaseActivity_webView;
 
 /**
  * Created by jdk on 2016-12-28
  */
-public class LoginActivity_webView extends BaseActivity {
+public class LoginActivity_webView extends BaseActivity_webView {
 
     WebView mWebView;
 
@@ -21,20 +20,14 @@ public class LoginActivity_webView extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_webview);
         mWebView=(WebView)findViewById(R.id.login_webView);
-       mWebView.loadUrl("http://phyctogram.com/views/webview/login.jsp");
+        mWebView.loadUrl("http://phyctogram.com/views/webview/login.jsp");
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setUseWideViewPort(true);
         mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         mWebView.setScrollbarFadingEnabled(true);
-        mWebView.setWebViewClient(new WebClient());
-    }
-    class WebClient extends WebViewClient {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
-        }
+        mWebView.setWebViewClient(new myWebClient());
+        mWebView.setWebChromeClient(new MyWebChromeClient(getBaseContext()));
     }
 
     @Override

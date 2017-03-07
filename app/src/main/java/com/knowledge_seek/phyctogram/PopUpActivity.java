@@ -316,8 +316,10 @@ public class PopUpActivity extends Activity implements View.OnClickListener{
 						switch (className){
 							case "GuideActivity":
 								GuideActivity.viewPager.setCurrentItem(2);
+								break;
 							case "Guide_wifiActivity":
 								Guide_wifiActivity.viewPager.setCurrentItem(2);
+								break;
 						}
 
 						finish();

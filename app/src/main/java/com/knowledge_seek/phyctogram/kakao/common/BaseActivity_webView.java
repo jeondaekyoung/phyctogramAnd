@@ -1,5 +1,6 @@
 package com.knowledge_seek.phyctogram.kakao.common;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,13 +19,19 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.knowledge_seek.phyctogram.LoginActivity;
+import com.knowledge_seek.phyctogram.LoginActivity_webView;
 import com.knowledge_seek.phyctogram.R;
 import com.knowledge_seek.phyctogram.domain.Member;
 import com.knowledge_seek.phyctogram.domain.Users;
@@ -37,7 +45,7 @@ import java.util.List;
 /**
  * Created by sjw on 2015-11-26.
  */
-public class BaseActivity_webView extends Activity {
+public class BaseActivity_webView extends FragmentActivity {
 
     protected static Activity self;
 
@@ -60,9 +68,10 @@ public class BaseActivity_webView extends Activity {
     //키보드 숨기기
     private InputMethodManager imm;
 
-
+    //레이아웃
+    ImageView top_backBtn;
     BottomNavigationView bottom_navigation;
-
+    WebView mWebView;
     /**
      * Instance ID를 이용하여 디바이스 토큰을 가져오는 RegistrationIntentService를 실행한다.
      */
@@ -108,6 +117,16 @@ public class BaseActivity_webView extends Activity {
         super.onCreate(savedInstanceState);
         Log.d("-진우-", "BaseActivity.onCreate() 실행");
         setContentView(R.layout.activity_base_webview);
+        mWebView = (WebView)findViewById(R.id.base_webView);
+        mWebView.loadUrl("http://phyctogram.com/views/webview/login.jsp");//메인으로 변경
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setLoadWithOverviewMode(true);
+        mWebView.getSettings().setUseWideViewPort(true);
+        mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+        mWebView.setScrollbarFadingEnabled(true);
+        mWebView.setWebViewClient(new myWebClient());
+        mWebView.setWebChromeClient(new MyWebChromeClient(getBaseContext()));
+
 
         bottom_navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
@@ -118,6 +137,7 @@ public class BaseActivity_webView extends Activity {
                 switch (item.getItemId()) {
                     case R.id.action_dashBoard:
                         Log.d("-대경-", "onNavigationItemSelected:  대쉬보드");
+
                         return true;
                     case R.id.action_album:
                         Log.d("-대경-", "onNavigationItemSelected:  앨범");
@@ -127,6 +147,15 @@ public class BaseActivity_webView extends Activity {
                         return true;
                 }
                 return false;
+            }
+        });
+
+        top_backBtn = (ImageView)findViewById(R.id.top_backBtn);
+
+        top_backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -193,9 +222,9 @@ public class BaseActivity_webView extends Activity {
                 return;
             }
             if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
-                //moveTaskToBack(true);
+
                 finish();
-              //android.os.Process.killProcess(android.os.Process.myPid());
+
             }
         }
         else {
@@ -228,7 +257,7 @@ public class BaseActivity_webView extends Activity {
         nowUsers = new Users();                                      //메인유저
         memberName = null;                                //슬라이드 멤버 이름
         memberImg = null;                                  //슬라이드 멤버 이미지
-        final Intent intent = new Intent(this, LoginActivity.class);
+        final Intent intent = new Intent(this, LoginActivity_webView.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         //finish();
@@ -285,6 +314,42 @@ public class BaseActivity_webView extends Activity {
 
             window.setStatusBarColor(color);
 
+        }
+    }
+
+    public class myWebClient extends WebViewClient {
+        @SuppressWarnings("deprecation")
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+        @TargetApi(Build.VERSION_CODES.N)
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            view.loadUrl(request.getUrl().toString());
+            return super.shouldOverrideUrlLoading(view, request);
+        }
+    }
+    //alert()를 앱에 맞게 Toast로 변경하기위한 클래스
+    public class MyWebChromeClient extends WebChromeClient {
+        Context mContext;
+
+        public MyWebChromeClient(Context mContext){
+
+            this.mContext =mContext;
+
+        }
+
+        @Override
+        public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+            //경고 메시지를 Toast로 보여주기
+            Toast.makeText(mContext,message,Toast.LENGTH_LONG).show();
+            //자바스크립트 경고창의 확인버튼을 클릭한것으로 처리하도록 호출
+            //미 호출시 경고창이 계속 화면에 떠 있는 것으로 간주되어
+            //경고창이 더 이상 뜨지 않는다.
+            result.confirm();
+            return true;
         }
     }
 

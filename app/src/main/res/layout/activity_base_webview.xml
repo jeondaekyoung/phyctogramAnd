@@ -9,7 +9,17 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/linedate"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/base_rL">
+
+        <ImageView
+            android:id="@+id/top_backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/btn_arrow_left"
+
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -20,6 +30,16 @@
             android:textSize="15sp"
             android:textColor="@color/purpledk" />
     </RelativeLayout>
+
+    <WebView
+        android:id="@+id/base_webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/base_rL"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/bottom_navigation">
+
+    </WebView>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
