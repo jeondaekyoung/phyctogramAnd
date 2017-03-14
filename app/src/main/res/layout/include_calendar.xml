@@ -29,7 +29,7 @@
     </RelativeLayout>
 
 
-    <com.knowledge_seek.phyctogram.util.MyRelativeView
+    <com.knowledge_seek.growCheck.util.MyRelativeView
         android:id="@+id/ll_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
                 android:textSize="14dp" />
         </LinearLayout>
 
-        <com.knowledge_seek.phyctogram.util.MyGridView
+        <com.knowledge_seek.growCheck.util.MyGridView
             android:id="@+id/gv_monthView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -170,5 +170,5 @@
                 android:background="@drawable/float_button_03" />
 
         </RelativeLayout>
-    </com.knowledge_seek.phyctogram.util.MyRelativeView>
+    </com.knowledge_seek.growCheck.util.MyRelativeView>
 </LinearLayout>

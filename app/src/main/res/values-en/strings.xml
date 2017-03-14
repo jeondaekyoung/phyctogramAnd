@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Phyctogram</string>
+    <string name="app_name">GrowCheck</string>
 
     <!-- Java 문자열 -->
     <string name="commonActivity_wait">Please wait.</string>
@@ -57,12 +57,12 @@
     <string name="joinActivity_checkPW">Check your password</string>
     <string name="joinActivity_checkContents">Check your information.</string>
     <string name="joinActivity_checkEmail">Check your e-mail address.</string>
-    <string name="joinActivity_successJoinAlert">Welcome to Phyctogram.</string>
+    <string name="joinActivity_successJoinAlert">Welcome to growCheck.</string>
     <string name="joinActivity_alreadyJoinAlert">It is already in use.</string>
 
     <string name="loginActivity_checkPWEmail">Check your e-mail and password.</string>
 
-    <string name="mainActivity_respect"></string>
+    <string name="mainActivity_respect">sir</string>
 
     <string name="pwfindActivity_registerEmail">E-mail address is missing.</string>
     <string name="pwfindActivity_notPush">You can\'t find your password because your phone is not available Push Service. Please call customer center.</string>
@@ -101,8 +101,8 @@
 
     <string name="usersDataInputActivity_checkHeight">Height is missing.</string>
 
-    <string name="usersDiaryActivity_year"></string>
-    <string name="usersDiaryActivity_month"></string>
+    <string name="usersDiaryActivity_year">year</string>
+    <string name="usersDiaryActivity_month">month</string>
 
     <string name="usersManageActivity_deleteChildAsk">Are you sure want to delete? It cannot be undone.</string>
     <string name="usersManageActivity_successDeleteChild">Success</string>
@@ -118,7 +118,7 @@
     <string name="withdrawActivity_leave">Withdraw</string>
     <string name="withdrawActivity_kakaoName">KakaoTalk</string>
     <string name="withdrawActivity_facebookName">Facebook</string>
-    <string name="withdrawActivity_pyhtogramName">Phyctogram</string>
+    <string name="withdrawActivity_growChkName">growCheck</string>
 
     <string name="baseActivity_exit"><![CDATA["\'"]]>back<![CDATA["\'"]]>Pressing the button once more to quit.</string>
 
@@ -126,7 +126,7 @@
 
     <!-- xml 문자열 -->
     <string name="activityJoin_join">Join</string>
-    <string name="activityJoin_welcome">Welcome to Phyctogram.</string>
+    <string name="activityJoin_welcome">Welcome to growCheck.</string>
     <string name="activityJoin_name">Name</string>
     <string name="activityJoin_emailAddr">E-mail</string>
     <string name="activityJoin_password">Password</string>
@@ -190,7 +190,7 @@
 
     <string name="includeDiaryWrite_gallery">Gallery</string>
 
-    <string name="includeEquipment_myHW">My Phyctogram</string>
+    <string name="includeEquipment_myHW">My growCheck</string>
     <string name="includeEquipment_serialNumber">Serial number</string>
     <string name="includeEquipment_swVersion">S/W version</string>
 
@@ -344,7 +344,7 @@
 
     <!-- 페이스북 --><!--
     <string name="facebook_app_id">1656605951265060</string>
-    <string name="facebook_app_name">phyctoAnd</string>-->
+    <string name="facebook_app_name">growCheck</string>-->
 
     <string name="cancelled">Cancelled</string>
     <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
@@ -359,4 +359,20 @@
     <string name="no_place_selected">&lt;No place selected&gt;</string>
     <string name="pick_seattle_place">Pick a Seattle Place</string>
     <string name="exception">Exception: %1$s</string>
+    <string name="includeSetting_growChkInfo">growCheck Information</string>
+    <string name="kakaostory_host">kakaostory</string>
+    <string name="kakaolink_host">kakaolink</string>
+    <string name="joinActivity_userRegister">Go to the user registration page.</string>
+    <string name="includeSetting_memberInfo">Member information</string>
+    <string name="includeRecord_today">today</string>
+    <string name="includeRecord_week">week</string>
+    <string name="includeRecord_1month">1 month</string>
+    <string name="includeRecord_3month">3 months</string>
+    <string name="activityLogin_copyright">copyright ⓒ 2017 Knowledge-seek Co., Ltd. all rights reserved</string>
+    <string name="contentDescription">There is no image.</string>
+    <string name="includeEquipment_req_setting">Set Height Value</string>
+    <string name="includeEquipment_showGuide">View guide</string>
+    <string name="includeEquipment_wifi_setting">Wifi setting</string>
+    <string name="equipmentActivity_noDevice">There is no \' GrowCheck \' device nearby or powered off.Please turn on the power of the machine.</string>
+    <string name="activityJoin_FullArticle">[Special Issue]</string>
 </resources>

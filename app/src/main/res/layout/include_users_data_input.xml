@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.knowledge_seek.phyctogram.util.MyLinearView
+        <com.knowledge_seek.growCheck.util.MyLinearView
             android:id="@+id/ll_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -50,7 +50,7 @@
                 android:layout_marginBottom="8dp"
                 android:src="@drawable/data_input" />
 
-            <com.knowledge_seek.phyctogram.util.MyEditTextView
+            <com.knowledge_seek.growCheck.util.MyEditTextView
                 android:id="@+id/et_input_height"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,6 +93,6 @@
                 android:background="@drawable/btn_border_radius"
                 android:text="@string/includeComComment_register"
                 android:textColor="#ffffff" />
-        </com.knowledge_seek.phyctogram.util.MyLinearView>
+        </com.knowledge_seek.growCheck.util.MyLinearView>
     </ScrollView>
 </LinearLayout>

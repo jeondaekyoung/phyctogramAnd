@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.knowledge_seek.phyctogram.util.MyLinearView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.knowledge_seek.growCheck.util.MyLinearView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_bg"
@@ -27,7 +27,7 @@
             android:textColor="#ffffff" />
     </RelativeLayout>
 
-    <com.knowledge_seek.phyctogram.util.MyLinearView
+    <com.knowledge_seek.growCheck.util.MyLinearView
         android:id="@+id/ll_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -52,11 +52,11 @@
                     android:src="@drawable/password" />
 
                 <LinearLayout
-                    android:id="@+id/ll_phyctogram"
+                    android:id="@+id/ll_growChk"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <com.knowledge_seek.phyctogram.util.MyEditTextView
+                    <com.knowledge_seek.growCheck.util.MyEditTextView
                         android:id="@+id/et_now_pw"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                         android:padding="@dimen/activity_horizontal_margin"
                         android:textSize="14dp" />
 
-                    <com.knowledge_seek.phyctogram.util.MyEditTextView
+                    <com.knowledge_seek.growCheck.util.MyEditTextView
                         android:id="@+id/et_pw"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
                         android:padding="@dimen/activity_horizontal_margin"
                         android:textSize="14dp" />
 
-                    <com.knowledge_seek.phyctogram.util.MyEditTextView
+                    <com.knowledge_seek.growCheck.util.MyEditTextView
                         android:id="@+id/et_pw1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -90,8 +90,8 @@
                         android:textSize="14dp" />
                 </LinearLayout>
 
-                <com.knowledge_seek.phyctogram.util.MyLinearView
-                    android:id="@+id/ll_no_phyctogram"
+                <com.knowledge_seek.growCheck.util.MyLinearView
+                    android:id="@+id/ll_no_growChk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -112,7 +112,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="8dp"
                         android:textSize="14dp" />
-                </com.knowledge_seek.phyctogram.util.MyLinearView>
+                </com.knowledge_seek.growCheck.util.MyLinearView>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -131,5 +131,5 @@
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>
-    </com.knowledge_seek.phyctogram.util.MyLinearView>
-</com.knowledge_seek.phyctogram.util.MyLinearView>
+    </com.knowledge_seek.growCheck.util.MyLinearView>
+</com.knowledge_seek.growCheck.util.MyLinearView>

@@ -35,7 +35,7 @@
         android:onClick="linearOnClick"
         >
 
-        <com.knowledge_seek.phyctogram.util.MyLinearView
+        <com.knowledge_seek.growCheck.util.MyLinearView
             android:id="@+id/mylinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,9 +88,9 @@
                     android:text="85"
                     android:textColor="#aaaaaa" />
             </LinearLayout>
-        </com.knowledge_seek.phyctogram.util.MyLinearView>
+        </com.knowledge_seek.growCheck.util.MyLinearView>
 
-        <com.knowledge_seek.phyctogram.util.MyScrollView
+        <com.knowledge_seek.growCheck.util.MyScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/mylinear"
@@ -123,7 +123,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp" />
             </LinearLayout>
-        </com.knowledge_seek.phyctogram.util.MyScrollView>
+        </com.knowledge_seek.growCheck.util.MyScrollView>
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -40,7 +40,7 @@
             android:background="@drawable/borderbottom"
             android:orientation="horizontal">
 
-            <com.knowledge_seek.phyctogram.util.MyButtonView
+            <com.knowledge_seek.growCheck.util.MyButtonView
                 android:id="@+id/btn_commntyLatest"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -57,7 +57,7 @@
                 android:text="@string/includeComList_pop" />
         </LinearLayout>
 
-        <com.knowledge_seek.phyctogram.util.MyListView
+        <com.knowledge_seek.growCheck.util.MyListView
             android:id="@+id/lv_sqlcommntyList_communityList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

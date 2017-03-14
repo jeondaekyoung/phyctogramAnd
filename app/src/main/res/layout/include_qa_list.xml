@@ -27,7 +27,7 @@
             android:textColor="#ffffff" />
     </RelativeLayout>
 
-    <com.knowledge_seek.phyctogram.util.MyRelativeView
+    <com.knowledge_seek.growCheck.util.MyRelativeView
         android:id="@id/ll_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         android:layout_marginTop="16dp"
         android:orientation="vertical">
 
-        <com.knowledge_seek.phyctogram.util.MyListView
+        <com.knowledge_seek.growCheck.util.MyListView
             android:id="@+id/lv_qaList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,5 +57,5 @@
                 android:layout_alignParentRight="true"
                 android:background="@drawable/float_button_03" />
         </RelativeLayout>
-    </com.knowledge_seek.phyctogram.util.MyRelativeView>
+    </com.knowledge_seek.growCheck.util.MyRelativeView>
 </LinearLayout>

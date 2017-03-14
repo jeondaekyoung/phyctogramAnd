@@ -27,7 +27,7 @@
             android:textColor="#ffffff" />
     </RelativeLayout>
 
-    <com.knowledge_seek.phyctogram.util.MyScrollView
+    <com.knowledge_seek.growCheck.util.MyScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -399,5 +399,5 @@
                 android:textColor="@color/colorAccent"/>
         </LinearLayout>
 
-    </com.knowledge_seek.phyctogram.util.MyScrollView>
+    </com.knowledge_seek.growCheck.util.MyScrollView>
 </LinearLayout>

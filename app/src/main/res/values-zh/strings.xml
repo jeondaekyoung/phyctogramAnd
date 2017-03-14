@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Phyctogram</string>
+    <string name="app_name">GrowCheck</string>
 
     <!-- Java 문자열 -->
     <string name="commonActivity_wait">请等待。</string>
@@ -118,7 +118,7 @@
     <string name="withdrawActivity_leave">删除账号</string>
     <string name="withdrawActivity_kakaoName">Kakaotalk</string>
     <string name="withdrawActivity_facebookName">脸谱</string>
-    <string name="withdrawActivity_pyhtogramName">Phyctogram</string>
+    <string name="withdrawActivity_growChkName">growCheck</string>
 
     <string name="baseActivity_exit"><![CDATA["'"]]>뒤로<![CDATA["'"]]>버튼을 한번 더 누르면 종료됩니다.</string>
 
@@ -126,7 +126,7 @@
 
     <!-- xml 문자열 -->
     <string name="activityJoin_join">会员加入</string>
-    <string name="activityJoin_welcome">欢迎加入Phyctogram</string>
+    <string name="activityJoin_welcome">欢迎加入growCheck</string>
     <string name="activityJoin_name">姓名</string>
     <string name="activityJoin_emailAddr">邮件地址</string>
     <string name="activityJoin_password">密码</string>
@@ -319,7 +319,7 @@
 
     <!-- 페이스북 -->
     <!--<string name="facebook_app_id">1656605951265060</string>
-    <string name="facebook_app_name">phyctoAnd</string>-->
+    <string name="facebook_app_name">growCheck</string>-->
 
     <string name="cancelled">Cancelled</string>
     <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
@@ -334,4 +334,21 @@
     <string name="no_place_selected">&lt;No place selected&gt;</string>
     <string name="pick_seattle_place">Pick a Seattle Place</string>
     <string name="exception">Exception: %1$s</string>
+    <string name="kakaostory_host">kakaostory</string>
+    <string name="kakaolink_host">kakaolink</string>
+    <string name="activityLogin_copyright">copyright ⓒ 2017 Knowledge-seek Co., Ltd. all rights reserved</string>
+    <string name="includePwFind_emailAddr">E-mail</string>
+    <string name="includeRecord_3month">3个月</string>
+    <string name="includeRecord_1month">1个月</string>
+    <string name="includeRecord_today">今天</string>
+    <string name="includeRecord_week">一周</string>
+    <string name="includeSetting_growChkInfo">growCheck 信息</string>
+    <string name="includeSetting_memberInfo">会员信息</string>
+    <string name="joinActivity_userRegister">移动到用户注册页面。</string>
+    <string name="includeEquipment_showGuide">查看指南</string>
+    <string name="includeEquipment_wifi_setting">Wifi 配置</string>
+    <string name="includeEquipment_req_setting">设置高度值</string>
+    <string name="equipmentActivity_noDevice">周围没有‘GrowCheck’机器或者电源关闭。请打开一下n n机器的电源。</string>
+    <string name="contentDescription">没有图像。</string>
+    <string name="activityJoin_FullArticle">[专业性]</string>
 </resources>

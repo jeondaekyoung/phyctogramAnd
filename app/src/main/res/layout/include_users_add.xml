@@ -27,7 +27,7 @@
             android:textColor="#ffffff" />
     </RelativeLayout>
 
-    <com.knowledge_seek.phyctogram.util.MyLinearView
+    <com.knowledge_seek.growCheck.util.MyLinearView
         android:id="@+id/ll_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         android:onClick="linearOnClick"
         >
 
-        <com.knowledge_seek.phyctogram.util.MyScrollView
+        <com.knowledge_seek.growCheck.util.MyScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -139,12 +139,12 @@
                     </RadioGroup>
                 </LinearLayout>
 
-                <com.knowledge_seek.phyctogram.util.MyRelativeView
+                <com.knowledge_seek.growCheck.util.MyRelativeView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp">
 
-                    <com.knowledge_seek.phyctogram.util.MyButtonView
+                    <com.knowledge_seek.growCheck.util.MyButtonView
                         android:id="@+id/btn_usersadd"
                         style="?android:attr/borderlessButtonStyle"
                         android:layout_width="match_parent"
@@ -153,11 +153,11 @@
                         android:background="@drawable/btn_border_radius"
                         android:text="@string/includeUsersAdd_add"
                         android:textColor="#ffffff" />
-                </com.knowledge_seek.phyctogram.util.MyRelativeView>
+                </com.knowledge_seek.growCheck.util.MyRelativeView>
 
             </LinearLayout>
-        </com.knowledge_seek.phyctogram.util.MyScrollView>
+        </com.knowledge_seek.growCheck.util.MyScrollView>
 
-    </com.knowledge_seek.phyctogram.util.MyLinearView>
+    </com.knowledge_seek.growCheck.util.MyLinearView>
 
 </LinearLayout>

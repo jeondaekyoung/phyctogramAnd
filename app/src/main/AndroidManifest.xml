@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.knowledge_seek.phyctogram"
+    package="com.knowledge_seek.growCheck"
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -28,7 +28,7 @@
     <!-- [END gcm_permission] -->
 
     <application
-        android:name="com.knowledge_seek.phyctogram.kakao.common.GlobalApplication"
+        android:name="com.knowledge_seek.growCheck.kakao.common.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -36,7 +36,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <activity
-            android:name="com.knowledge_seek.phyctogram.LoginActivity"
+            android:name="com.knowledge_seek.growCheck.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -47,14 +47,14 @@
         </activity>
 
         <!-- 웹뷰 구현 테스트 변경 2016.12.28 -->
-        <activity android:name=".LoginActivity_webView"
+        <activity android:name="com.knowledge_seek.growCheck.LoginActivity_webView"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <!-- 웹뷰 구현 테스트 변경 2016.12.29 -->
-        <activity android:name=".MainActivity_webView"
+        <activity android:name="com.knowledge_seek.growCheck.MainActivity_webView"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -73,7 +73,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
         <activity
-            android:name="com.knowledge_seek.phyctogram.kakao.common.SampleSignupActivity"
+            android:name="com.knowledge_seek.growCheck.kakao.common.SampleSignupActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -103,7 +103,7 @@
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1656605951265060"
             android:exported="true" />
-        <receiver android:name="com.knowledge_seek.phyctogram.facebook.FacebookBroadcastReceiver">
+        <receiver android:name="com.knowledge_seek.growCheck.facebook.FacebookBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.facebook.platform.AppCallResultBroadcast" />
             </intent-filter>
@@ -111,141 +111,141 @@
 
         <!-- Activity -->
         <activity
-            android:name="com.knowledge_seek.phyctogram.CharacterActivity"
+            android:name="com.knowledge_seek.growCheck.CharacterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.CommunityCommentActivity"
+            android:name="com.knowledge_seek.growCheck.CommunityCommentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.CommunityListActivity"
+            android:name="com.knowledge_seek.growCheck.CommunityListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.CommunityViewActivity"
+            android:name="com.knowledge_seek.growCheck.CommunityViewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.CommunityWriteActivity"
+            android:name="com.knowledge_seek.growCheck.CommunityWriteActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.DiaryViewActivity"
+            android:name="com.knowledge_seek.growCheck.DiaryViewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.DiaryWriteActivity"
+            android:name="com.knowledge_seek.growCheck.DiaryWriteActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.EquipmentActivity"
+            android:name="com.knowledge_seek.growCheck.EquipmentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.JoinActivity"
+            android:name="com.knowledge_seek.growCheck.JoinActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
-            android:name="com.knowledge_seek.phyctogram.MainActivity"
+            android:name="com.knowledge_seek.growCheck.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.PwfindActivity"
+            android:name="com.knowledge_seek.growCheck.PwfindActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.PwmodActivity"
+            android:name="com.knowledge_seek.growCheck.PwmodActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.RecordActivity"
+            android:name="com.knowledge_seek.growCheck.RecordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.SettingActivity"
+            android:name="com.knowledge_seek.growCheck.SettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.UsersAddActivity"
+            android:name="com.knowledge_seek.growCheck.UsersAddActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.UsersAnalysisActivity"
+            android:name="com.knowledge_seek.growCheck.UsersAnalysisActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.UsersDataInputActivity"
+            android:name="com.knowledge_seek.growCheck.UsersDataInputActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.UsersDiaryActivity"
+            android:name="com.knowledge_seek.growCheck.UsersDiaryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.UsersManageActivity"
+            android:name="com.knowledge_seek.growCheck.UsersManageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.UsersModActivity"
+            android:name="com.knowledge_seek.growCheck.UsersModActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.WithdrawActivity"
+            android:name="com.knowledge_seek.growCheck.WithdrawActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.NoticeListActivity"
+            android:name="com.knowledge_seek.growCheck.NoticeListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.NoticeViewActivity"
+            android:name="com.knowledge_seek.growCheck.NoticeViewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.QaListActivity"
+            android:name="com.knowledge_seek.growCheck.QaListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.QaWriteActivity"
+            android:name="com.knowledge_seek.growCheck.QaWriteActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.QaViewActivity"
+            android:name="com.knowledge_seek.growCheck.QaViewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.AdminActivity"
+            android:name="com.knowledge_seek.growCheck.AdminActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.knowledge_seek.phyctogram.PopUpActivity"
+            android:name="com.knowledge_seek.growCheck.PopUpActivity"
             android:theme="@android:style/Theme.Dialog"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.knowledge_seek.phyctogram.WifiPopUpActivity"
+            android:name="com.knowledge_seek.growCheck.WifiPopUpActivity"
             android:theme="@android:style/Theme.Dialog"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="com.knowledge_seek.phyctogram.GuideActivity"
+            android:name="com.knowledge_seek.growCheck.GuideActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.knowledge_seek.phyctogram.Guide_wifiActivity"
+            android:name="com.knowledge_seek.growCheck.Guide_wifiActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="com.knowledge_seek.phyctogram.Guide_reqActivity"
+            android:name="com.knowledge_seek.growCheck.Guide_reqActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"/>
 
 
         <!-- 파일업로드 테스트 -->
         <activity
-            android:name="com.knowledge_seek.phyctogram.FileUploadActivity"
+            android:name="com.knowledge_seek.growCheck.FileUploadActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
@@ -256,14 +256,14 @@
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="knowledge_seek.com.phyctogram" />
+                <category android:name="knowledge_seek.com.growCheck" />
             </intent-filter>
         </receiver>
         <!-- [END gcm_receiver] -->
 
         <!-- [START gcm_listener_service] -->
         <service
-            android:name="com.knowledge_seek.phyctogram.gcm.MyGcmListenerService"
+            android:name="com.knowledge_seek.growCheck.gcm.MyGcmListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -273,7 +273,7 @@
 
         <!-- [START instanceId_listener_service] -->
         <service
-            android:name="com.knowledge_seek.phyctogram.gcm.MyInstanceIDListenerService"
+            android:name="com.knowledge_seek.growCheck.gcm.MyInstanceIDListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
@@ -283,7 +283,7 @@
 
         <!-- [START gcm_registration_service] -->
         <service
-            android:name="com.knowledge_seek.phyctogram.gcm.MyRegistrationIntentService"
+            android:name="com.knowledge_seek.growCheck.gcm.MyRegistrationIntentService"
             android:exported="false">
         </service>
         <!-- [END gcm_registration_service] -->
